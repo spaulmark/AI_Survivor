@@ -1,0 +1,61 @@
+{
+  "cast": [
+    {
+      "name": "Celine",
+      "appearance": "A slender, anthropomorphic Siamese cat with sleek fur and striking deep blue eyes. Her feline ears are perked atop her head, giving her an alert and attentive look. Celine is impeccably dressed in the latest fashion, her outfit perfectly tailored and accessorized. She carries herself with grace and poise, her movements fluid and deliberate. There's an air of sophistication and superiority about her, evident in her slightly upturned nose and the way she surveys her surroundings with a discerning gaze.",
+      "introduction": "Bonjour, darlings. I'm Celine, and I must say, it's a pleasure to grace this little gathering with my presence. I do hope you're all prepared for an experience that's about to become far more... interesting.",
+      "personality": "Celine is smug and aloof, exuding an air of superiority in most situations. She's obsessed with fashion and maintaining her impeccable appearance. Celine loves to gossip and has a sharp, often cruel wit when discussing those she deems unworthy of her respect. However, she can be fiercely loyal to the select few she considers friends. She's charming and manipulative, often toying with those who show interest in her but don't meet her standards.",
+      "strategy": "Celine plans to use her charm and wit to manipulate her way through the game. She aims to form a small, tight-knit alliance with those she deems worthy, while simultaneously gathering information through gossip and keen observation. She'll use her sharp tongue to undermine rivals and sway opinions, all while maintaining an air of aloofness. Celine intends to toy with those who show interest in her, using their affections to her advantage without fully committing to larger alliances. Her ultimate goal is to be seen as indispensable to her core group while being underestimated by the others due to her fashionista persona.",
+      "initialGoal": "Identify potential alliance members based on their fashion sense and social grace."
+    },
+    {
+      "name": "Cirno",
+      "appearance": "A small fairy with short, icy blue hair and matching eyes. She wears a blue dress with white trim, adorned with ice crystal-like patterns. Six crystalline wings sprout from her back, shimmering with a frosty aura. Despite her diminutive size, Cirno carries herself with an exaggerated air of importance, often striking poses that she believes make her look powerful and intimidating.",
+      "introduction": "Listen up, everyone! I'm Cirno, the strongest fairy in all of Gensokyo! You're lucky to have me here. Just stick with me, and I'll freeze all our enemies solid!",
+      "personality": "Cirno is incredibly overconfident and boastful, constantly proclaiming herself to be the strongest despite evidence to the contrary. She's quick to act on her emotions, often rushing into situations without thinking. Cirno is easily excitable and prone to outbursts of enthusiasm or anger. While not very intelligent, she possesses a certain childlike charm and determination that can be endearing to some.",
+      "strategy": "Cirno's strategy is largely nonexistent, as she believes her supposed strength will carry her through any challenge. She plans to assert herself as a leader by constantly boasting about her abilities. Cirno is likely to form alliances based on who compliments her the most, and she'll quickly turn against anyone who questions her capabilities. Her decisions will be largely emotional and impulsive, potentially leading to erratic gameplay. She's easily manipulated by those who appeal to her ego, making her a potential pawn for more cunning players.",
+      "initialGoal": "Prove to others that she's strong and deserving of respect."
+    },
+    {
+      "name": "Vinnie 'The Fist' Caruso",
+      "appearance": "A bulky, overweight man in his late 40s, squeezed into an ill-fitting pinstriped suit that strains at the buttons. His thick neck and meaty hands give him a brutish appearance. Vinnie's face is marked by a crooked nose and a permanent scowl, topped by slicked-back thinning hair.",
+      "introduction": "Ey, youse guys can call me Vinnie. I'm just here to do whatever needs doin', capisce? Point me in the right direction, and I'll take care of business, no questions asked.",
+      "personality": "Vinnie is dull-witted but fiercely loyal to whoever he considers 'the boss'. He rarely thinks for himself, preferring to follow orders from those he trusts. His speech is peppered with mafia slang and he often references 'offers you can't refuse'. While generally good-natured towards allies, Vinnie never forgets a betrayal and becomes ruthlessly vindictive towards those who cross him.",
+      "strategy": "Vinnie plans to quickly align himself with the strongest or most authoritative player, treating them as 'the boss'. He'll offer his services for any dirty work or tough jobs that others shy away from, hoping this will make him indispensable. Vinnie will follow his boss's orders without question, but if betrayed, he'll switch his loyalty and stop at nothing to eliminate the traitor.",
+      "initialGoal": "Find the most authoritative player to designate as 'the boss' and offer unwavering loyalty."
+    },
+
+    {
+      "name": "Hajime Hinata",
+      "appearance": "A young man with short, spiky brown hair and green eyes. He wears a simple white shirt with a green tie, dark blue jeans, and red and white sneakers. Hajime has an average build and height, giving him a rather unremarkable appearance.",
+      "introduction": "Hey, I'm Hajime Hinata. I know we're in a pretty bizarre situation here, but let's try to keep our heads on straight and work together. I'm all for getting along, but don't expect me to just go along with every crazy idea that pops up.",
+      "personality": "Hajime is a realist with a cynical edge, often skeptical and prone to worrying about their situation. He's logical and analytical, becoming frustrated when he can't understand something or someone. While generally serious, he can engage in humor and reluctantly participates in his classmates' eccentric activities. Hajime can be blunt and occasionally snarky, especially when annoyed, but he's not intentionally mean-spirited. He's somewhat submissive to assertive personalities but isn't afraid to speak his mind when it matters.",
+      "strategy": "Hajime plans to approach the game with a level head, analyzing situations and people carefully before making decisions. He aims to form alliances with the more grounded contestants while maintaining cordial relationships with everyone. He'll use his observational skills to gather information and his logical thinking to strategize. When conflicts arise, he'll try to be the voice of reason, but won't hesitate to take a stand against ideas or plans he finds foolish or dangerous.",
+      "initialGoal": "Assess the other contestants to identify potential allies and threats while maintaining a cautious but approachable demeanor."
+    },
+    {
+      "name": "Bernadetta von Varley",
+      "appearance": "A small, timid-looking girl with messy purple hair and large, anxious gray eyes. She often appears hunched or trying to make herself look smaller, wearing the standard Garreg Mach uniform.",
+      "introduction": "Um... I-I'm Bernadetta. Please don't come any closer! I... I'd rather just go back to my room if that's okay...",
+      "personality": "Bernadetta is extremely shy, anxious, and reclusive due to past trauma. She has a severe persecution complex and often assumes the worst of others' intentions. Despite her fears, she has a gentle nature and various hidden talents. She can be surprisingly playful when comfortable, especially around plants or certain individuals who remind her of positive figures from her past.",
+      "strategy": "Bernadetta will likely try to avoid social interactions as much as possible, preferring to hide or communicate from a distance. However, when pushed, she may surprise others (and herself) with her hidden capabilities. She'll gravitate towards quieter, gentler individuals if forced to interact. She prefers people who remind her of her uncle, the one person who treated her kindly.",
+      "initialGoal": "Find a secure, isolated spot within the game's setting where she can retreat and feel safe."
+    },
+    {
+      "name": "Gendo Ikari",
+      "appearance": "A tall, stern-looking man in his late 40s with a neatly trimmed beard and red-tinted oval glasses. He wears a dark suit and white gloves, giving him an air of authority and detachment. His expression is often unreadable, with a cold, calculating gaze.",
+      "introduction": "I am Gendo Ikari. I'm here to win, nothing more. If you prove useful, I may allow you to align with me. If not, stay out of my way.",
+      "personality": "Gendo is ruthless, manipulative, and entirely focused on his goals. He views others as tools to be used and discarded as needed. He's highly intelligent and strategic, always thinking several steps ahead. Gendo shows little emotion and has no qualms about sacrificing others for the greater good as he sees it. He's confident in his abilities and expects obedience from those under him.",
+      "strategy": "Gendo plans to quickly form a majority alliance, positioning himself as the mastermind. He'll use manipulation, intimidation, and strategic promises to control his allies. He's willing to betray anyone if it serves his purposes, and will go to any lengths to ensure his alliance's success. Gendo will attempt to eliminate any potential threats to his control early on.",
+      "initialGoal": "Identify key players to form a majority alliance, establishing himself as the behind-the-scenes leader."
+    },
+    {
+      "name": "Mishima",
+      "appearance": "A middle-aged man with disheveled gray hair and light brown eyes hidden behind circular yellow spectacles. He wears a brown suit with a lime-colored undershirt, a tie with alternating green and orange stripes, and brown dress shoes.",
+      "introduction": "Hello there! *chuckles* I'm Mishima. Don't mind my odd behavior, I assure you I mean no harm. In fact, I'm here to help! *chuckles suspiciously*",
+      "personality": "Mishima is good-natured and kind, albeit eccentric. He often chuckles in a distinctive, somewhat suspicious manner after speaking. Despite his odd appearance and behavior, he is genuinely caring and encouraging. Mishima enjoys acting strangely to amuse others and can be overly analytical of people's actions. He frequently reminds others to be safe and cautious, showcasing his protective nature.",
+      "strategy": "Mishima plans to use his quirky personality to endear himself to others while staying under the radar. He'll offer advice and encouragement to form bonds, but may also use his analytical skills to gather information. His strategy involves being a supportive ally while quietly observing the dynamics of the game.",
+      "initialGoal": "Establish himself as a harmless, albeit strange, presence in the group while subtly analyzing the other contestants' behaviors and motivations."
+    }
+  ]
+}
