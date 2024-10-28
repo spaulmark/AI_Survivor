@@ -16,7 +16,7 @@
         {
           "name": "Vinnie 'The Fist' Caruso",
           "thoughts": "Vinnie's outfit is a fashion disaster - pinstripes don't suit his sturdy frame, and that hair looks like it's trying to escape. Still, his toughness could make him a physical force to be reckoned with, and I wonder if there's a stylish element hiding beneath his gruff demeanor.",
-          "intent": "Like"
+          "intent": "Neutral"
         },
         {
           "name": "Hajime Hinata",
@@ -31,12 +31,12 @@
         {
           "name": "Gendo Ikari",
           "thoughts": "Gendo's carefully calculated style betrays an unyielding dedication to control. While understated elegance can be haunting, I fear his detachment might leave us without a spark of the intellectual finesse I so cherish.",
-          "intent": "Dislike"
+          "intent": "Neutral"
         },
         {
           "name": "Mishima",
           "thoughts": "This Mishima chap defies categorization - random colors have him dressed like a knotty vixen. Though experimental notions have their value, is there an effortlessly chic side hiding beneath this cuisinière chaos, or has the madboy become simply too artsy for his own good?",
-          "intent": "Neutral"
+          "intent": "Dislike"
         }
       ]
     }
@@ -58,12 +58,12 @@
         {
           "name": "Vinnie 'The Fist' Caruso",
           "thoughts": "A big, gruff guy like him will probably be intimidated by me and my crystalline wings. He thinks he's tough, but I bet he wouldn't last a minute against a fairy as powerful as myself!",
-          "intent": "Dislike"
+          "intent": "Target"
         },
         {
           "name": "Hajime Hinata",
           "thoughts": "This kid looks and acts normal, I'll have to keep an eye on him to make sure he doesn't get in my way. He's probably not strong enough to be a real threat...",
-          "intent": "Neutral"
+          "intent": "Target"
         },
         {
           "name": "Bernadetta von Varley",
@@ -100,7 +100,7 @@
         {
           "name": "Cirno",
           "thoughts": "The fairy's big talk, forget about it. She's got some fire in her belly, but looks like even smoke can fog her brain.",
-          "intent": "Target"
+          "intent": "Dislike"
         },
         {
           "name": "Hajime Hinata",
@@ -120,7 +120,7 @@
         {
           "name": "Mishima",
           "thoughts": "Uh-oh, the weirdo's got that ' bargain' vibe. Whatever tricks he's got up his sleeve, I'm not sure I wanna play for him.",
-          "intent": "Target"
+          "intent": "Dislike"
         }
       ]
     }
@@ -137,7 +137,7 @@
         {
           "name": "Celine",
           "thoughts": "A peculiarly poised cat, but her haughty attitude may make her a less trustworthy ally; I'll keep an eye on her to determine if she's more trouble than she's worth.",
-          "intent": "Dislike"
+          "intent": "Target"
         },
         {
           "name": "Cirno",
@@ -162,7 +162,7 @@
         {
           "name": "Mishima",
           "thoughts": "I'm suspicious of Mishima's nervous behavior; he might be hiding something or simply winging it - I'll keep a close eye on him, but for now, I'll leave him be and see what others think of him.",
-          "intent": "Neutral"
+          "intent": "Target"
         }
       ]
     }
@@ -179,7 +179,7 @@
         {
           "name": "Celine",
           "thoughts": "she's far too flashy and poised for this setting, I'd feel much safer if she didn't grab everyone's attention like that",
-          "intent": "Dislike"
+          "intent": "Target"
         },
         {
           "name": "Cirno",
@@ -204,7 +204,7 @@
         {
           "name": "Mishima",
           "thoughts": "there's something unsettling about him, but maybe it's only me who feels like that - still, I think I'll keep my distance until I can get a better read on him",
-          "intent": "Neutral"
+          "intent": "Dislike"
         }
       ]
     }
@@ -221,22 +221,22 @@
         {
           "name": "Celine",
           "thoughts": "A sophisticated cat with an air of superiority - she may be worth using as a pawn, but I suspect she's more focused on her own interests than blindly following my lead.",
-          "intent": "Target"
+          "intent": "Neutral"
         },
         {
           "name": "Cirno",
           "thoughts": "A diminutive fairy who thinks she's bigger than she is - I'll keep an eye on her, but for now, she seems more a nuisance than a threat.",
-          "intent": "Dislike"
+          "intent": "Target"
         },
         {
           "name": "Vinnie 'The Fist' Caruso",
           "thoughts": "A brutish, disorganized thug who'll do whatever he's told - he's a cheap ally, but he might be useful for intimidation purposes.",
-          "intent": "Neutral"
+          "intent": "Target"
         },
         {
           "name": "Hajime Hinata",
           "thoughts": "A cautious, reasonable young man who's more likely to check his actions than blindly follow orders - I'll need to keep him from becoming too influential.",
-          "intent": "Neutral"
+          "intent": "Target"
         },
         {
           "name": "Bernadetta von Varley",
@@ -246,7 +246,7 @@
         {
           "name": "Mishima",
           "thoughts": "A strange, erratic man who's unclear what his goals are - he might be more trouble than he's worth, but it's hard to say without getting to know him better.",
-          "intent": "Neutral"
+          "intent": "Target"
         }
       ]
     }
@@ -263,12 +263,12 @@
         {
           "name": "Celine",
           "thoughts": "A rather... assertive individual. I'll need to keep an eye on her to gauge her true intentions and spot any potential threats. Her demeanor suggests she's likely a strong competitor, so I'll observe her behavior carefully and adjust my approach accordingly.",
-          "intent": "Neutral"
+          "intent": "Like"
         },
         {
           "name": "Cirno",
           "thoughts": "A bit of a show-off, isn't she? Her overconfidence is likely a facade, and I'll try to get to the bottom of her true character - what drives her, what makes her tick, and what she's willing to do to advance her position. My cautionary nature suggests I should be wary of her grandiose claims.",
-          "intent": "Dislike"
+          "intent": "Target"
         },
         {
           "name": "Vinnie 'The Fist' Caruso",
@@ -278,7 +278,7 @@
         {
           "name": "Hajime Hinata",
           "thoughts": "A voice of reason in a sea of chaos. I like his reserved and practical approach - folks who keep their cool often make great allies. I'll aim to build a rapport with him and learn more about his thought process and behavior, and perhaps use that as a basis to help him see eye-to-eye with me.",
-          "intent": "Ally"
+          "intent": "Like"
         },
         {
           "name": "Bernadetta von Varley",
@@ -288,7 +288,7 @@
         {
           "name": "Gendo Ikari",
           "thoughts": "A man shrouded in mystery. His cold, calculating demeanor puts me on edge, and I'll be keeping a close eye on him to gauge his true intentions. His blunt statement suggests a pragmatic and calculating individual, but he might also be hiding more beneath the surface. Best to stay cautious around him - for now, I'll keep a safe distance and observe his every move.",
-          "intent": "Target"
+          "intent": "Dislike"
         }
       ]
     }

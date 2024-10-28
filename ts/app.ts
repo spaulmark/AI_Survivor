@@ -48,23 +48,22 @@ async function main() {
       character["brain"] = { thoughts: [] };
       character.brain.thoughts = JSON.parse(initialThoughts);
     }
-    // now that we know that thoughts are generated, generate intents
-    for (const thought of character.brain.thoughts) {
-      let thoughtIndex = 0;
-      //TODO: this is not writing properly. probably need to go by index or something
-      character.brain.thoughts[thoughtIndex]["intent"] = "hey dude";
-      console.log(character.brain.thoughts[thoughtIndex]);
 
-      // await thoughtsToIntent(
-      //   getImportantPartsFromCharacterToIntrospect(character),
-      //   thought
-      // );
-      thoughtIndex++;
-      break; // TODO: no
+    // now that we know that thoughts are generated, generate intents
+    for (
+      let thoughtIndex = 0;
+      thoughtIndex < character.brain.thoughts.length;
+      thoughtIndex++
+    ) {
+      if (character.brain.thoughts[thoughtIndex]["intent"]) continue;
+      character.brain.thoughts[thoughtIndex]["intent"] = await thoughtsToIntent(
+        getPrivateInformation(character),
+        character.brain.thoughts[thoughtIndex].thoughts
+      );
+      console.log(character.brain.thoughts[thoughtIndex]);
     }
-    console.log(character.brain.thoughts);
-    break; // TODO: no
   }
+  console.log(JSON.stringify(cast, null, 2));
 
   process.exit();
   // Next step: the like/dislike/ally annotation next to the first impressions,
@@ -73,8 +72,6 @@ async function main() {
   // After that, initial generation of the problem queue, message budget, and then its off to the races
 
   // and write them to a file for caching
-
-  // console.log(JSON.stringify(cast, null, 2)); TODO: uncomment
 }
 
 interface PrivateInformation {
@@ -102,16 +99,14 @@ async function thoughtsToIntent(
   hero: PrivateInformation,
   thoughts: { name: any }
 ) {
-  console.log(`thoughts to intent`, hero, thoughts);
-  const prompt = `You are ${JSON.stringify(hero, null, 2)}
+  console.log(`thoughts to intent`, hero.name, thoughts.name);
+  const prompt = `Survivor is a game where you have to form opinions on others, make alliances and vote people out.
 
-You have met ${
-    thoughts.name
-  } for the first time and you are playing survivor, a game where you have to form alliances and vote people out.
+This is someone's private thought about ${thoughts.name}.
 
 ${JSON.stringify(thoughts)} 
 
-Which action option matches your private thoughts about the following character? 
+Which action option matches the private thoughts about the above character? 
 
 List of action options:
 
@@ -119,16 +114,15 @@ Ally - I have a very good first impression, I will prioritize forming an allianc
 Like - I have a good first impression, I plan to talk to them and see if we can become allies.
 Neutral - I don't feel strongly about this character, I will not prioritize talking to them.
 Dislike - I have a poor first impression, I probably don't want to ally with this character.
-Target - I have a bad first impression, I probably want to vote this character out.
+Target - I have a bad first impression, I probably want to vote this character out in the near future.
 
 Your response should be a single word. One of: Ally/Like/Neutral/Dislike/Target
 
 RESPONSE: 
 `;
   // const isValidOption = (option) => validIntents.has(option.trim());
-  const isValidOption = () => true; // TODO: no, fix this lol
+  const isValidOption = (intent: string) => intent.trim() in validIntents;
 
-  // TODO: we need a custom grammar for this prompt, and the other one too
   let result;
   result = await retry3times(
     () => fetchData(prompt, 2),
@@ -187,7 +181,7 @@ async function retry3times(
   throw new Error(error);
 }
 
-async function fetchData(prompt: string, tokenlimit?: number) {
+async function fetchData(prompt: string, tokenlimit?: number): Promise<String> {
   for (let i = 0; i < 3; i++) {
     try {
       const response = await fetch("http://localhost:5001/api/v1/generate", {
