@@ -1,6 +1,9 @@
 import fs from "fs";
+import { fetchData, isValidJson, retry3times } from "./LLM";
 
 const validIntents = new Set(["Ally", "Like", "Neutral", "Dislike", "Target"]);
+
+type Intent = "Ally" | "Like" | "Neutral" | "Dislike" | "Target";
 
 ////////////////////////////////////// app goes here. lol sorry. ///////////////////////////
 
@@ -22,7 +25,6 @@ const validIntents = new Set(["Ally", "Like", "Neutral", "Dislike", "Target"]);
         },
     },
   ]
-
   */
 
 async function main() {
@@ -60,18 +62,50 @@ async function main() {
         getPrivateInformation(character),
         character.brain.thoughts[thoughtIndex].thoughts
       );
-      console.log(character.brain.thoughts[thoughtIndex]);
     }
   }
-  console.log(JSON.stringify(cast, null, 2));
+
+  // Now we need to detect initial problems
+  for (const character of cast) {
+    const problems: Problem[] = detectOpinionProblems(character.brain.thoughts);
+    console.log(character.name, problems);
+  }
+
+  // then after that, it's time to
+
+  // console.log(JSON.stringify(cast, null, 2));
 
   process.exit();
-  // Next step: the like/dislike/ally annotation next to the first impressions,
   // and initial problem detection / error correction within first impressions.
 
   // After that, initial generation of the problem queue, message budget, and then its off to the races
 
   // and write them to a file for caching
+}
+
+function detectOpinionProblems(
+  thoughts: [{ thoughts: string; intent: Intent }]
+): Problem[] {
+  let targets = 0;
+  let disliked_or_targeted = 0;
+  let total_people = thoughts.length;
+  let majority = Math.floor((total_people + 1) / 2) + 1; // total_people + 1 because you always "ally" yourself, and you are not counted in thoughts abt others
+  for (const thought of thoughts) {
+    thought.intent === "Target" && targets++ && disliked_or_targeted++;
+    thought.intent === "Dislike" && disliked_or_targeted++;
+  }
+  const problems: Problem[] = [];
+  if (targets === 0) problems.push(Problem.ZERO_TARGETS);
+  if (targets > 2) problems.push(Problem.OVER_2_TARGETS);
+  if (disliked_or_targeted >= majority)
+    problems.push(Problem.LIKES_LESS_THAN_MAJORITY);
+  return problems;
+}
+
+enum Problem {
+  OVER_2_TARGETS = "OVER_2_TARGETS",
+  ZERO_TARGETS = "ZERO_TARGETS",
+  LIKES_LESS_THAN_MAJORITY = "LIKES_LESS_THAN_MAJORITY",
 }
 
 interface PrivateInformation {
@@ -98,7 +132,7 @@ function getPrivateInformation(character: PrivateInformation) {
 async function thoughtsToIntent(
   hero: PrivateInformation,
   thoughts: { name: any }
-) {
+): Promise<Intent> {
   console.log(`thoughts to intent`, hero.name, thoughts.name);
   const prompt = `Survivor is a game where you have to form opinions on others, make alliances and vote people out.
 
@@ -120,13 +154,13 @@ Your response should be a single word. One of: Ally/Like/Neutral/Dislike/Target
 
 RESPONSE: 
 `;
-  // const isValidOption = (option) => validIntents.has(option.trim());
-  const isValidOption = (intent: string) => intent.trim() in validIntents;
+  const isValidIntent = (intent: string): intent is Intent =>
+    intent.trim() in validIntents;
 
   let result;
   result = await retry3times(
     () => fetchData(prompt, 2),
-    isValidOption,
+    isValidIntent,
     `thoughtsToIntent prompt did not generate a valid intent for ${hero.name}`
   );
   return result.trim();
@@ -164,77 +198,6 @@ async function generateFirstImpressions(
     `generateFirstImpressions prompt did not generate valid json for ${hero.name}`
   );
   return result;
-}
-
-async function retry3times(
-  func: () => any,
-  validator: (x: any) => boolean,
-  error: string
-) {
-  for (let i = 0; i < 3; i++) {
-    let result = await func();
-    if (validator(result)) return result;
-    console.error(`Failed attempt ${i + 1}/3 for ${error}`);
-    await sleep(1000);
-  }
-  console.error(error);
-  throw new Error(error);
-}
-
-async function fetchData(prompt: string, tokenlimit?: number): Promise<String> {
-  for (let i = 0; i < 3; i++) {
-    try {
-      const response = await fetch("http://localhost:5001/api/v1/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          max_context_length: 4096,
-          max_length: tokenlimit || 1024,
-          prompt,
-          quiet: false,
-          rep_pen: 1.07,
-          rep_pen_range: 256,
-          rep_pen_slope: 1,
-          temperature: 0.5,
-          tfs: 1,
-          top_a: 0,
-          top_k: 100,
-          top_p: 0.9,
-          typical: 1,
-        }),
-      });
-      if (!response.ok) {
-        console.log(response);
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json(); // Parse the JSON from the response
-
-      if (data["error"] && data["error"]["code"] === 429) {
-        throw new Error("it was 429");
-      }
-      return data["results"][0]["text"];
-    } catch (error) {
-      console.error("Error occured in fetchData:", error);
-      await sleep(2000);
-    }
-  }
-  throw new Error("Fetching prompt failed 3 times in a row");
-}
-
-function isValidJson(str: string) {
-  try {
-    JSON.parse(str);
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-
-function sleep(ms: number) {
-  console.log(`Sleeping ${ms}ms`);
-  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 main();
