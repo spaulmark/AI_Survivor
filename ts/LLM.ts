@@ -2,7 +2,7 @@ import { sleep } from "./utils";
 
 export async function fetchData(
   prompt: string,
-  tokenlimit?: number
+  options?: { stop?: string[]; tokenlimit?: number }
 ): Promise<String> {
   for (let i = 0; i < 3; i++) {
     try {
@@ -13,7 +13,7 @@ export async function fetchData(
         },
         body: JSON.stringify({
           max_context_length: 4096,
-          max_length: tokenlimit || 1024,
+          max_length: options?.tokenlimit || 900,
           prompt,
           quiet: false,
           rep_pen: 1.07,
@@ -25,6 +25,7 @@ export async function fetchData(
           top_k: 100,
           top_p: 0.9,
           typical: 1,
+          stop_sequence: options?.stop || [],
         }),
       });
       if (!response.ok) {

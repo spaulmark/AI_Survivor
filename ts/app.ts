@@ -67,8 +67,15 @@ async function main() {
 
   // Now we need to detect initial problems
   for (const character of cast) {
-    const problems: Problem[] = detectOpinionProblems(character.brain.thoughts);
-    console.log(character.name, problems);
+    const problems: OpinionProblem[] = detectOpinionProblems(
+      character.brain.thoughts
+    );
+    // console.log(character.name, problems);
+    const something = await fixOpinionProblems(
+      problems,
+      character,
+      character.brain.thoughts
+    );
   }
 
   // then after that, it's time to
@@ -83,9 +90,54 @@ async function main() {
   // and write them to a file for caching
 }
 
-function detectOpinionProblems(
-  thoughts: [{ thoughts: string; intent: Intent }]
-): Problem[] {
+async function fixOver2Targets(
+  character: PrivateInformation,
+  thoughts: Thought[]
+): Promise<[Thought, Thought]> {
+  // TODO: shuffle it to reduce the impact of first/last item bias.
+  const options = thoughts.filter((thought) => thought.intent === "Target");
+  const prompt = `You are ${JSON.stringify(
+    character,
+    null,
+    2
+  )}, and you are playing Survivor.
+
+You currently intend to vote out too many players at once. Based on ${
+    character.name
+  }'s personality, select the character they would like to target more than all the rest, and justify why ${
+    character.name
+  } would prefer to target that character above any other in two sentences or less.
+
+Options:
+${JSON.stringify(options, null, 2)}
+
+Reply in the following format:
+[{
+"decision": "",
+"reasoning": ""
+}]
+All text returned should be between the [].
+
+Response: `;
+  const result = await fetchData(prompt, { stop: ["]"], tokenlimit: 300 });
+  console.log(result);
+  // TODO: no its not quite right do it twice. eliminate the first result and then do the second result
+  return result;
+}
+
+async function fixOpinionProblems(
+  problems: OpinionProblem[],
+  character: PrivateInformation,
+  thoughts: Thought[]
+) {
+  for (const problem of problems) {
+    if (problem === OpinionProblem.OVER_2_TARGETS) {
+      await fixOver2Targets(getPrivateInformation(character), thoughts);
+    }
+  }
+}
+
+function detectOpinionProblems(thoughts: Thought[]): OpinionProblem[] {
   let targets = 0;
   let disliked_or_targeted = 0;
   let total_people = thoughts.length;
@@ -94,15 +146,20 @@ function detectOpinionProblems(
     thought.intent === "Target" && targets++ && disliked_or_targeted++;
     thought.intent === "Dislike" && disliked_or_targeted++;
   }
-  const problems: Problem[] = [];
-  if (targets === 0) problems.push(Problem.ZERO_TARGETS);
-  if (targets > 2) problems.push(Problem.OVER_2_TARGETS);
+  const problems: OpinionProblem[] = [];
+  if (targets === 0) problems.push(OpinionProblem.ZERO_TARGETS);
+  if (targets > 2) problems.push(OpinionProblem.OVER_2_TARGETS);
   if (disliked_or_targeted >= majority)
-    problems.push(Problem.LIKES_LESS_THAN_MAJORITY);
+    problems.push(OpinionProblem.LIKES_LESS_THAN_MAJORITY);
   return problems;
 }
 
-enum Problem {
+interface Thought {
+  thoughts: string;
+  intent: Intent;
+}
+
+enum OpinionProblem {
   OVER_2_TARGETS = "OVER_2_TARGETS",
   ZERO_TARGETS = "ZERO_TARGETS",
   LIKES_LESS_THAN_MAJORITY = "LIKES_LESS_THAN_MAJORITY",
@@ -159,7 +216,7 @@ RESPONSE:
 
   let result;
   result = await retry3times(
-    () => fetchData(prompt, 2),
+    () => fetchData(prompt, { tokenlimit: 2 }),
     isValidIntent,
     `thoughtsToIntent prompt did not generate a valid intent for ${hero.name}`
   );
