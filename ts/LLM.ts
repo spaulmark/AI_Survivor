@@ -3,7 +3,7 @@ import { sleep } from "./utils";
 export async function fetchData(
   prompt: string,
   options?: { stop?: string[]; tokenlimit?: number }
-): Promise<String> {
+): Promise<string> {
   for (let i = 0; i < 3; i++) {
     try {
       const response = await fetch("http://localhost:5001/api/v1/generate", {
