@@ -62,17 +62,12 @@ async function main() {
     }
   }
 
-  // Now we need to detect initial problems
+  // Detect & fix opinion problems
   for (const character of cast) {
     const problems: OpinionProblem[] = detectOpinionProblems(
       character.brain.thoughts
     );
-    // console.log(character.name, problems);
-    const something = await fixOpinionProblems(
-      problems,
-      character,
-      character.brain.thoughts
-    );
+    await fixOpinionProblems(problems, character, character.brain.thoughts);
   }
 
   // then after that, it's time to
@@ -157,8 +152,16 @@ async function fixOpinionProblems(
         )
           thought.intent = "Dislike";
       }
+    } else if (problem === OpinionProblem.ALL_LIKED) {
+      // TODO: demote somebody to neutral
+    } else if (problem === OpinionProblem.LIKES_LESS_THAN_MAJORITY) {
+      // TODO: promote people until majority achieved.
     }
   }
+}
+
+function fixAllLiked(hero: PrivateInformation, thoughts: Thought[]) {
+  //
 }
 
 function detectOpinionProblems(thoughts: Thought[]): OpinionProblem[] {
@@ -189,7 +192,7 @@ interface Thought {
 
 enum OpinionProblem {
   OVER_2_TARGETS = "OVER_2_TARGETS",
-  ALL_LIKED = "ZERO_TARGETS",
+  ALL_LIKED = "ALL_LIKED",
   LIKES_LESS_THAN_MAJORITY = "LIKES_LESS_THAN_MAJORITY",
 }
 
