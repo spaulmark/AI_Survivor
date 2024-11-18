@@ -1,3 +1,5 @@
+import { intentionDefs } from "../firstImpressions";
+import { fetchData } from "../LLM";
 import {
   Thought,
   PrivateInformation,
@@ -36,11 +38,9 @@ export async function fixOpinionProblems(
 ) {
   console.log(hero.name, problems);
   for (const problem of problems) {
+    const privateInfo = getPrivateInformation(hero);
     if (problem === OpinionProblem.OVER_2_TARGETS) {
-      const solution = await fixOver2Targets(
-        getPrivateInformation(hero),
-        thoughts
-      );
+      const solution = await fixOver2Targets(privateInfo, thoughts);
       for (const thought of thoughts) {
         if (
           thought.intent === "Target" &&
@@ -51,11 +51,44 @@ export async function fixOpinionProblems(
       }
     } else if (problem === OpinionProblem.ALL_LIKED) {
       // TODO: demote somebody to neutral
+      const solution = await fixAllLiked(privateInfo, thoughts);
+      console.log(solution);
     } else if (problem === OpinionProblem.LIKES_LESS_THAN_MAJORITY) {
       // TODO: promote people until majority achieved.
     }
   }
 }
-function fixAllLiked(hero: PrivateInformation, thoughts: Thought[]) {
-  //
+async function fixAllLiked(
+  hero: PrivateInformation,
+  thoughts: Thought[]
+): Promise<{ decision: string; reasoning: string }> {
+  const prompt: string = `You are ${JSON.stringify(
+    hero,
+    null,
+    2
+  )}, and you are playing Survivor. Here are the possible opinions you can have about other players:
+  ${intentionDefs}
+
+You currently Like or Ally everyone remaining in the game, but you need to pick someone to vote out next. Based on ${
+    hero.name
+  }'s personality, select the character best fits a definition of Neutral, Dislike, or Target, and justify ${
+    hero.name
+  } would pick this choice over all the other choices.
+
+Options:
+${JSON.stringify(thoughts, null, 2)}
+
+Reply in the following format:
+[{
+"decision": "",
+"reasoning": ""
+}]
+Decision should be the name of the character, and reasoning should contain the 1-2 sentences of justification. 
+
+Response: `;
+
+  const result: { decision: string; reasoning: string } = JSON.parse(
+    await fetchData(prompt, { stop: ["]"], tokenlimit: 300 })
+  )[0];
+  return result;
 }

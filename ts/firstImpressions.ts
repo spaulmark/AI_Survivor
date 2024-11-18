@@ -7,6 +7,13 @@ import {
 } from "./model/character";
 import { retry3times, fetchData, isValidJson } from "./LLM";
 
+export const intentionDefs: string = `Ally - I have a very good first impression, I will prioritize forming an alliance with this character.
+Like - This character seems useful to me and my objectives in some way, either as a potential ally or a pawn. 
+Neutral - I can't tell if this character is a help or harm to me and my objectives, I plan to observe them.
+Dislike - I do not have any plans including this character, and they may be an obstacle to me. 
+Target - This character is a threat/obstacle to me or my objectives. I want them eliminated soon.
+`;
+
 export async function thoughtsToIntent(
   hero: PrivateInformation,
   thoughts: Thought
@@ -20,12 +27,7 @@ ${JSON.stringify(thoughts)}
 Which action option matches the private thoughts about the above character? 
 
 List of action options:
-
-Ally - I have a very good first impression, I will prioritize forming an alliance with this character.
-Like - This character seems useful to me and my objectives in some way, either as a potential ally or a pawn. 
-Neutral - I can't tell if this character is a help or harm to me and my objectives, I plan to observe them.
-Dislike - I do not have any plans including this character, and they may be an obstacle to me. 
-Target - This character is a threat/obstacle to me or my objectives. I want them eliminated soon.
+${intentionDefs}
 
 Your response should be a single word. One of: Ally/Like/Neutral/Dislike/Target
 
