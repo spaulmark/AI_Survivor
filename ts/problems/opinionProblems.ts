@@ -50,9 +50,10 @@ export async function fixOpinionProblems(
           thought.intent = "Dislike";
       }
     } else if (problem === OpinionProblem.ALL_LIKED) {
-      // TODO: demote somebody to neutral
       const solution = await fixAllLiked(privateInfo, thoughts);
-      console.log(solution);
+      for (const thought of thoughts) {
+        if (thought.name === solution.decision) thought.intent = "Neutral";
+      }
     } else if (problem === OpinionProblem.LIKES_LESS_THAN_MAJORITY) {
       // TODO: promote people until majority achieved.
     }
@@ -71,7 +72,7 @@ async function fixAllLiked(
 
 You currently Like or Ally everyone remaining in the game, but you need to pick someone to vote out next. Based on ${
     hero.name
-  }'s personality, select the character best fits a definition of Neutral, Dislike, or Target, and justify ${
+  }'s personality, select the character that best fits a definition of Neutral, Dislike, or Target, and justify ${
     hero.name
   } would pick this choice over all the other choices.
 
