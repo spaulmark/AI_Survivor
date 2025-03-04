@@ -23,14 +23,15 @@ export function detectOpinionProblems(thoughts: Thought[]): OpinionProblem[] {
     problems.push(OpinionProblem.ALL_LIKED);
   if (targets > 2) problems.push(OpinionProblem.OVER_2_TARGETS);
   if (disliked_or_targeted >= majority)
-    problems.push(OpinionProblem.LIKES_LESS_THAN_MAJORITY);
+    problems.push(OpinionProblem.DISLIKES_GEQ_MAJORITY);
   return problems;
 }
 export enum OpinionProblem {
   OVER_2_TARGETS = "OVER_2_TARGETS",
   ALL_LIKED = "ALL_LIKED",
-  LIKES_LESS_THAN_MAJORITY = "LIKES_LESS_THAN_MAJORITY",
+  DISLIKES_GEQ_MAJORITY = "DISLIKES_GEQ_MAJORITY",
 }
+
 export async function fixOpinionProblems(
   problems: OpinionProblem[],
   hero: PrivateInformation,
@@ -54,7 +55,7 @@ export async function fixOpinionProblems(
       for (const thought of thoughts) {
         if (thought.name === solution.decision) thought.intent = "Neutral";
       }
-    } else if (problem === OpinionProblem.LIKES_LESS_THAN_MAJORITY) {
+    } else if (problem === OpinionProblem.DISLIKES_GEQ_MAJORITY) {
       // TODO: promote people until majority achieved.
     }
   }
