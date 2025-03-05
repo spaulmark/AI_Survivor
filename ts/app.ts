@@ -1,3 +1,4 @@
+import * as dotenv from "dotenv";
 import fs from "fs";
 import {
   getPrivateInformation,
@@ -10,6 +11,7 @@ import {
   fixOpinionProblems,
   OpinionProblem,
 } from "./problems/opinionProblems";
+import { fetchData } from "./LLM_google";
 
 /*
   Cast format:
@@ -78,4 +80,5 @@ async function main() {
   // After that, initial generation of the problem queue, message budget, and then its time to send messages
 }
 
+dotenv.config();
 main();

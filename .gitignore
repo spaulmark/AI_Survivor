@@ -3,3 +3,5 @@ node_modules
 ts/out/
 
 ts/.key
+
+ts/.env
