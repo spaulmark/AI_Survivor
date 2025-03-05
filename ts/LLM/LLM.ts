@@ -1,6 +1,6 @@
-import { sleep } from "./utils";
+import { sleep } from "../utils";
 
-export async function fetchData(
+export async function oldfetchData(
   prompt: string,
   options?: { stop?: string[]; tokenlimit?: number }
 ): Promise<string> {

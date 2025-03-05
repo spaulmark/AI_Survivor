@@ -5,12 +5,14 @@ import {
   validIntents,
   PublicInformation,
 } from "./model/character";
-import { retry3times, fetchData, isValidJson } from "./LLM";
+import { fetchData } from "./LLM/LLM_google";
+import { retry3times } from "./LLM/LLM";
+import { firstImpressionsSchema, intentSchema } from "./LLM/schemaFactories";
 
 export const intentionDefs: string = `Ally - I have a very good first impression, I will prioritize forming an alliance with this character.
 Like - This character seems useful to me and my objectives in some way, either as a potential ally or a pawn. 
 Neutral - I can't tell if this character is a help or harm to me and my objectives, I plan to observe them.
-Dislike - I do not have any plans including this character, and they may be an obstacle to me. 
+Dislike - I do not have any plans including this character, and/or they may be an obstacle to me. 
 Target - This character is a threat/obstacle to me or my objectives. I want them eliminated soon.
 `;
 
@@ -28,16 +30,12 @@ Which action option matches the private thoughts about the above character?
 
 List of action options:
 ${intentionDefs}
-
-Your response should be a single word. One of: Ally/Like/Neutral/Dislike/Target
-
-RESPONSE: 
 `;
   const isValidIntent = (intent: string): intent is Intent =>
     validIntents.has(intent.trim());
   let result;
   result = await retry3times(
-    () => fetchData(prompt, { tokenlimit: 2 }),
+    () => fetchData(prompt, intentSchema),
     isValidIntent,
     `thoughtsToIntent prompt did not generate a valid intent for ${hero.name}`
   );
@@ -69,10 +67,7 @@ export async function generateFirstImpressions(
   ${JSON.stringify(others, null, 2)}
   `;
   let result;
-  result = await retry3times(
-    () => fetchData(prompt, { stop: ["]"] }),
-    isValidJson,
-    `generateFirstImpressions prompt did not generate valid json for ${hero.name}`
-  );
+  result = fetchData(prompt, firstImpressionsSchema(others.map((x) => x.name))); // TODO:  convert result to array
+  ^ fix this
   return result;
 }

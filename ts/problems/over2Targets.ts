@@ -1,4 +1,5 @@
-import { fetchData } from "../LLM";
+import { fetchData } from "../LLM/LLM_google";
+import { getDecisionsWithReasoning as getDecisionsWithReasoning } from "../LLM/schemaFactories";
 import { PrivateInformation, Thought } from "../model/character";
 
 export async function fixOver2Targets(
@@ -6,7 +7,6 @@ export async function fixOver2Targets(
   thoughts: Thought[]
 ): Promise<[Thought, Thought]> {
   // TODO: shuffle it to reduce the impact of first/last item bias?
-  // FIXME: should probably include some validation for this.
   const options: Thought[] = thoughts.filter(
     (thought) => thought.intent === "Target"
   );
@@ -25,23 +25,28 @@ You currently intend to eliminate too many players at once. Based on ${
 
 Options:
 ${JSON.stringify(options, null, 2)}
-
-Reply in the following format:
-[{
-"decision": "",
-"reasoning": ""
-}]
-
-Response: `;
+`;
   const firstResult: { decision: string; reasoning: string } = JSON.parse(
-    await fetchData(getPrompt(options), { stop: ["]"], tokenlimit: 300 })
+    await fetchData(
+      getPrompt(options),
+      getDecisionsWithReasoning(
+        ((x: Thought[]) => x.map((x) => x.name))(options),
+        2
+      )
+    )
   )[0];
 
   const options2 = options.filter(
     (option) => option.name !== firstResult.decision
   );
   const secondResult: { decision: string; reasoning: string } = JSON.parse(
-    await fetchData(getPrompt(options2), { stop: ["]"], tokenlimit: 300 })
+    await fetchData(
+      getPrompt(options2),
+      getDecisionsWithReasoning(
+        ((x: Thought[]) => x.map((x) => x.name))(options),
+        2
+      )
+    )
   )[0];
 
   const finalResult = options.filter(

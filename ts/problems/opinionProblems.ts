@@ -1,5 +1,6 @@
 import { intentionDefs } from "../firstImpressions";
-import { fetchData } from "../LLM";
+import { fetchData } from "../LLM/LLM_google";
+import { getDecisionsWithReasoning } from "../LLM/schemaFactories";
 import {
   Thought,
   PrivateInformation,
@@ -86,11 +87,10 @@ Reply in the following format:
 "reasoning": ""
 }]
 Decision should be the name of the character, and reasoning should contain the 1-2 sentences of justification. 
-
-Response: `;
+`;
 
   const result: { decision: string; reasoning: string } = JSON.parse(
-    await fetchData(prompt, { stop: ["]"], tokenlimit: 300 })
+    await fetchData(prompt, getDecisionsWithReasoning(thoughts, 1))
   )[0];
   return result;
 }

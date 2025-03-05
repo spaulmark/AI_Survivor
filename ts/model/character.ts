@@ -21,6 +21,11 @@ export interface Thought {
   intent: Intent;
   name: string;
 }
+
+export function isThought(x: Thought[] | string[]): x is Thought[] {
+  return typeof x[0] === "object";
+}
+
 export const validIntents = new Set([
   "Ally",
   "Like",

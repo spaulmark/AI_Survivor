@@ -11,7 +11,11 @@ import {
   fixOpinionProblems,
   OpinionProblem,
 } from "./problems/opinionProblems";
-import { fetchData } from "./LLM_google";
+import { fetchData } from "./LLM/LLM_google";
+import {
+  firstImpressionsSchema,
+  getDecisionsWithReasoning,
+} from "./LLM/schemaFactories";
 
 /*
   Cast format:
@@ -34,6 +38,10 @@ import { fetchData } from "./LLM_google";
   */
 
 async function main() {
+  // const result = await fetchData()
+  // console.log(result);
+  // return 0;
+
   const cast = JSON.parse(fs.readFileSync("../characters.json", "utf-8"));
 
   const publicCast = [];
