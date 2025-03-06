@@ -10,6 +10,7 @@ export async function fetchData(
   const minutes = String(now.getMinutes()).padStart(2, "0");
   const seconds = String(now.getSeconds()).padStart(2, "0");
   const milliseconds = String(now.getMilliseconds()).padStart(3, "0");
+  // rate limits are not real, rate limits can't hurt me
   const google_keys = [
     process.env.GOOGLE_KEY0 as string,
     process.env.GOOGLE_KEY1 as string,
@@ -18,10 +19,7 @@ export async function fetchData(
     process.env.GOOGLE_KEY4 as string,
     process.env.GOOGLE_KEY5 as string,
   ];
-  console.log(process.env);
-  console.log(google_keys);
   console.log(`${minutes}:${seconds}:${milliseconds}, calling fetchData.`);
-  console.log(`key ${google_keys[i % google_keys.length]}`);
   const genAI = new GoogleGenerativeAI(google_keys[i % google_keys.length]);
   i++;
   const modelOptions = {
