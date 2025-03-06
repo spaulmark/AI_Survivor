@@ -15,6 +15,7 @@ import { fetchData } from "./LLM/LLM_google";
 import {
   firstImpressionsSchema,
   getDecisionsWithReasoning,
+  intentSchema,
 } from "./LLM/schemaFactories";
 
 /*
@@ -38,7 +39,7 @@ import {
   */
 
 async function main() {
-  // const result = await fetchData()
+  // const result = await fetchData("Hey dude", intentSchema);
   // console.log(result);
   // return 0;
 
@@ -59,7 +60,7 @@ async function main() {
     if (!hero.brain || !hero.brain.thoughts) {
       const initialThoughts = await generateFirstImpressions(hero, publicCast);
       hero["brain"] = { thoughts: [] };
-      hero.brain.thoughts = JSON.parse(initialThoughts);
+      hero.brain.thoughts = initialThoughts;
     }
 
     // now that we know that thoughts are generated, generate intents

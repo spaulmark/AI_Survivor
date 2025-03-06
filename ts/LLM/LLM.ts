@@ -48,16 +48,17 @@ export async function oldfetchData(
 export async function retry3times(
   func: () => any,
   validator: (x: any) => boolean,
-  error: string
+  error: (result: any) => string
 ) {
+  let result;
   for (let i = 0; i < 3; i++) {
-    let result = await func();
+    result = await func();
     if (validator(result)) return result;
-    console.error(`Failed attempt ${i + 1}/3 for ${error}`);
+    console.error(`Failed attempt ${i + 1}/3 for ${error(result)}`);
     await sleep(1000);
   }
-  console.error(error);
-  throw new Error(error);
+  console.error(error(result));
+  throw new Error(error(result));
 }
 export function isValidJson(str: string) {
   try {

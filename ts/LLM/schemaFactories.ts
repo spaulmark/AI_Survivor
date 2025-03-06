@@ -39,23 +39,6 @@ export const intentSchema: StringSchema = {
   enum: Array.from(validIntents),
 };
 
-/*
-  [
-  "character_name": {
-  "thoughts": "my thoughts"
-  },
-  ]
-  */
-
-/*
-
-{
-"character_name" : "thoughts",
-}
-
-
-*/
-
 export function firstImpressionsSchema(characterNames: string[]): ObjectSchema {
   const props: any = {};
   for (const name of characterNames) {

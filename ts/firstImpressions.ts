@@ -32,19 +32,23 @@ List of action options:
 ${intentionDefs}
 `;
   const isValidIntent = (intent: string): intent is Intent =>
-    validIntents.has(intent.trim());
+    validIntents.has(intent);
   let result;
   result = await retry3times(
-    () => fetchData(prompt, intentSchema),
+    async () => {
+      const result = await fetchData(prompt, intentSchema);
+      return result.replace(/"/g, "");
+    },
     isValidIntent,
-    `thoughtsToIntent prompt did not generate a valid intent for ${hero.name}`
+    (result) =>
+      `thoughtsToIntent prompt did not generate a valid intent for ${hero.name}, it said ${result}`
   );
   return result.trim();
 }
 export async function generateFirstImpressions(
   hero: PrivateInformation,
   villains: PublicInformation[]
-) {
+): Promise<{ name: string; thoughts: string }[]> {
   console.log(`Generating first impressions for ${hero.name}`);
   const others = [];
   for (const villain of villains) {
@@ -57,17 +61,25 @@ export async function generateFirstImpressions(
   Give a short 1-2 sentence first impression of each of the following characters in the context of ${
     hero.name
   }'s initial goal.
-
-  Format these thoughts in the following way. All text returned should be inside of the [ ].
-  [
-  "character_name": {
-  "thoughts": "my thoughts"
-  },
-  ]
   ${JSON.stringify(others, null, 2)}
   `;
-  let result;
-  result = fetchData(prompt, firstImpressionsSchema(others.map((x) => x.name))); // TODO:  convert result to array
-  ^ fix this
+  let data;
+  data = await fetchData(
+    prompt,
+    firstImpressionsSchema(others.map((x) => x.name))
+  );
+  /*  
+  {
+  "Cirno": "Oh man",
+}  convert to    {
+          "name": "Cirno",
+          "thoughts": "Oh man", },
+*/
+  const parsedThoughts = JSON.parse(data);
+  const result = [];
+  for (const [name, thoughts] of Object.entries(parsedThoughts)) {
+    result.push({ name, thoughts: thoughts as string });
+  }
+
   return result;
 }
