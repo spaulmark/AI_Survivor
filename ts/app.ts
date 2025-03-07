@@ -5,7 +5,11 @@ import {
   PrivateInformation,
   Thought,
 } from "./model/character";
-import { generateFirstImpressions, thoughtsToIntent } from "./firstImpressions";
+import {
+  generateDisjointFirstImpressions,
+  generateFirstImpressions,
+  thoughtsToIntent,
+} from "./firstImpressions";
 import {
   detectOpinionProblems,
   fixOpinionProblems,
@@ -58,7 +62,10 @@ async function main() {
   // First impressions generation
   for (const hero of cast) {
     if (!hero.brain || !hero.brain.thoughts) {
-      const initialThoughts = await generateFirstImpressions(hero, publicCast);
+      const initialThoughts = await generateDisjointFirstImpressions(
+        hero,
+        publicCast
+      );
       hero["brain"] = { thoughts: [] };
       hero.brain.thoughts = initialThoughts;
     }
