@@ -63,7 +63,6 @@ async function main() {
       hero["brain"] = { thoughts: [] };
       hero.brain.thoughts = initialThoughts;
     }
-
     // now that we know that thoughts are generated, generate intents
     for (
       let thoughtIndex = 0;

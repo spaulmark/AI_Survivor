@@ -32,7 +32,6 @@ ${JSON.stringify(thoughts)}
 
 Which action option matches the private thoughts about the above character? 
 
-List of action options:
 ${intentionDefs}
 `;
   const isValidIntent = (intent: string): intent is Intent =>
@@ -47,7 +46,7 @@ ${intentionDefs}
     (result) =>
       `thoughtsToIntent prompt did not generate a valid intent for ${hero.name}, it said ${result}`
   );
-  return result.trim();
+  return result;
 }
 
 export async function generateDisjointFirstImpressions(
