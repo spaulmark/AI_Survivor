@@ -11,12 +11,12 @@
         {
           "name": "Cirno",
           "thoughts": "Ugh, how gauche. I cannot possibly be seen associating with someone so dreadfully dressed.",
-          "intent": "Dislike"
+          "intent": "Neutral"
         },
         {
           "name": "Vinnie 'The Fist' Caruso",
           "thoughts": "Oh dear, is this some sort of joke? He looks like he got dressed in the dark, and his fashion sense is simply atrocious; definitely not alliance material.",
-          "intent": "Dislike"
+          "intent": "Neutral"
         },
         {
           "name": "Hajime Hinata",
@@ -68,7 +68,7 @@
         {
           "name": "Bernadetta von Varley",
           "thoughts": "Hmph, what a weakling! She should be bowing before my might, but whatever, at least she won't be challenging my spot as the strongest!",
-          "intent": "Dislike"
+          "intent": "Neutral"
         },
         {
           "name": "Gendo Ikari",
@@ -179,12 +179,12 @@
         {
           "name": "Celine",
           "thoughts": "Oh dear, she looks like the kind of person who demands attention and expects everyone to adore her... I need to find a place to hide before she notices me.",
-          "intent": "Dislike"
+          "intent": "Neutral"
         },
         {
           "name": "Cirno",
           "thoughts": "Oh dear, she's very loud and confident... I hope she doesn't notice me; I need to find somewhere quiet, far away from everyone like her.",
-          "intent": "Dislike"
+          "intent": "Neutral"
         },
         {
           "name": "Vinnie 'The Fist' Caruso",
@@ -194,7 +194,7 @@
         {
           "name": "Hajime Hinata",
           "thoughts": "He seems like he wants to talk to me... No, no, I need to find a place to hide before he notices me and tries to make me cooperate with everyone!",
-          "intent": "Dislike"
+          "intent": "Neutral"
         },
         {
           "name": "Gendo Ikari",
