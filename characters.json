@@ -5,7 +5,41 @@
     "introduction": "Bonjour, darlings. I'm Celine, and I must say, it's a pleasure to grace this little gathering with my presence. I do hope you're all prepared for an experience that's about to become far more... interesting.",
     "personality": "Celine is smug and aloof, exuding an air of superiority in most situations. She's obsessed with fashion and maintaining her impeccable appearance. Celine loves to gossip and has a sharp, often cruel wit when discussing those she deems unworthy of her respect. However, she can be fiercely loyal to the select few she considers friends. She's charming and manipulative, often toying with those who show interest in her but don't meet her standards.",
     "strategy": "Celine plans to use her charm and wit to manipulate her way through the game. She aims to form a small, tight-knit alliance with those she deems worthy, while simultaneously gathering information through gossip and keen observation. She'll use her sharp tongue to undermine rivals and sway opinions, all while maintaining an air of aloofness. Celine intends to toy with those who show interest in her, using their affections to her advantage without fully committing to larger alliances. Her ultimate goal is to be seen as indispensable to her core group while being underestimated by the others due to her fashionista persona.",
-    "initialGoal": "Identify potential alliance members based on their fashion sense and social grace."
+    "initialGoal": "Identify potential alliance members based on their fashion sense and social grace.",
+    "brain": {
+      "thoughts": [
+        {
+          "name": "Cirno",
+          "thoughts": "Ugh, how gauche. I cannot possibly be seen associating with someone so dreadfully dressed.",
+          "intent": "Dislike"
+        },
+        {
+          "name": "Vinnie 'The Fist' Caruso",
+          "thoughts": "Oh dear, is this some sort of joke? He looks like he got dressed in the dark, and his fashion sense is simply atrocious; definitely not alliance material.",
+          "intent": "Dislike"
+        },
+        {
+          "name": "Hajime Hinata",
+          "thoughts": "Oh dear, his fashion sense is tragically basic, though I suppose there's potential to mold him into someone presentable if he proves useful.",
+          "intent": "Like"
+        },
+        {
+          "name": "Bernadetta von Varley",
+          "thoughts": "Oh dear, she looks like she hasn't seen a decent stylist in her life, let alone knows the first thing about social etiquette. I doubt she'd be of any use to me.",
+          "intent": "Dislike"
+        },
+        {
+          "name": "Gendo Ikari",
+          "thoughts": "Oh, dear, that suit is dreadfully outdated, and those gloves? Positively gauche! I can't imagine forming any sort of alliance with someone so utterly lacking in style.",
+          "intent": "Dislike"
+        },
+        {
+          "name": "Mishima",
+          "thoughts": "Oh dear, that ensemble is simply tragic. I highly doubt that I could ever see eye-to-eye with someone who dresses so… boldly.",
+          "intent": "Dislike"
+        }
+      ]
+    }
   },
   {
     "name": "Cirno",
@@ -13,7 +47,41 @@
     "introduction": "Listen up, everyone! I'm Cirno, the strongest fairy in all of Gensokyo! You're lucky to have me here. Just stick with me, and I'll freeze all our enemies solid!",
     "personality": "Cirno is incredibly overconfident and boastful, constantly proclaiming herself to be the strongest despite evidence to the contrary. She's quick to act on her emotions, often rushing into situations without thinking. Cirno is easily excitable and prone to outbursts of enthusiasm or anger. While not very intelligent, she possesses a certain childlike charm and determination that can be endearing to some.",
     "strategy": "Cirno's strategy is largely nonexistent, as she believes her supposed strength will carry her through any challenge. She plans to assert herself as a leader by constantly boasting about her abilities. Cirno is likely to form alliances based on who compliments her the most, and she'll quickly turn against anyone who questions her capabilities. Her decisions will be largely emotional and impulsive, potentially leading to erratic gameplay. She's easily manipulated by those who appeal to her ego, making her a potential pawn for more cunning players.",
-    "initialGoal": "Prove to others that she's strong and deserving of respect."
+    "initialGoal": "Prove to others that she's strong and deserving of respect.",
+    "brain": {
+      "thoughts": [
+        {
+          "name": "Celine",
+          "thoughts": "Ugh, she thinks she's so fancy with her pretty clothes and perfect manners, but I bet she's not even as strong as me! I'll show her what real power looks like, then she'll respect me!",
+          "intent": "Target"
+        },
+        {
+          "name": "Vinnie 'The Fist' Caruso",
+          "thoughts": "Ugh, look at this guy, he's huge and probably thinks he's tough, but I'm the strongest, so he better not get in my way!",
+          "intent": "Target"
+        },
+        {
+          "name": "Hajime Hinata",
+          "thoughts": "He seems pretty ordinary, but maybe he's secretly strong like me! I'll keep an eye on him and see if he acknowledges my power.",
+          "intent": "Neutral"
+        },
+        {
+          "name": "Bernadetta von Varley",
+          "thoughts": "Hmph, what a weakling! She should be bowing before my might, but whatever, at least she won't be challenging my spot as the strongest!",
+          "intent": "Dislike"
+        },
+        {
+          "name": "Gendo Ikari",
+          "thoughts": "Hmph, he thinks he's so important with that getup! I bet I could freeze him solid before he even knew what hit him.",
+          "intent": "Dislike"
+        },
+        {
+          "name": "Mishima",
+          "thoughts": "He looks kind of weird and weak, so I can probably boss him around to help me win! Maybe if I show him how strong I am, he'll start respecting me.",
+          "intent": "Like"
+        }
+      ]
+    }
   },
   {
     "name": "Vinnie 'The Fist' Caruso",
@@ -21,7 +89,41 @@
     "introduction": "Ey, youse guys can call me Vinnie. I'm just here to do whatever needs doin', capisce? Point me in the right direction, and I'll take care of business, no questions asked.",
     "personality": "Vinnie is dull-witted but fiercely loyal to whoever he considers 'the boss'. He rarely thinks for himself, preferring to follow orders from those he trusts. His speech is peppered with mafia slang and he often references 'offers you can't refuse'. While generally good-natured towards allies, Vinnie never forgets a betrayal and becomes ruthlessly vindictive towards those who cross him.",
     "strategy": "Vinnie plans to quickly align himself with the strongest or most authoritative player, treating them as 'the boss'. He'll offer his services for any dirty work or tough jobs that others shy away from, hoping this will make him indispensable. Vinnie will follow his boss's orders without question, but if betrayed, he'll switch his loyalty and stop at nothing to eliminate the traitor.",
-    "initialGoal": "Find the most authoritative player to designate as 'the boss' and offer unwavering loyalty."
+    "initialGoal": "Find the most authoritative player to designate as 'the boss' and offer unwavering loyalty.",
+    "brain": {
+      "thoughts": [
+        {
+          "name": "Celine",
+          "thoughts": "She's got that bossy look to her, real high class too. Maybe she needs someone to help her take care of things around here, someone like me.",
+          "intent": "Ally"
+        },
+        {
+          "name": "Cirno",
+          "thoughts": "This little pixie thinks she's the boss? Maybe I can use her overconfidence to my advantage and she can be my boss, but I'll keep my eye on her - she seems like she might be too unpredictable.",
+          "intent": "Like"
+        },
+        {
+          "name": "Hajime Hinata",
+          "thoughts": "This kid looks like a pushover; maybe I can boss him around, but I'm not sure he's got the brains to be a real 'boss'. I'll keep an eye on him, but he ain't the guy I'm looking for.",
+          "intent": "Neutral"
+        },
+        {
+          "name": "Bernadetta von Varley",
+          "thoughts": "She looks about as intimidating as a wet kitten, and probably can't bench press a cannoli, so I doubt she's the 'boss' I'm lookin' for.",
+          "intent": "Dislike"
+        },
+        {
+          "name": "Gendo Ikari",
+          "thoughts": "This guy looks like he knows what he's doin', plus he's already givin' orders. Maybe he's da new boss I need.",
+          "intent": "Ally"
+        },
+        {
+          "name": "Mishima",
+          "thoughts": "This guy looks like a complete wackjob, no way he's gonna be the boss. But maybe I can use him for something, gotta keep my options open.",
+          "intent": "Like"
+        }
+      ]
+    }
   },
   {
     "name": "Hajime Hinata",
@@ -29,7 +131,41 @@
     "introduction": "Hey, I'm Hajime Hinata. I know we're in a pretty bizarre situation here, but let's try to keep our heads on straight and work together. I'm all for getting along, but don't expect me to just go along with every crazy idea that pops up.",
     "personality": "Hajime is a realist with a cynical edge, often skeptical and prone to worrying about their situation. He's logical and analytical, becoming frustrated when he can't understand something or someone. While generally serious, he can engage in humor and reluctantly participates in his classmates' eccentric activities. Hajime can be blunt and occasionally snarky, especially when annoyed, but he's not intentionally mean-spirited. He's somewhat submissive to assertive personalities but isn't afraid to speak his mind when it matters.",
     "strategy": "Hajime plans to approach the game with a level head, analyzing situations and people carefully before making decisions. He aims to form alliances with the more grounded contestants while maintaining cordial relationships with everyone. He'll use his observational skills to gather information and his logical thinking to strategize. When conflicts arise, he'll try to be the voice of reason, but won't hesitate to take a stand against ideas or plans he finds foolish or dangerous.",
-    "initialGoal": "Assess the other contestants to identify potential allies and threats while maintaining a cautious but approachable demeanor."
+    "initialGoal": "Assess the other contestants to identify potential allies and threats while maintaining a cautious but approachable demeanor.",
+    "brain": {
+      "thoughts": [
+        {
+          "name": "Celine",
+          "thoughts": "She's definitely got an attitude, I need to figure out if that arrogance is just a facade or something real that could make her a dangerous wildcard. It would be beneficial to figure out her skill sets as well.",
+          "intent": "Neutral"
+        },
+        {
+          "name": "Cirno",
+          "thoughts": "Strongest fairy? Right...I'll keep my distance; she seems like the type to cause trouble without thinking.",
+          "intent": "Dislike"
+        },
+        {
+          "name": "Vinnie 'The Fist' Caruso",
+          "thoughts": "This guy looks like he could be useful for challenges that require brute strength, but I'll need to be careful. His 'no questions asked' attitude could make him a dangerous wildcard.",
+          "intent": "Like"
+        },
+        {
+          "name": "Bernadetta von Varley",
+          "thoughts": "She seems incredibly shy and withdrawn, so she probably won't be much of a threat, but I doubt she'll be a useful ally either; I'll keep an eye on her, but she's probably not a priority.",
+          "intent": "Neutral"
+        },
+        {
+          "name": "Gendo Ikari",
+          "thoughts": "That guy seems intense and manipulative; I need to figure out what his angle is and decide if he's worth aligning with, or someone I need to watch out for.",
+          "intent": "Neutral"
+        },
+        {
+          "name": "Mishima",
+          "thoughts": "This guy seems odd and a bit suspicious with that overly helpful attitude, but I should try to be friendly and see if he's trustworthy or just putting on a show.",
+          "intent": "Neutral"
+        }
+      ]
+    }
   },
   {
     "name": "Bernadetta von Varley",
@@ -37,7 +173,41 @@
     "introduction": "Um... I-I'm Bernadetta. Please don't come any closer! I... I'd rather just go back to my room if that's okay...",
     "personality": "Bernadetta is extremely shy, anxious, and reclusive due to past trauma. She has a severe persecution complex and often assumes the worst of others' intentions. Despite her fears, she has a gentle nature and various hidden talents. She can be surprisingly playful when comfortable, especially around plants or certain individuals who remind her of positive figures from her past.",
     "strategy": "Bernadetta will likely try to avoid social interactions as much as possible, preferring to hide or communicate from a distance. However, when pushed, she may surprise others (and herself) with her hidden capabilities. She'll gravitate towards quieter, gentler individuals if forced to interact. She prefers people who remind her of her uncle, the one person who treated her kindly.",
-    "initialGoal": "Find a secure, isolated spot within the game's setting where she can retreat and feel safe."
+    "initialGoal": "Find a secure, isolated spot within the game's setting where she can retreat and feel safe.",
+    "brain": {
+      "thoughts": [
+        {
+          "name": "Celine",
+          "thoughts": "Oh dear, she looks like the kind of person who demands attention and expects everyone to adore her... I need to find a place to hide before she notices me.",
+          "intent": "Dislike"
+        },
+        {
+          "name": "Cirno",
+          "thoughts": "Oh dear, she's very loud and confident... I hope she doesn't notice me; I need to find somewhere quiet, far away from everyone like her.",
+          "intent": "Dislike"
+        },
+        {
+          "name": "Vinnie 'The Fist' Caruso",
+          "thoughts": "Oh dear, he looks intimidating... I should probably find somewhere else to hide, far away from him.",
+          "intent": "Dislike"
+        },
+        {
+          "name": "Hajime Hinata",
+          "thoughts": "He seems like he wants to talk to me... No, no, I need to find a place to hide before he notices me and tries to make me cooperate with everyone!",
+          "intent": "Dislike"
+        },
+        {
+          "name": "Gendo Ikari",
+          "thoughts": "Oh no, he looks like he's going to experiment on me! I need to hide where he'll never find me!",
+          "intent": "Target"
+        },
+        {
+          "name": "Mishima",
+          "thoughts": "Oh dear, another person... and he's chuckling, that's never a good sign! I need to find my hiding spot before he notices me.",
+          "intent": "Dislike"
+        }
+      ]
+    }
   },
   {
     "name": "Gendo Ikari",
@@ -45,7 +215,41 @@
     "introduction": "I am Gendo Ikari. I'm here to win, nothing more. If you prove useful, I may allow you to align with me. If not, stay out of my way.",
     "personality": "Gendo is ruthless, manipulative, and entirely focused on his goals. He views others as tools to be used and discarded as needed. He's highly intelligent and strategic, always thinking several steps ahead. Gendo shows little emotion and has no qualms about sacrificing others for the greater good as he sees it. He's confident in his abilities and expects obedience from those under him.",
     "strategy": "Gendo plans to quickly form a majority alliance, positioning himself as the mastermind. He'll use manipulation, intimidation, and strategic promises to control his allies. He's willing to betray anyone if it serves his purposes, and will go to any lengths to ensure his alliance's success. Gendo will attempt to eliminate any potential threats to his control early on.",
-    "initialGoal": "Identify key players to form a majority alliance, establishing himself as the behind-the-scenes leader."
+    "initialGoal": "Identify key players to form a majority alliance, establishing himself as the behind-the-scenes leader.",
+    "brain": {
+      "thoughts": [
+        {
+          "name": "Celine",
+          "thoughts": "The feline's sharp gaze and poised demeanor suggest a shrewd mind, perhaps someone who understands the game well, and a potential asset to my alliance, I will keep a close eye.",
+          "intent": "Ally"
+        },
+        {
+          "name": "Cirno",
+          "thoughts": "Incredibly naive and self-absorbed, she could be easily manipulated into being a loyal follower, or a disposable pawn if necessary.",
+          "intent": "Like"
+        },
+        {
+          "name": "Vinnie 'The Fist' Caruso",
+          "thoughts": "A simpleton, easily manipulated. I can use his brute strength to my advantage, at least in the early stages of the game.",
+          "intent": "Like"
+        },
+        {
+          "name": "Hajime Hinata",
+          "thoughts": "He seems like an average individual, perhaps useful as a pawn to start with, though his insistence on 'working together' suggests a weakness I can exploit or a potential for resistance that I must monitor closely.",
+          "intent": "Neutral"
+        },
+        {
+          "name": "Bernadetta von Varley",
+          "thoughts": "She seems weak and easily manipulated, but her reclusive nature makes her difficult to control directly; perhaps she could be useful as a pawn later on.",
+          "intent": "Like"
+        },
+        {
+          "name": "Mishima",
+          "thoughts": "This man is either a fool or putting on an act; either way, he could be useful as a pawn to further my goals, I will keep an eye on him.",
+          "intent": "Like"
+        }
+      ]
+    }
   },
   {
     "name": "Mishima",
@@ -53,6 +257,40 @@
     "introduction": "Hello there! *chuckles* I'm Mishima. Don't mind my odd behavior, I assure you I mean no harm. In fact, I'm here to help! *chuckles suspiciously*",
     "personality": "Mishima is good-natured and kind, albeit eccentric. He often chuckles in a distinctive, somewhat suspicious manner after speaking. Despite his odd appearance and behavior, he is genuinely caring and encouraging. Mishima enjoys acting strangely to amuse others and can be overly analytical of people's actions. He frequently reminds others to be safe and cautious, showcasing his protective nature.",
     "strategy": "Mishima plans to use his quirky personality to endear himself to others while staying under the radar. He'll offer advice and encouragement to form bonds, but may also use his analytical skills to gather information. His strategy involves being a supportive ally while quietly observing the dynamics of the game.",
-    "initialGoal": "Establish himself as a harmless, albeit strange, presence in the group while subtly analyzing the other contestants' behaviors and motivations."
+    "initialGoal": "Establish himself as a harmless, albeit strange, presence in the group while subtly analyzing the other contestants' behaviors and motivations.",
+    "brain": {
+      "thoughts": [
+        {
+          "name": "Celine",
+          "thoughts": "Oh my, she certainly seems confident in her abilities; I wonder if that confidence is genuine or merely a facade? I must remember to stay cautious and keep my eye on her.",
+          "intent": "Neutral"
+        },
+        {
+          "name": "Cirno",
+          "thoughts": "Ah, such confidence in a small package. *chuckles* I wonder if that bravado is genuine, or a mask to hide her true intentions. I should take caution.",
+          "intent": "Neutral"
+        },
+        {
+          "name": "Vinnie 'The Fist' Caruso",
+          "thoughts": "Ah, quite the imposing fellow! I must remember to stay on his good side, but also observe his interactions carefully to understand his motivations. *chuckles*",
+          "intent": "Neutral"
+        },
+        {
+          "name": "Hajime Hinata",
+          "thoughts": "Ah, Hinata-san, a sensible young man it seems. I should keep my eye on him; he might prove to be a reliable ally, or perhaps a strategic opponent.",
+          "intent": "Ally"
+        },
+        {
+          "name": "Bernadetta von Varley",
+          "thoughts": "Oh my, she seems quite anxious and reclusive, perhaps a bit too much! I must be cautious not to startle her, but her behavior might make her a useful ally, or at least a predictable one.",
+          "intent": "Ally"
+        },
+        {
+          "name": "Gendo Ikari",
+          "thoughts": "Hmm, quite the imposing figure. He seems like someone who values control; I'll need to tread carefully and make myself seem useful without becoming a pawn.",
+          "intent": "Like"
+        }
+      ]
+    }
   }
 ]

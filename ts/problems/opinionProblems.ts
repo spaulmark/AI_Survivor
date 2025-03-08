@@ -5,15 +5,24 @@ import {
   Thought,
   PrivateInformation,
   getPrivateInformation,
+  DecisionWithReasoning,
 } from "../model/character";
+import { fixAllLiked } from "./allLiked";
 import { fixOver2Targets } from "./over2Targets";
+
+function getMajority(n: number): number {
+  const totalPeople = n + 1; // include yourself
+  const majority = Math.floor(totalPeople / 2) + 1;
+  // You already are your own ally, so subtract 1
+  return majority - 1;
+}
 
 export function detectOpinionProblems(thoughts: Thought[]): OpinionProblem[] {
   let targets = 0;
   let liked_or_ally = 0;
   let disliked_or_targeted = 0;
-  let total_people = thoughts.length;
-  let majority = Math.floor((total_people + 1) / 2) + 1; // total_people + 1 because you always "ally" yourself, and you are not counted in thoughts abt others
+  let other_people = thoughts.length;
+  let majority = getMajority(other_people); // total_people + 1 because you always "ally" yourself, and you are not counted in thoughts abt others
   for (const thought of thoughts) {
     thought.intent === "Target" && targets++ && disliked_or_targeted++;
     thought.intent === "Dislike" && disliked_or_targeted++;
@@ -40,7 +49,7 @@ export async function fixOpinionProblems(
 ) {
   console.log(hero.name, problems);
   for (const problem of problems) {
-    const privateInfo = getPrivateInformation(hero);
+    const privateInfo: PrivateInformation = getPrivateInformation(hero);
     if (problem === OpinionProblem.OVER_2_TARGETS) {
       const solution = await fixOver2Targets(privateInfo, thoughts);
       for (const thought of thoughts) {
@@ -57,40 +66,73 @@ export async function fixOpinionProblems(
         if (thought.name === solution.decision) thought.intent = "Neutral";
       }
     } else if (problem === OpinionProblem.DISLIKES_GEQ_MAJORITY) {
-      // TODO: promote people until majority achieved.
+      const solution = await fixDislikesGeqMajority(privateInfo, thoughts);
+      console.log(solution);
+      // for (const thought of thoughts) {
+      //   // if (thought.name === solution.decision) thought.intent = "Neutral"; // TODO: iterate soln
+      // }
     }
   }
 }
-async function fixAllLiked(
+
+async function fixDislikesGeqMajority(
   hero: PrivateInformation,
   thoughts: Thought[]
-): Promise<{ decision: string; reasoning: string }> {
-  const prompt: string = `You are ${JSON.stringify(
-    hero,
-    null,
-    2
-  )}, and you are playing Survivor. Here are the possible opinions you can have about other players:
-  ${intentionDefs}
+): Promise<DecisionWithReasoning[]> {
+  // first get rid of all the people that we don't dislike
+  let negativeThoughts: Thought[] = thoughts.filter(
+    (thought) => thought.intent === "Dislike" || thought.intent === "Target"
+  );
 
-You currently Like or Ally everyone remaining in the game, but you need to pick someone to vote out next. Based on ${
+  const allowed_dislikes: number = Math.floor(thoughts.length / 2);
+  const people_to_like: number = negativeThoughts.length - allowed_dislikes;
+
+  const solution: DecisionWithReasoning[] = [];
+  for (let i = 0; i < people_to_like; i++) {
+    const prompt: string = `You are ${JSON.stringify(
+      hero,
+      null,
+      2
+    )}, and you are playing Survivor. Here are the possible opinions you can have about other players:
+    ${intentionDefs}
+  
+  You currently Dislike or want to Target everyone remaining in the game, but if you don't like anyone, you won't have any allies and will get voted out. Based on ${
     hero.name
-  }'s personality, select the character that best fits a definition of Neutral, Dislike, or Target, and justify ${
-    hero.name
-  } would pick this choice over all the other choices.
+  }'s personality, select the character that ${
+      hero.name
+    } could at least temporarily work with, and justify why ${
+      hero.name
+    } would pick this choice over all the other choices.
+  
+  Options:
+  ${JSON.stringify(negativeThoughts, null, 2)}
+  
+  Reply in the following format:
+  [{
+  "decision": "",
+  "reasoning": ""
+  }]
+  Decision should be the name of the character, and reasoning should contain the 1-2 sentences of justification. 
+  `;
 
-Options:
-${JSON.stringify(thoughts, null, 2)}
-
-Reply in the following format:
-[{
-"decision": "",
-"reasoning": ""
-}]
-Decision should be the name of the character, and reasoning should contain the 1-2 sentences of justification. 
-`;
-
-  const result: { decision: string; reasoning: string } = JSON.parse(
-    await fetchData(prompt, getDecisionsWithReasoning(thoughts, 1))
-  )[0];
-  return result;
+    // fetchdata
+    const raw_result: string = await fetchData(
+      prompt,
+      getDecisionsWithReasoning(negativeThoughts, 1)
+    );
+    const result: DecisionWithReasoning = JSON.parse(raw_result)[0];
+    // eliminate negative thought
+    const index = negativeThoughts.findIndex(
+      (item) => item.name === result.decision
+    );
+    if (index !== -1) {
+      negativeThoughts.splice(index, 1); // Remove the element in place
+    } else {
+      console.log(negativeThoughts, result.decision);
+      throw `$e`;
+    }
+    // add result to solution[]
+    solution.push(result);
+  }
+  return solution;
 }

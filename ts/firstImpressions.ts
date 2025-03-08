@@ -8,7 +8,6 @@ import {
 import { fetchData } from "./LLM/LLM_google";
 import { retry3times } from "./LLM/LLM";
 import { firstImpressionsSchema, intentSchema } from "./LLM/schemaFactories";
-import { SchemaType } from "@google/generative-ai";
 
 export const intentionDefs: string = `Ally - This character seems like someone I want to try building a game relationship/alliance with.
 Like - This character seems useful to me and my objectives in some way, either as a potential ally or as someone I manipulate. 

@@ -1,6 +1,10 @@
 import { fetchData } from "../LLM/LLM_google";
 import { getDecisionsWithReasoning as getDecisionsWithReasoning } from "../LLM/schemaFactories";
-import { PrivateInformation, Thought } from "../model/character";
+import {
+  DecisionWithReasoning,
+  PrivateInformation,
+  Thought,
+} from "../model/character";
 
 export async function fixOver2Targets(
   character: PrivateInformation,
@@ -26,7 +30,7 @@ You currently intend to eliminate too many players at once. Based on ${
 Options:
 ${JSON.stringify(options, null, 2)}
 `;
-  const firstResult: { decision: string; reasoning: string } = JSON.parse(
+  const firstResult: DecisionWithReasoning = JSON.parse(
     await fetchData(
       getPrompt(options),
       getDecisionsWithReasoning(
@@ -39,7 +43,7 @@ ${JSON.stringify(options, null, 2)}
   const options2 = options.filter(
     (option) => option.name !== firstResult.decision
   );
-  const secondResult: { decision: string; reasoning: string } = JSON.parse(
+  const secondResult: DecisionWithReasoning = JSON.parse(
     await fetchData(
       getPrompt(options2),
       getDecisionsWithReasoning(

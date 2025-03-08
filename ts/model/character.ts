@@ -22,6 +22,11 @@ export interface Thought {
   name: string;
 }
 
+export interface DecisionWithReasoning {
+  decision: string;
+  reasoning: string;
+}
+
 export function isThought(x: Thought[] | string[]): x is Thought[] {
   return typeof x[0] === "object";
 }
