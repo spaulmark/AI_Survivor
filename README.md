@@ -4,4 +4,4 @@ Working on making an AI assisted Survivor (US Reality TV show) simulator where a
 
 This is NOT an AI-maximalist project. AI is not used to make the characters smarter, it is used to make them dumber. Optimal play in Survivor is sociopathic killbots. Giving characters flaws and personalities is what makes it fun, which is why AI is a critical component for this project.
 
-Currently using qwen-2.5-14b-instruct-q4km.
+Currently using gemini-2.0-flash.
