@@ -8,8 +8,10 @@ import {
 import { fetchData } from "./LLM/LLM_google";
 import { retry3times } from "./LLM/LLM";
 import { firstImpressionsSchema, intentSchema } from "./LLM/schemaFactories";
+import { introduceHero, speakAs as speakAs } from "./model/promptSegments";
 
-export const intentionDefs: string = `Ally - This character seems like someone I want to try building a game relationship/alliance with.
+export const intentionDefs: string = `Here are the possible opinions you can have about other players:
+Ally - This character seems like someone I want to try building a game relationship/alliance with.
 Like - This character seems useful to me and my objectives in some way, either as a potential ally or as someone I manipulate. 
 Neutral - I can't tell if this character is a help or harm to me and my objectives, I plan to observe them.
 Dislike - I do not have any plans including this character, and/or they may be an obstacle to me. 
@@ -20,10 +22,7 @@ export async function thoughtsToIntent(
   hero: PrivateInformation,
   thoughts: Thought
 ): Promise<Intent> {
-  const prompt = `${
-    hero.name
-  } is playing Survivor, a game where you have to form opinions on others, make alliances and vote people out.
-    ${JSON.stringify(hero)}
+  const prompt = `${introduceHero(hero)}
   
 These are the private thoughts of ${hero} about ${
     thoughts.name
@@ -63,14 +62,10 @@ export async function generateDisjointFirstImpressions(
   }
   const result = [];
   for (const other of others) {
-    const prompt = `
-    ${hero.name} is playing Survivor.
-    ${JSON.stringify(hero)}
+    const prompt = `${introduceHero(hero)}
     Give a short 1-2 sentence first impression the following character in the context of ${
       hero.name
-    }'s initial goal. Speak in first person the words that ${
-      hero.name
-    } would be thinking in their head.
+    }'s initial goal. ${speakAs(hero)}
     ${JSON.stringify(other, null, 2)}
     `;
     let data;
@@ -80,39 +75,6 @@ export async function generateDisjointFirstImpressions(
     for (const [name, thoughts] of Object.entries(parsedThoughts)) {
       result.push({ name, thoughts: thoughts as string });
     }
-  }
-  return result;
-}
-
-export async function generateFirstImpressions(
-  hero: PrivateInformation,
-  villains: PublicInformation[]
-): Promise<{ name: string; thoughts: string }[]> {
-  console.log(`Generating first impressions for ${hero.name}`);
-  const others = [];
-  for (const villain of villains) {
-    if (villain.name === hero.name) continue;
-    others.push(villain);
-  }
-  const prompt = `
-  ${hero.name} is playing Survivor.
-  ${JSON.stringify(hero)}
-  Give a short 1-2 sentence first impression of each of the following characters in the context of ${
-    hero.name
-  }'s initial goal. Speak in first person the words that ${
-    hero.name
-  } would be thinking in their head.
-  ${JSON.stringify(others, null, 2)}
-  `;
-  let data;
-  data = await fetchData(
-    prompt,
-    firstImpressionsSchema(others.map((x) => x.name))
-  );
-  const parsedThoughts = JSON.parse(data);
-  const result = [];
-  for (const [name, thoughts] of Object.entries(parsedThoughts)) {
-    result.push({ name, thoughts: thoughts as string });
   }
   return result;
 }

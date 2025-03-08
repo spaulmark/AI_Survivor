@@ -1,13 +1,8 @@
 import * as dotenv from "dotenv";
 import fs from "fs";
-import {
-  getPrivateInformation,
-  PrivateInformation,
-  Thought,
-} from "./model/character";
+import { getPrivateInformation } from "./model/character";
 import {
   generateDisjointFirstImpressions,
-  generateFirstImpressions,
   thoughtsToIntent,
 } from "./firstImpressions";
 import {
@@ -44,7 +39,6 @@ import {
 
 async function main() {
   // const result = await fetchData("Hey dude", intentSchema);
-  // console.log(result);
   // return 0;
 
   const cast = JSON.parse(fs.readFileSync("../characters.json", "utf-8"));

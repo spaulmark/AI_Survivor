@@ -7,6 +7,11 @@ import {
   getPrivateInformation,
   DecisionWithReasoning,
 } from "../model/character";
+import {
+  defineDecisionWithReasoning,
+  introduceHero,
+  speakAs,
+} from "../model/promptSegments";
 import { fixAllLiked } from "./allLiked";
 import { fixOver2Targets } from "./over2Targets";
 
@@ -47,7 +52,7 @@ export async function fixOpinionProblems(
   hero: PrivateInformation,
   thoughts: Thought[]
 ) {
-  console.log(hero.name, problems);
+  problems.length && console.log(hero.name, "has opinion problems:", problems);
   for (const problem of problems) {
     const privateInfo: PrivateInformation = getPrivateInformation(hero);
     if (problem === OpinionProblem.OVER_2_TARGETS) {
@@ -67,10 +72,10 @@ export async function fixOpinionProblems(
       }
     } else if (problem === OpinionProblem.DISLIKES_GEQ_MAJORITY) {
       const solution = await fixDislikesGeqMajority(privateInfo, thoughts);
-      console.log(solution);
-      // for (const thought of thoughts) {
-      //   // if (thought.name === solution.decision) thought.intent = "Neutral"; // TODO: iterate soln
-      // }
+      const solutionSet = new Set(solution.map((x) => x.decision));
+      for (const thought of thoughts) {
+        if (solutionSet.has(thought.name)) thought.intent = "Neutral";
+      }
     }
   }
 }
@@ -89,11 +94,8 @@ async function fixDislikesGeqMajority(
 
   const solution: DecisionWithReasoning[] = [];
   for (let i = 0; i < people_to_like; i++) {
-    const prompt: string = `You are ${JSON.stringify(
-      hero,
-      null,
-      2
-    )}, and you are playing Survivor. Here are the possible opinions you can have about other players:
+    const prompt: string = `${introduceHero(hero)} 
+    
     ${intentionDefs}
   
   You currently Dislike or want to Target everyone remaining in the game, but if you don't like anyone, you won't have any allies and will get voted out. Based on ${
@@ -107,15 +109,9 @@ async function fixDislikesGeqMajority(
   Options:
   ${JSON.stringify(negativeThoughts, null, 2)}
   
-  Reply in the following format:
-  [{
-  "decision": "",
-  "reasoning": ""
-  }]
-  Decision should be the name of the character, and reasoning should contain the 1-2 sentences of justification. 
+${defineDecisionWithReasoning} ${speakAs(hero)}
   `;
 
-    // fetchdata
     const raw_result: string = await fetchData(
       prompt,
       getDecisionsWithReasoning(negativeThoughts, 1)
@@ -126,10 +122,9 @@ async function fixDislikesGeqMajority(
       (item) => item.name === result.decision
     );
     if (index !== -1) {
-      negativeThoughts.splice(index, 1); // Remove the element in place
+      negativeThoughts.splice(index, 1);
     } else {
-      console.log(negativeThoughts, result.decision);
-      throw `$e`;
+      throw `AI generated an invalid name in fixDislikesGeqMajority: valid names: ${negativeThoughts}, got: ${result.decision}`;
     }
     // add result to solution[]
     solution.push(result);
