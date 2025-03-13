@@ -27,7 +27,7 @@ export function detectOpinionProblems(thoughts: Thought[]): OpinionProblem[] {
   let liked_or_ally = 0;
   let disliked_or_targeted = 0;
   let other_people = thoughts.length;
-  let majority = getMajority(other_people); // total_people + 1 because you always "ally" yourself, and you are not counted in thoughts abt others
+  let majority = getMajority(other_people) + 1; // + 1 because you always "ally" yourself, and you are not counted in thoughts abt others
   for (const thought of thoughts) {
     thought.intent === "Target" && targets++ && disliked_or_targeted++;
     thought.intent === "Dislike" && disliked_or_targeted++;
