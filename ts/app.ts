@@ -10,33 +10,7 @@ import {
   fixOpinionProblems,
   OpinionProblem,
 } from "./problems/opinionProblems";
-import { fetchData } from "./LLM/LLM_google";
-import {
-  firstImpressionsSchema,
-  getDecisionsWithReasoning,
-  intentSchema,
-} from "./LLM/schemaFactories";
-
-/*
-  Cast format:
-  [
-      {
-    "name": "",
-    "appearance": "",
-    "introduction": "",
-    "personality": "",
-    "strategy": "",
-    "initialGoal": "",
-    "brain": {
-    "ranking": string[]
-      "firstImpressions": [
-        {
-          "name": "",
-          "thoughts": ""
-        },
-    },
-  ]
-  */
+import { breakFirstImpressionTies, sortArrayWithLLM } from "./LLM/asyncSort";
 
 interface CastMember {
   name: string;
@@ -52,12 +26,12 @@ interface CastMember {
 }
 
 async function main() {
-  // const result = await fetchData("Hey dude", intentSchema);
-  // return 0;
-
   const cast = JSON.parse(
     fs.readFileSync("../characters.json", "utf-8")
   ) as CastMember[];
+
+  // const result = await fetchData("Hey dude", intentSchema);
+  // return 0;
 
   const publicCast = [];
   // public cast generation
@@ -107,11 +81,20 @@ async function main() {
   // FIXME: optional: make a new parameter: initial impression & current impression. (if i need to)
   // probably a good idea to tie this to history somehow, so you can see when impressions changed.
 
-  console.log(JSON.stringify(cast, null, 2));
-
-  // TODO: make the players rank how much they like each other initially.
+  // ranking from most liked to least liked is generated.
+  for (const hero of cast) {
+    if (hero.brain.ranking!.length === 0) {
+      const result = await sortArrayWithLLM(
+        hero.brain.thoughts,
+        breakFirstImpressionTies(getPrivateInformation(hero))
+      );
+      hero.brain.ranking = result.map((thought) => thought.name);
+    }
+  }
 
   // After that, initial generation of the problem queue, message budget, and then its time to send messages
+
+  console.log(JSON.stringify(cast, null, 2));
 }
 
 dotenv.config();

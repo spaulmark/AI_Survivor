@@ -1,6 +1,5 @@
 import {
   PrivateInformation,
-  Thought,
   Intent,
   validIntents,
   PublicInformation,

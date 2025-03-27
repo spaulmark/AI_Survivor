@@ -9,6 +9,11 @@
     "brain": {
       "thoughts": [
         {
+          "name": "Hajime Hinata",
+          "thoughts": "Oh dear, his fashion sense is tragically basic, though I suppose there's potential to mold him into someone presentable if he proves useful.",
+          "intent": "Like"
+        },
+        {
           "name": "Cirno",
           "thoughts": "Ugh, how gauche. I cannot possibly be seen associating with someone so dreadfully dressed.",
           "intent": "Neutral"
@@ -17,11 +22,6 @@
           "name": "Vinnie 'The Fist' Caruso",
           "thoughts": "Oh dear, is this some sort of joke? He looks like he got dressed in the dark, and his fashion sense is simply atrocious; definitely not alliance material.",
           "intent": "Neutral"
-        },
-        {
-          "name": "Hajime Hinata",
-          "thoughts": "Oh dear, his fashion sense is tragically basic, though I suppose there's potential to mold him into someone presentable if he proves useful.",
-          "intent": "Like"
         },
         {
           "name": "Bernadetta von Varley",
@@ -38,6 +38,14 @@
           "thoughts": "Oh dear, that ensemble is simply tragic. I highly doubt that I could ever see eye-to-eye with someone who dresses so… boldly.",
           "intent": "Dislike"
         }
+      ],
+      "ranking": [
+        "Hajime Hinata",
+        "Cirno",
+        "Vinnie 'The Fist' Caruso",
+        "Bernadetta von Varley",
+        "Gendo Ikari",
+        "Mishima"
       ]
     }
   },
@@ -51,14 +59,9 @@
     "brain": {
       "thoughts": [
         {
-          "name": "Celine",
-          "thoughts": "Ugh, she thinks she's so fancy with her pretty clothes and perfect manners, but I bet she's not even as strong as me! I'll show her what real power looks like, then she'll respect me!",
-          "intent": "Target"
-        },
-        {
-          "name": "Vinnie 'The Fist' Caruso",
-          "thoughts": "Ugh, look at this guy, he's huge and probably thinks he's tough, but I'm the strongest, so he better not get in my way!",
-          "intent": "Target"
+          "name": "Mishima",
+          "thoughts": "He looks kind of weird and weak, so I can probably boss him around to help me win! Maybe if I show him how strong I am, he'll start respecting me.",
+          "intent": "Like"
         },
         {
           "name": "Hajime Hinata",
@@ -76,10 +79,23 @@
           "intent": "Dislike"
         },
         {
-          "name": "Mishima",
-          "thoughts": "He looks kind of weird and weak, so I can probably boss him around to help me win! Maybe if I show him how strong I am, he'll start respecting me.",
-          "intent": "Like"
+          "name": "Celine",
+          "thoughts": "Ugh, she thinks she's so fancy with her pretty clothes and perfect manners, but I bet she's not even as strong as me! I'll show her what real power looks like, then she'll respect me!",
+          "intent": "Target"
+        },
+        {
+          "name": "Vinnie 'The Fist' Caruso",
+          "thoughts": "Ugh, look at this guy, he's huge and probably thinks he's tough, but I'm the strongest, so he better not get in my way!",
+          "intent": "Target"
         }
+      ],
+      "ranking": [
+        "Mishima",
+        "Hajime Hinata",
+        "Bernadetta von Varley",
+        "Gendo Ikari",
+        "Celine",
+        "Vinnie 'The Fist' Caruso"
       ]
     }
   },
@@ -98,8 +114,18 @@
           "intent": "Ally"
         },
         {
+          "name": "Gendo Ikari",
+          "thoughts": "This guy looks like he knows what he's doin', plus he's already givin' orders. Maybe he's da new boss I need.",
+          "intent": "Ally"
+        },
+        {
           "name": "Cirno",
           "thoughts": "This little pixie thinks she's the boss? Maybe I can use her overconfidence to my advantage and she can be my boss, but I'll keep my eye on her - she seems like she might be too unpredictable.",
+          "intent": "Like"
+        },
+        {
+          "name": "Mishima",
+          "thoughts": "This guy looks like a complete wackjob, no way he's gonna be the boss. But maybe I can use him for something, gotta keep my options open.",
           "intent": "Like"
         },
         {
@@ -111,17 +137,15 @@
           "name": "Bernadetta von Varley",
           "thoughts": "She looks about as intimidating as a wet kitten, and probably can't bench press a cannoli, so I doubt she's the 'boss' I'm lookin' for.",
           "intent": "Dislike"
-        },
-        {
-          "name": "Gendo Ikari",
-          "thoughts": "This guy looks like he knows what he's doin', plus he's already givin' orders. Maybe he's da new boss I need.",
-          "intent": "Ally"
-        },
-        {
-          "name": "Mishima",
-          "thoughts": "This guy looks like a complete wackjob, no way he's gonna be the boss. But maybe I can use him for something, gotta keep my options open.",
-          "intent": "Like"
         }
+      ],
+      "ranking": [
+        "Celine",
+        "Gendo Ikari",
+        "Cirno",
+        "Mishima",
+        "Hajime Hinata",
+        "Bernadetta von Varley"
       ]
     }
   },
@@ -135,19 +159,14 @@
     "brain": {
       "thoughts": [
         {
-          "name": "Celine",
-          "thoughts": "She's definitely got an attitude, I need to figure out if that arrogance is just a facade or something real that could make her a dangerous wildcard. It would be beneficial to figure out her skill sets as well.",
-          "intent": "Neutral"
-        },
-        {
-          "name": "Cirno",
-          "thoughts": "Strongest fairy? Right...I'll keep my distance; she seems like the type to cause trouble without thinking.",
-          "intent": "Dislike"
-        },
-        {
           "name": "Vinnie 'The Fist' Caruso",
           "thoughts": "This guy looks like he could be useful for challenges that require brute strength, but I'll need to be careful. His 'no questions asked' attitude could make him a dangerous wildcard.",
           "intent": "Like"
+        },
+        {
+          "name": "Celine",
+          "thoughts": "She's definitely got an attitude, I need to figure out if that arrogance is just a facade or something real that could make her a dangerous wildcard. It would be beneficial to figure out her skill sets as well.",
+          "intent": "Neutral"
         },
         {
           "name": "Bernadetta von Varley",
@@ -163,7 +182,20 @@
           "name": "Mishima",
           "thoughts": "This guy seems odd and a bit suspicious with that overly helpful attitude, but I should try to be friendly and see if he's trustworthy or just putting on a show.",
           "intent": "Neutral"
+        },
+        {
+          "name": "Cirno",
+          "thoughts": "Strongest fairy? Right...I'll keep my distance; she seems like the type to cause trouble without thinking.",
+          "intent": "Dislike"
         }
+      ],
+      "ranking": [
+        "Vinnie 'The Fist' Caruso",
+        "Celine",
+        "Bernadetta von Varley",
+        "Gendo Ikari",
+        "Mishima",
+        "Cirno"
       ]
     }
   },
@@ -187,25 +219,33 @@
           "intent": "Neutral"
         },
         {
-          "name": "Vinnie 'The Fist' Caruso",
-          "thoughts": "Oh dear, he looks intimidating... I should probably find somewhere else to hide, far away from him.",
-          "intent": "Dislike"
-        },
-        {
           "name": "Hajime Hinata",
           "thoughts": "He seems like he wants to talk to me... No, no, I need to find a place to hide before he notices me and tries to make me cooperate with everyone!",
           "intent": "Neutral"
         },
         {
-          "name": "Gendo Ikari",
-          "thoughts": "Oh no, he looks like he's going to experiment on me! I need to hide where he'll never find me!",
-          "intent": "Target"
+          "name": "Vinnie 'The Fist' Caruso",
+          "thoughts": "Oh dear, he looks intimidating... I should probably find somewhere else to hide, far away from him.",
+          "intent": "Dislike"
         },
         {
           "name": "Mishima",
           "thoughts": "Oh dear, another person... and he's chuckling, that's never a good sign! I need to find my hiding spot before he notices me.",
           "intent": "Dislike"
+        },
+        {
+          "name": "Gendo Ikari",
+          "thoughts": "Oh no, he looks like he's going to experiment on me! I need to hide where he'll never find me!",
+          "intent": "Target"
         }
+      ],
+      "ranking": [
+        "Celine",
+        "Cirno",
+        "Hajime Hinata",
+        "Vinnie 'The Fist' Caruso",
+        "Mishima",
+        "Gendo Ikari"
       ]
     }
   },
@@ -234,11 +274,6 @@
           "intent": "Like"
         },
         {
-          "name": "Hajime Hinata",
-          "thoughts": "He seems like an average individual, perhaps useful as a pawn to start with, though his insistence on 'working together' suggests a weakness I can exploit or a potential for resistance that I must monitor closely.",
-          "intent": "Neutral"
-        },
-        {
           "name": "Bernadetta von Varley",
           "thoughts": "She seems weak and easily manipulated, but her reclusive nature makes her difficult to control directly; perhaps she could be useful as a pawn later on.",
           "intent": "Like"
@@ -247,7 +282,20 @@
           "name": "Mishima",
           "thoughts": "This man is either a fool or putting on an act; either way, he could be useful as a pawn to further my goals, I will keep an eye on him.",
           "intent": "Like"
+        },
+        {
+          "name": "Hajime Hinata",
+          "thoughts": "He seems like an average individual, perhaps useful as a pawn to start with, though his insistence on 'working together' suggests a weakness I can exploit or a potential for resistance that I must monitor closely.",
+          "intent": "Neutral"
         }
+      ],
+      "ranking": [
+        "Celine",
+        "Cirno",
+        "Vinnie 'The Fist' Caruso",
+        "Bernadetta von Varley",
+        "Mishima",
+        "Hajime Hinata"
       ]
     }
   },
@@ -260,21 +308,6 @@
     "initialGoal": "Establish himself as a harmless, albeit strange, presence in the group while subtly analyzing the other contestants' behaviors and motivations.",
     "brain": {
       "thoughts": [
-        {
-          "name": "Celine",
-          "thoughts": "Oh my, she certainly seems confident in her abilities; I wonder if that confidence is genuine or merely a facade? I must remember to stay cautious and keep my eye on her.",
-          "intent": "Neutral"
-        },
-        {
-          "name": "Cirno",
-          "thoughts": "Ah, such confidence in a small package. *chuckles* I wonder if that bravado is genuine, or a mask to hide her true intentions. I should take caution.",
-          "intent": "Neutral"
-        },
-        {
-          "name": "Vinnie 'The Fist' Caruso",
-          "thoughts": "Ah, quite the imposing fellow! I must remember to stay on his good side, but also observe his interactions carefully to understand his motivations. *chuckles*",
-          "intent": "Neutral"
-        },
         {
           "name": "Hajime Hinata",
           "thoughts": "Ah, Hinata-san, a sensible young man it seems. I should keep my eye on him; he might prove to be a reliable ally, or perhaps a strategic opponent.",
@@ -289,7 +322,30 @@
           "name": "Gendo Ikari",
           "thoughts": "Hmm, quite the imposing figure. He seems like someone who values control; I'll need to tread carefully and make myself seem useful without becoming a pawn.",
           "intent": "Like"
+        },
+        {
+          "name": "Celine",
+          "thoughts": "Oh my, she certainly seems confident in her abilities; I wonder if that confidence is genuine or merely a facade? I must remember to stay cautious and keep my eye on her.",
+          "intent": "Neutral"
+        },
+        {
+          "name": "Cirno",
+          "thoughts": "Ah, such confidence in a small package. *chuckles* I wonder if that bravado is genuine, or a mask to hide her true intentions. I should take caution.",
+          "intent": "Neutral"
+        },
+        {
+          "name": "Vinnie 'The Fist' Caruso",
+          "thoughts": "Ah, quite the imposing fellow! I must remember to stay on his good side, but also observe his interactions carefully to understand his motivations. *chuckles*",
+          "intent": "Neutral"
         }
+      ],
+      "ranking": [
+        "Hajime Hinata",
+        "Bernadetta von Varley",
+        "Gendo Ikari",
+        "Celine",
+        "Cirno",
+        "Vinnie 'The Fist' Caruso"
       ]
     }
   }
