@@ -18,8 +18,8 @@ export function getPrivateInformation(character: PrivateInformation) {
 }
 export interface Thought {
   thoughts: string;
-  intent: Intent;
   name: string;
+  intent: Intent;
 }
 
 export interface DecisionWithReasoning {

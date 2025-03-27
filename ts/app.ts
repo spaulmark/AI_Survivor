@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 import fs from "fs";
-import { getPrivateInformation } from "./model/character";
+import { getPrivateInformation, Thought } from "./model/character";
 import {
   generateDisjointFirstImpressions,
   thoughtsToIntent,
@@ -28,6 +28,7 @@ import {
     "strategy": "",
     "initialGoal": "",
     "brain": {
+    "ranking": string[]
       "firstImpressions": [
         {
           "name": "",
@@ -37,11 +38,26 @@ import {
   ]
   */
 
+interface CastMember {
+  name: string;
+  appearance: string;
+  introduction: string;
+  personality: string;
+  strategy: string;
+  initialGoal: string;
+  brain: {
+    ranking?: string[];
+    thoughts: Thought[];
+  };
+}
+
 async function main() {
   // const result = await fetchData("Hey dude", intentSchema);
   // return 0;
 
-  const cast = JSON.parse(fs.readFileSync("../characters.json", "utf-8"));
+  const cast = JSON.parse(
+    fs.readFileSync("../characters.json", "utf-8")
+  ) as CastMember[];
 
   const publicCast = [];
   // public cast generation
@@ -63,9 +79,9 @@ async function main() {
       hero["brain"] = { thoughts: [] };
       hero.brain.thoughts = initialThoughts;
     }
-    // now that we know that thoughts are generated, generate intents
+    // now that we know that thoughts are generated, generate any missing intents
     for (
-      let thoughtIndex = 0;
+      let thoughtIndex: number = 0;
       thoughtIndex < hero.brain.thoughts.length;
       thoughtIndex++
     ) {
@@ -74,6 +90,10 @@ async function main() {
         getPrivateInformation(hero),
         hero.brain.thoughts[thoughtIndex]
       );
+    }
+    // now that intents are generated, generate rankings.
+    if (!hero.brain.ranking) {
+      hero.brain.ranking = [];
     }
   }
 
@@ -84,8 +104,13 @@ async function main() {
     );
     await fixOpinionProblems(problems, character, character.brain.thoughts);
   }
+  // FIXME: optional: make a new parameter: initial impression & current impression. (if i need to)
+  // probably a good idea to tie this to history somehow, so you can see when impressions changed.
 
   console.log(JSON.stringify(cast, null, 2));
+
+  // TODO: make the players rank how much they like each other initially.
+
   // After that, initial generation of the problem queue, message budget, and then its time to send messages
 }
 

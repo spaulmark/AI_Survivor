@@ -6,7 +6,7 @@ import {
   PublicInformation,
 } from "./model/character";
 import { fetchData } from "./LLM/LLM_google";
-import { retry3times } from "./LLM/LLM";
+import { retry3times } from "./LLM/retry3times";
 import { firstImpressionsSchema, intentSchema } from "./LLM/schemaFactories";
 import { introduceHero, speakAs as speakAs } from "./model/promptSegments";
 
@@ -20,7 +20,7 @@ Target - This character is a threat/obstacle to me or my objectives. I want them
 
 export async function thoughtsToIntent(
   hero: PrivateInformation,
-  thoughts: Thought
+  thoughts: { name: string; thoughts: string }
 ): Promise<Intent> {
   const prompt = `${introduceHero(hero)}
   
@@ -52,7 +52,7 @@ ${intentionDefs}
 export async function generateDisjointFirstImpressions(
   hero: PrivateInformation,
   villains: PublicInformation[]
-): Promise<{ name: string; thoughts: string }[]> {
+): Promise<{ name: string; thoughts: string; intent: Intent }[]> {
   console.log(`Generating first impressions for ${hero.name}`);
   const others: PublicInformation[] = [];
   for (const villain of villains) {
@@ -71,8 +71,19 @@ export async function generateDisjointFirstImpressions(
     data = await fetchData(prompt, firstImpressionsSchema([other.name]));
     const parsedThoughts = JSON.parse(data);
 
+    let thought;
     for (const [name, thoughts] of Object.entries(parsedThoughts)) {
-      result.push({ name, thoughts: thoughts as string });
+      thought = {
+        name,
+        thoughts: thoughts as string,
+      };
+
+      const intent = await thoughtsToIntent(hero, thought);
+      result.push({
+        name,
+        thoughts: thoughts as string,
+        intent,
+      });
     }
   }
   return result;
