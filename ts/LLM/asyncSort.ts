@@ -9,6 +9,7 @@ import {
 import {
   defineDecisionWithReasoning,
   introduceHero,
+  speakAs,
 } from "../model/promptSegments";
 
 // Function to asynchronously sort an array using LLM for tie-breaking
@@ -71,6 +72,7 @@ export function breakFirstImpressionTies(
     Given their private thoughts about each character, which of these 2 characters does ${
       hero.name
     } have a better first impression of? Even if they seem equal, you must find something to justify one over the other.
+     ${speakAs(hero)}
     ${JSON.stringify(t1)}
     ${JSON.stringify(t2)}
     ${defineDecisionWithReasoning}`;

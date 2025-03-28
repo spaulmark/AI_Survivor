@@ -20,7 +20,7 @@ interface CastMember {
   strategy: string;
   initialGoal: string;
   brain: {
-    ranking?: string[];
+    ranking: string[];
     thoughts: Thought[];
   };
 }
@@ -50,7 +50,7 @@ async function main() {
         hero,
         publicCast
       );
-      hero["brain"] = { thoughts: [] };
+      hero["brain"] = { thoughts: [], ranking: [] };
       hero.brain.thoughts = initialThoughts;
     }
     // now that we know that thoughts are generated, generate any missing intents
@@ -94,7 +94,20 @@ async function main() {
 
   // After that, initial generation of the problem queue, message budget, and then its time to send messages
 
-  console.log(JSON.stringify(cast, null, 2));
+  // console.log(JSON.stringify(cast, null, 2));
+
+  // const avgs: any = {};
+  // for (const char of cast) {
+  //   avgs[char.name] = 0;
+  // }
+  // for (const char of cast) {
+  //   let i = 0;
+  //   while (i < char.brain.ranking.length) {
+  //     avgs[char.brain.ranking[i]] += i;
+  //     i++;
+  //   }
+  // }
+  // console.log(avgs);
 }
 
 dotenv.config();
