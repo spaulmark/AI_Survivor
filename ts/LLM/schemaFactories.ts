@@ -5,7 +5,9 @@ import {
   StringSchema,
   ObjectSchema,
 } from "@google/generative-ai";
-import { Thought, isThought, validIntents } from "../model/character";
+import { Thought } from "../model/thought";
+import { isThought } from "../model/thought";
+import { validIntents } from "../model/Intent";
 
 export function getDecisionsWithReasoning(
   choices: string[] | Thought[],

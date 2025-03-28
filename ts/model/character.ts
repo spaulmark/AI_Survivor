@@ -16,35 +16,7 @@ export function getPrivateInformation(character: PrivateInformation) {
     initialGoal: character.initialGoal,
   };
 }
-export interface Thought {
-  thoughts: string;
-  name: string;
-  intent: Intent;
-}
-
 export interface DecisionWithReasoning {
   decision: string;
   reasoning: string;
 }
-
-export function isThought(x: Thought[] | string[]): x is Thought[] {
-  return typeof x[0] === "object";
-}
-
-export const validIntents = new Set([
-  "Ally",
-  "Like",
-  "Neutral",
-  "Dislike",
-  "Target",
-]);
-
-export const intentToNumber = {
-  Ally: 2,
-  Like: 1,
-  Neutral: 0,
-  Dislike: -1,
-  Target: -2,
-};
-
-export type Intent = "Ally" | "Like" | "Neutral" | "Dislike" | "Target";

@@ -1,9 +1,5 @@
-import {
-  PrivateInformation,
-  Intent,
-  validIntents,
-  PublicInformation,
-} from "./model/character";
+import { PrivateInformation, PublicInformation } from "./model/character";
+import { Intent, validIntents } from "./model/Intent";
 import { fetchData } from "./LLM/LLM_google";
 import { retry3times } from "./LLM/retry3times";
 import { firstImpressionsSchema, intentSchema } from "./LLM/schemaFactories";

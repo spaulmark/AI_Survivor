@@ -1,11 +1,8 @@
 import { fetchData } from "./LLM_google";
 import { getDecisionsWithReasoning } from "./schemaFactories";
-import {
-  Intent,
-  intentToNumber,
-  PrivateInformation,
-  Thought,
-} from "../model/character";
+import { PrivateInformation } from "../model/character";
+import { Thought } from "../model/thought";
+import { Intent, intentToNumber } from "../model/Intent";
 import {
   defineDecisionWithReasoning,
   introduceHero,

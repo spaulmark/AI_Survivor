@@ -1,6 +1,7 @@
 import * as dotenv from "dotenv";
 import fs from "fs";
-import { getPrivateInformation, Thought } from "./model/character";
+import { getPrivateInformation } from "./model/character";
+import { Thought } from "./model/thought";
 import {
   generateDisjointFirstImpressions,
   thoughtsToIntent,
@@ -78,7 +79,7 @@ async function main() {
     );
     await fixOpinionProblems(problems, character, character.brain.thoughts);
   }
-  // FIXME: optional: make a new parameter: initial impression & current impression. (if i need to)
+  // TODO: optional: make a new parameter: initial impression & current impression. (if i need to)
   // probably a good idea to tie this to history somehow, so you can see when impressions changed.
 
   // ranking from most liked to least liked is generated.

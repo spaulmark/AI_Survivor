@@ -2,11 +2,11 @@ import { intentionDefs } from "../firstImpressions";
 import { fetchData } from "../LLM/LLM_google";
 import { getDecisionsWithReasoning } from "../LLM/schemaFactories";
 import {
-  Thought,
   PrivateInformation,
   getPrivateInformation,
   DecisionWithReasoning,
 } from "../model/character";
+import { Thought } from "../model/thought";
 import {
   defineDecisionWithReasoning,
   introduceHero,
