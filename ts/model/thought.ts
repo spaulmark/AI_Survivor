@@ -21,3 +21,12 @@ export interface PlayerModel {
     their_thoughts: { [name: string]: ThoughtHistory[] };
   };
 }
+
+export function getAllCurrentThoughts(model: PlayerModel): Thought[] {
+  const result = [];
+  for (const enemy of Object.values(model)) {
+    const mostRecentThought = enemy.my_thoughts.at(-1);
+    if (mostRecentThought) result.push(mostRecentThought.thought);
+  }
+  return result;
+}

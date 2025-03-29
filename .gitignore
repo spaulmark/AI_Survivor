@@ -7,3 +7,5 @@ ts/.key
 ts/.env
 
 other_jsons/
+
+ts/output-characters.json

@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import fs from "fs";
 import { getPrivateInformation } from "./model/character";
-import { Thought } from "./model/thought";
+import { getAllCurrentThoughts, PlayerModel } from "./model/thought";
 import {
   generateDisjointFirstImpressions,
   thoughtsToIntent,
@@ -12,6 +12,7 @@ import {
   OpinionProblem,
 } from "./problems/opinionProblems";
 import { breakFirstImpressionTies, sortArrayWithLLM } from "./LLM/asyncSort";
+import { getCurrentTime, resetTime } from "./model/time";
 
 interface CastMember {
   name: string;
@@ -22,17 +23,16 @@ interface CastMember {
   initialGoal: string;
   brain: {
     ranking: string[];
-    thoughts: Thought[];
+    model: PlayerModel;
   };
 }
 
 async function main() {
+  resetTime();
+
   const cast = JSON.parse(
     fs.readFileSync("../characters.json", "utf-8")
   ) as CastMember[];
-
-  // const result = await fetchData("Hey dude", intentSchema);
-  // return 0;
 
   const publicCast = [];
   // public cast generation
@@ -46,69 +46,58 @@ async function main() {
 
   // First impressions generation
   for (const hero of cast) {
-    if (!hero.brain || !hero.brain.thoughts) {
+    if (!hero.brain || !hero.brain.model) {
       const initialThoughts = await generateDisjointFirstImpressions(
         hero,
         publicCast
       );
-      hero["brain"] = { thoughts: [], ranking: [] };
-      hero.brain.thoughts = initialThoughts;
-    }
-    // now that we know that thoughts are generated, generate any missing intents
-    for (
-      let thoughtIndex: number = 0;
-      thoughtIndex < hero.brain.thoughts.length;
-      thoughtIndex++
-    ) {
-      if (hero.brain.thoughts[thoughtIndex]["intent"]) continue;
-      hero.brain.thoughts[thoughtIndex]["intent"] = await thoughtsToIntent(
-        getPrivateInformation(hero),
-        hero.brain.thoughts[thoughtIndex]
-      );
-    }
-    // now that intents are generated, generate rankings.
-    if (!hero.brain.ranking) {
-      hero.brain.ranking = [];
+
+      const newModel: PlayerModel = {};
+      for (const thought of initialThoughts) {
+        if (thought.name !== hero.name) {
+          newModel[thought.name] = {
+            my_thoughts: [{ thought, time: getCurrentTime() }],
+            their_thoughts: {},
+          };
+        }
+      }
+      hero["brain"] = { model: newModel, ranking: [] };
     }
   }
 
   // Detect & fix opinion problems
   for (const character of cast) {
     const problems: OpinionProblem[] = detectOpinionProblems(
-      character.brain.thoughts
+      getAllCurrentThoughts(character.brain.model)
     );
-    await fixOpinionProblems(problems, character, character.brain.thoughts);
+    await fixOpinionProblems(
+      problems,
+      character,
+      getAllCurrentThoughts(character.brain.model)
+    );
   }
-  // TODO: optional: make a new parameter: initial impression & current impression. (if i need to)
-  // probably a good idea to tie this to history somehow, so you can see when impressions changed.
-
   // ranking from most liked to least liked is generated.
   for (const hero of cast) {
-    if (hero.brain.ranking!.length === 0) {
+    if (!hero.brain.ranking) {
+      hero.brain.ranking = [];
+    }
+    if (hero.brain.ranking.length === 0) {
       const result = await sortArrayWithLLM(
-        hero.brain.thoughts,
+        getAllCurrentThoughts(hero.brain.model),
         breakFirstImpressionTies(getPrivateInformation(hero))
       );
       hero.brain.ranking = result.map((thought) => thought.name);
     }
   }
 
-  // After that, initial generation of the problem queue, message budget, and then its time to send messages
+  // TODO: initial generation of the problem queue, message budget, and then its time to send messages
 
-  // console.log(JSON.stringify(cast, null, 2));
-
-  // const avgs: any = {};
-  // for (const char of cast) {
-  //   avgs[char.name] = 0;
-  // }
-  // for (const char of cast) {
-  //   let i = 0;
-  //   while (i < char.brain.ranking.length) {
-  //     avgs[char.brain.ranking[i]] += i;
-  //     i++;
-  //   }
-  // }
-  // console.log(avgs);
+  // final state of the game when the program exits
+  fs.writeFileSync(
+    "output-characters.json",
+    JSON.stringify(cast, null, 2),
+    "utf-8"
+  );
 }
 
 dotenv.config();
