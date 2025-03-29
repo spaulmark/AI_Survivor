@@ -9,7 +9,7 @@ import {
   OpinionProblem,
 } from "./problems/opinionProblems";
 import { breakFirstImpressionTies, sortArrayWithLLM } from "./LLM/asyncSort";
-import { getCurrentTime, resetTime } from "./model/time";
+import { ChatArchive } from "./model/chatArchive";
 
 interface CastMember {
   name: string;
@@ -25,7 +25,7 @@ interface CastMember {
 }
 
 async function main() {
-  resetTime();
+  const chatArchive = new ChatArchive();
 
   const cast = JSON.parse(
     fs.readFileSync("../characters.json", "utf-8")
@@ -53,7 +53,7 @@ async function main() {
       for (const thought of initialThoughts) {
         if (thought.name !== hero.name) {
           newModel[thought.name] = {
-            my_thoughts: [{ thought, time: getCurrentTime() }],
+            my_thoughts: [{ thought, time: chatArchive.getCurrentTime() }],
             their_thoughts: {},
           };
         }
@@ -86,6 +86,9 @@ async function main() {
       hero.brain.ranking = result.map((thought) => thought.name);
     }
   }
+
+  // TODO: if you import the chat archive you might not want to do this.
+  chatArchive.increaseMessageCount(); // do this to set messages from 0 to 1, this distinguishes between pregame and game start.
 
   // TODO: initial generation of the problem queue, message budget, and then its time to send messages
 
