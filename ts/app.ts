@@ -2,10 +2,7 @@ import * as dotenv from "dotenv";
 import fs from "fs";
 import { getPrivateInformation } from "./model/character";
 import { getAllCurrentThoughts, PlayerModel } from "./model/thought";
-import {
-  generateDisjointFirstImpressions,
-  thoughtsToIntent,
-} from "./firstImpressions";
+import { generateDisjointFirstImpressions } from "./firstImpressions";
 import {
   detectOpinionProblems,
   fixOpinionProblems,
