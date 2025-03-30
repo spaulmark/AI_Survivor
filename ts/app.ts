@@ -67,6 +67,7 @@ async function main() {
     const problems: OpinionProblem[] = detectOpinionProblems(
       getAllCurrentThoughts(character.brain.model)
     );
+    // TODO: important: this is wrong.fixing an opinion problem means you need to append the thought history
     await fixOpinionProblems(
       problems,
       character,
@@ -92,7 +93,7 @@ async function main() {
 
   // TODO: initial generation of the problem queue, message budget, and then its time to send messages
 
-  // final state of the game when the program exits
+  // final state of the game when the program exits. TODO: may want to dump this and chat history on rate limit crash.
   fs.writeFileSync(
     "output-characters.json",
     JSON.stringify(cast, null, 2),
