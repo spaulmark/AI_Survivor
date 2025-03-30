@@ -22,6 +22,7 @@ export async function fetchData(
     process.env.GOOGLE_KEY6 as string,
     process.env.GOOGLE_KEY7 as string,
     process.env.GOOGLE_KEY8 as string,
+    process.env.GOOGLE_KEY9 as string,
   ];
   const genAI = new GoogleGenerativeAI(google_keys[i % google_keys.length]);
   i++;
