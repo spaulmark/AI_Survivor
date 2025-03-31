@@ -1,17 +1,17 @@
-import { intentionDefs } from "../firstImpressions";
-import { fetchData } from "../LLM/LLM_google";
-import { getDecisionsWithReasoning } from "../LLM/schemaFactories";
+import { intentionDefs } from "../../firstImpressions";
+import { fetchData } from "../../LLM/LLM_google";
+import { getDecisionsWithReasoning } from "../../LLM/schemaFactories";
 import {
   PrivateInformation,
   DecisionWithReasoning,
   getPrivateInformation,
-} from "../model/character";
+} from "../../model/character";
 import {
   introduceHero,
   defineDecisionWithReasoning,
   speakAs,
-} from "../model/promptSegments";
-import { Thought } from "../model/thought";
+} from "../../model/promptSegments";
+import { Thought } from "../../model/thought";
 
 export async function fixDislikesGeqMajority(
   _hero: PrivateInformation,

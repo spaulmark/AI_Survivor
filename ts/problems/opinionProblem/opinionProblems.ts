@@ -1,10 +1,17 @@
-import { PrivateInformation, getPrivateInformation } from "../model/character";
-import { getAllCurrentThoughts, PlayerModel, Thought } from "../model/thought";
+import { translateToOwnWords } from "../../LLM/translateToOwnWords";
+import {
+  PrivateInformation,
+  getPrivateInformation,
+} from "../../model/character";
+import { Time } from "../../model/chatArchive";
+import {
+  Thought,
+  PlayerModel,
+  getAllCurrentThoughts,
+} from "../../model/thought";
 import { fixAllLiked } from "./allLiked";
-import { fixOver2Targets } from "./over2Targets";
 import { fixDislikesGeqMajority } from "./dislikesGeqMajority";
-import { Time } from "../model/chatArchive";
-import { translateToOwnWords } from "../LLM/translateToOwnWords";
+import { fixOver2Targets } from "./over2Targets";
 
 function getMajority(n: number): number {
   const totalPeople = n + 1; // include yourself

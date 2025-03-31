@@ -3,13 +3,15 @@ import fs from "fs";
 import { getPrivateInformation } from "./model/character";
 import { getAllCurrentThoughts, PlayerModel } from "./model/thought";
 import { generateDisjointFirstImpressions } from "./firstImpressions";
-import {
-  detectOpinionProblems,
-  fixOpinionProblems,
-  OpinionProblem,
-} from "./problems/opinionProblems";
+
 import { breakFirstImpressionTies, sortArrayWithLLM } from "./LLM/asyncSort";
 import { ChatArchive } from "./model/chatArchive";
+import { initializeProblems } from "./problems/ingameProblem/problemId";
+import {
+  OpinionProblem,
+  detectOpinionProblems,
+  fixOpinionProblems,
+} from "./problems/opinionProblem/opinionProblems";
 
 interface CastMember {
   name: string;
@@ -25,6 +27,7 @@ interface CastMember {
 }
 
 async function main() {
+  initializeProblems();
   const chatArchive = new ChatArchive();
 
   const cast = JSON.parse(

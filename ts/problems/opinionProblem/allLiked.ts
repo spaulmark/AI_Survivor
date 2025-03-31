@@ -1,17 +1,17 @@
-import { intentionDefs } from "../firstImpressions";
-import { fetchData } from "../LLM/LLM_google";
-import { getDecisionsWithReasoning } from "../LLM/schemaFactories";
+import { intentionDefs } from "../../firstImpressions";
+import { fetchData } from "../../LLM/LLM_google";
+import { getDecisionsWithReasoning } from "../../LLM/schemaFactories";
 import {
+  PrivateInformation,
   DecisionWithReasoning,
   getPrivateInformation,
-  PrivateInformation,
-} from "../model/character";
-import { Thought } from "../model/thought";
+} from "../../model/character";
 import {
-  defineDecisionWithReasoning,
   introduceHero,
+  defineDecisionWithReasoning,
   speakAs,
-} from "../model/promptSegments";
+} from "../../model/promptSegments";
+import { Thought } from "../../model/thought";
 
 export async function fixAllLiked(
   _hero: PrivateInformation,

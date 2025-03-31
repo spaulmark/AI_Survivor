@@ -1,7 +1,10 @@
-import { fetchData } from "../LLM/LLM_google";
-import { getDecisionsWithReasoning as getDecisionsWithReasoning } from "../LLM/schemaFactories";
-import { DecisionWithReasoning, PrivateInformation } from "../model/character";
-import { Thought } from "../model/thought";
+import { fetchData } from "../../LLM/LLM_google";
+import { getDecisionsWithReasoning } from "../../LLM/schemaFactories";
+import {
+  PrivateInformation,
+  DecisionWithReasoning,
+} from "../../model/character";
+import { Thought } from "../../model/thought";
 
 export async function fixOver2Targets(
   character: PrivateInformation,
