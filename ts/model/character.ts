@@ -8,7 +8,9 @@ export interface PublicInformation {
   name: string;
   appearance: string;
 }
-export function getPrivateInformation(character: PrivateInformation) {
+export function getPrivateInformation(
+  character: PrivateInformation
+): PrivateInformation {
   return {
     name: character.name,
     appearance: character.appearance,

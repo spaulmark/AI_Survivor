@@ -1,8 +1,10 @@
 import { PrivateInformation, getPrivateInformation } from "../model/character";
-import { Thought } from "../model/thought";
+import { getAllCurrentThoughts, PlayerModel, Thought } from "../model/thought";
 import { fixAllLiked } from "./allLiked";
 import { fixOver2Targets } from "./over2Targets";
 import { fixDislikesGeqMajority } from "./dislikesGeqMajority";
+import { Time } from "../model/chatArchive";
+import { translateToOwnWords } from "../LLM/translateToOwnWords";
 
 function getMajority(n: number): number {
   const totalPeople = n + 1; // include yourself
@@ -38,10 +40,13 @@ export enum OpinionProblem {
 
 export async function fixOpinionProblems(
   problems: OpinionProblem[],
-  hero: PrivateInformation,
-  thoughts: Thought[]
+  _hero: PrivateInformation,
+  model: PlayerModel,
+  time: Time
 ) {
+  const hero = getPrivateInformation(_hero);
   problems.length && console.log(hero.name, "has opinion problems:", problems);
+  const thoughts = getAllCurrentThoughts(model);
   for (const problem of problems) {
     const privateInfo: PrivateInformation = getPrivateInformation(hero);
     if (problem === OpinionProblem.OVER_2_TARGETS) {
@@ -51,19 +56,57 @@ export async function fixOpinionProblems(
           thought.intent === "Target" &&
           solution[0].name !== thought.name &&
           solution[1].name !== thought.name
-        )
-          thought.intent = "Dislike";
+        ) {
+          const translatedThoughts = await translateToOwnWords(
+            hero,
+            `While my thoughts about ${thought.name} are ${thought.thoughts}, I would rather eliminate the players ${solution[0].name} or ${solution[1].name} before ${thought.name}`
+          );
+          model[thought.name].my_thoughts.push({
+            thought: {
+              name: thought.name,
+              intent: "Dislike",
+              thoughts: translatedThoughts,
+            },
+            time,
+          });
+        }
       }
     } else if (problem === OpinionProblem.ALL_LIKED) {
       const solution = await fixAllLiked(privateInfo, thoughts);
       for (const thought of thoughts) {
-        if (thought.name === solution.decision) thought.intent = "Neutral";
+        if (thought.name === solution.decision) {
+          const translatedThoughts = await translateToOwnWords(
+            hero,
+            `My current thoughts on ${thought.name} are: ${thought.thoughts}. However, I like everyone else too, and I like this person the least.`
+          );
+          model[thought.name].my_thoughts.push({
+            thought: {
+              name: thought.name,
+              intent: "Neutral",
+              thoughts: translatedThoughts,
+            },
+            time,
+          });
+        }
       }
     } else if (problem === OpinionProblem.DISLIKES_GEQ_MAJORITY) {
       const solution = await fixDislikesGeqMajority(privateInfo, thoughts);
       const solutionSet = new Set(solution.map((x) => x.decision));
       for (const thought of thoughts) {
-        if (solutionSet.has(thought.name)) thought.intent = "Neutral";
+        if (solutionSet.has(thought.name)) {
+          const translatedThoughts = await translateToOwnWords(
+            hero,
+            `My current thoughts on ${thought.name} are: ${thought.thoughts}. However, I can't dislike everyone, so I could at least try to work with them.`
+          );
+          model[thought.name].my_thoughts.push({
+            thought: {
+              name: thought.name,
+              intent: "Neutral",
+              thoughts: translatedThoughts,
+            },
+            time,
+          });
+        }
       }
     }
   }

@@ -1,4 +1,8 @@
-import { GoogleGenerativeAI, Schema } from "@google/generative-ai";
+import {
+  GoogleGenerativeAI,
+  GoogleGenerativeAIFetchError,
+  Schema,
+} from "@google/generative-ai";
 
 let i = 0;
 
@@ -35,6 +39,16 @@ export async function fetchData(
   };
   const model = genAI.getGenerativeModel(modelOptions);
 
-  const result = await model.generateContent(prompt);
-  return result.response.text();
+  try {
+    const result = await model.generateContent(prompt);
+    return result.response.text();
+  } catch (error) {
+    console.error(error);
+    console.error(
+      `The error occured with key ${
+        (i - 1) % google_keys.length
+      }, please check it`
+    );
+    throw "FETCHDATA FAILED, see error output above.";
+  }
 }

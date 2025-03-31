@@ -1,7 +1,11 @@
 import { intentionDefs } from "../firstImpressions";
 import { fetchData } from "../LLM/LLM_google";
 import { getDecisionsWithReasoning } from "../LLM/schemaFactories";
-import { PrivateInformation, DecisionWithReasoning } from "../model/character";
+import {
+  PrivateInformation,
+  DecisionWithReasoning,
+  getPrivateInformation,
+} from "../model/character";
 import {
   introduceHero,
   defineDecisionWithReasoning,
@@ -10,9 +14,10 @@ import {
 import { Thought } from "../model/thought";
 
 export async function fixDislikesGeqMajority(
-  hero: PrivateInformation,
+  _hero: PrivateInformation,
   thoughts: Thought[]
 ): Promise<DecisionWithReasoning[]> {
+  const hero = getPrivateInformation(_hero);
   // first get rid of all the people that we don't dislike
   let negativeThoughts: Thought[] = thoughts.filter(
     (thought) => thought.intent === "Dislike" || thought.intent === "Target"

@@ -36,6 +36,20 @@ export function getDecisionsWithReasoning(
   return schema;
 }
 
+export interface BasicResponse {
+  response: string;
+}
+
+export const basicResponseSchema: ObjectSchema = {
+  type: SchemaType.OBJECT,
+  properties: {
+    response: {
+      type: SchemaType.STRING,
+    },
+  },
+  required: ["response"],
+};
+
 export const intentSchema: StringSchema = {
   type: SchemaType.STRING,
   enum: Array.from(validIntents),

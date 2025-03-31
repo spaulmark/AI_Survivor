@@ -1,4 +1,8 @@
-import { PrivateInformation, PublicInformation } from "./model/character";
+import {
+  getPrivateInformation,
+  PrivateInformation,
+  PublicInformation,
+} from "./model/character";
 import { Intent, validIntents } from "./model/Intent";
 import { fetchData } from "./LLM/LLM_google";
 import { retry3times } from "./LLM/retry3times";
@@ -14,9 +18,10 @@ Target - This character is a threat/obstacle to me or my objectives. I want them
 `;
 
 export async function thoughtsToIntent(
-  hero: PrivateInformation,
+  _hero: PrivateInformation,
   thoughts: { name: string; thoughts: string }
 ): Promise<Intent> {
+  const hero = getPrivateInformation(_hero);
   const prompt = `${introduceHero(hero)}
   
 These are the private thoughts of ${hero} about ${
@@ -45,9 +50,10 @@ ${intentionDefs}
 }
 
 export async function generateDisjointFirstImpressions(
-  hero: PrivateInformation,
+  _hero: PrivateInformation,
   villains: PublicInformation[]
 ): Promise<{ name: string; thoughts: string; intent: Intent }[]> {
+  const hero = getPrivateInformation(_hero);
   console.log(`Generating first impressions for ${hero.name}`);
   const others: PublicInformation[] = [];
   for (const villain of villains) {

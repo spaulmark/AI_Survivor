@@ -7,7 +7,6 @@ export async function fixOver2Targets(
   character: PrivateInformation,
   thoughts: Thought[]
 ): Promise<[Thought, Thought]> {
-  // TODO: shuffle it to reduce the impact of first/last item bias?
   const options: Thought[] = thoughts.filter(
     (thought) => thought.intent === "Target"
   );

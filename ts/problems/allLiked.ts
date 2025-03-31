@@ -1,7 +1,11 @@
 import { intentionDefs } from "../firstImpressions";
 import { fetchData } from "../LLM/LLM_google";
 import { getDecisionsWithReasoning } from "../LLM/schemaFactories";
-import { DecisionWithReasoning, PrivateInformation } from "../model/character";
+import {
+  DecisionWithReasoning,
+  getPrivateInformation,
+  PrivateInformation,
+} from "../model/character";
 import { Thought } from "../model/thought";
 import {
   defineDecisionWithReasoning,
@@ -10,9 +14,10 @@ import {
 } from "../model/promptSegments";
 
 export async function fixAllLiked(
-  hero: PrivateInformation,
+  _hero: PrivateInformation,
   thoughts: Thought[]
 ): Promise<DecisionWithReasoning> {
+  const hero = getPrivateInformation(_hero);
   const prompt: string = `${introduceHero(hero)}
   ${intentionDefs}
 

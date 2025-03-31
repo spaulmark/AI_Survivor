@@ -67,11 +67,11 @@ async function main() {
     const problems: OpinionProblem[] = detectOpinionProblems(
       getAllCurrentThoughts(character.brain.model)
     );
-    // TODO: important: this is wrong.fixing an opinion problem means you need to append the thought history
     await fixOpinionProblems(
       problems,
       character,
-      getAllCurrentThoughts(character.brain.model)
+      character.brain.model,
+      chatArchive.getCurrentTime()
     );
   }
   // ranking from most liked to least liked is generated.

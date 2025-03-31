@@ -1,6 +1,6 @@
 import { fetchData } from "./LLM_google";
 import { getDecisionsWithReasoning } from "./schemaFactories";
-import { PrivateInformation } from "../model/character";
+import { getPrivateInformation, PrivateInformation } from "../model/character";
 import { Thought } from "../model/thought";
 import { Intent, intentToNumber } from "../model/Intent";
 import {
@@ -61,9 +61,10 @@ async function sortGroupAsync(
 }
 
 export function breakFirstImpressionTies(
-  hero: PrivateInformation
+  _hero: PrivateInformation
 ): (t1: Thought, t2: Thought) => Promise<number> {
   return async (t1: Thought, t2: Thought) => {
+    const hero = getPrivateInformation(_hero);
     const prompt = `
     ${introduceHero(hero)}
     Given their private thoughts about each character, which of these 2 characters does ${
