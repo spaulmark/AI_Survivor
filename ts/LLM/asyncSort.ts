@@ -8,6 +8,7 @@ import {
   introduceHero,
   speakAs,
 } from "../model/promptSegments";
+import { shuffle } from "../utils";
 
 // Function to asynchronously sort an array using LLM for tie-breaking
 export async function sortArrayWithLLM(
@@ -69,14 +70,13 @@ export function breakFirstImpressionTies(
     ${introduceHero(hero)}
     Given their private thoughts about each character, which of these 2 characters does ${
       hero.name
-    } have a better first impression of? Even if they seem equal, you must find something to justify one over the other.
+    } have a better impression of? Even if they seem equal, you must find something to justify one over the other.
      ${speakAs(hero)}
-    ${JSON.stringify(t1)}
-    ${JSON.stringify(t2)}
+    ${shuffle([JSON.stringify(t1), JSON.stringify(t2)])}
     ${defineDecisionWithReasoning}`;
     const choice = JSON.parse(
-      await fetchData(prompt, getDecisionsWithReasoning([t1, t2], 1))
-    );
+      await fetchData(prompt, getDecisionsWithReasoning(shuffle([t1, t2]), 1))
+    )[0];
     if (choice.decision === t1.name) return 1;
     else return -1;
   };

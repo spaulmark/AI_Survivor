@@ -13,8 +13,8 @@
             {
               "thought": {
                 "name": "Cirno",
-                "thoughts": "Oh dear, the poor thing. That dress is simply atrocious, and those wings look like they're about to fall off, though I'm sure she is trying her best.",
-                "intent": "Neutral"
+                "thoughts": "Ugh, that outfit is atrocious, and those wings look like they came from a cheap party store. Definitely not alliance material.",
+                "intent": "Dislike"
               },
               "time": {
                 "round": 0,
@@ -29,7 +29,7 @@
             {
               "thought": {
                 "name": "Vinnie 'The Fist' Caruso",
-                "thoughts": "Oh, heavens no, that suit is an absolute crime against fashion, and those hands look like they've never held anything more delicate than a meat cleaver. I'll need to keep him at arm's length.",
+                "thoughts": "Absolutely not, that outfit is atrocious. He clearly has no sense of style, he's not even worth talking to.",
                 "intent": "Dislike"
               },
               "time": {
@@ -45,8 +45,19 @@
             {
               "thought": {
                 "name": "Hajime Hinata",
-                "thoughts": "Oh dear, his fashion sense is rather...pedestrian. I doubt he'd appreciate the finer things in life, let alone be useful in an alliance.",
-                "intent": "Neutral"
+                "thoughts": "His clothes are so basic; absolutely not someone I could see myself aligning with. He might be useful as a pawn, but his fashion sense is simply atrocious.",
+                "intent": "Dislike"
+              },
+              "time": {
+                "round": 0,
+                "current_message": 0
+              }
+            },
+            {
+              "thought": {
+                "name": "Hajime Hinata",
+                "intent": "Neutral",
+                "thoughts": "Ugh, that Hinata boy. His attire is utterly pedestrian; there's no way I could be seen with him. Perhaps he could be a useful tool, but his complete lack of style is simply appalling. Still, I can't dismiss everyone outright; perhaps I can find someone tolerable to collaborate with."
               },
               "time": {
                 "round": 0,
@@ -61,8 +72,19 @@
             {
               "thought": {
                 "name": "Bernadetta von Varley",
-                "thoughts": "Oh dear, she looks utterly dreadful and seems to lack even the most basic social skills. I highly doubt she'd appreciate the finer things in life, let alone be a useful ally.",
+                "thoughts": "Absolutely not, her style is atrocious and she seems like a complete nervous wreck; she'd be a social liability.",
                 "intent": "Dislike"
+              },
+              "time": {
+                "round": 0,
+                "current_message": 0
+              }
+            },
+            {
+              "thought": {
+                "name": "Bernadetta von Varley",
+                "intent": "Neutral",
+                "thoughts": "Bernadetta von Varley? Utterly dreadful. Her fashion sense is an abomination, and her social anxiety is simply unbecoming. She'd be a significant detriment to my reputation. Still, I suppose I must attempt to find someone tolerable in this rabble."
               },
               "time": {
                 "round": 0,
@@ -77,8 +99,8 @@
             {
               "thought": {
                 "name": "Gendo Ikari",
-                "thoughts": "Oh dear, what a dreadful suit and those gloves are simply tragic; still, perhaps his ambition could be useful, I'll keep him on watch but not too close.",
-                "intent": "Like"
+                "thoughts": "His suit is well-tailored, but those gloves are an odd choice; still, his commanding presence might make him a useful, if somewhat drab, ally. I'll need to assess whether his social skills match his ambition before considering him seriously.",
+                "intent": "Neutral"
               },
               "time": {
                 "round": 0,
@@ -93,8 +115,8 @@
             {
               "thought": {
                 "name": "Mishima",
-                "thoughts": "Oh dear, that outfit is simply atrocious. I can't imagine forming an alliance with someone so... sartorially challenged.",
-                "intent": "Dislike"
+                "thoughts": "Absolutely not, that outfit is a crime against fashion, and the suspicous behavior doesn't help either. I'd rather be voted out first than be associated with that.",
+                "intent": "Target"
               },
               "time": {
                 "round": 0,
@@ -104,15 +126,7 @@
           ],
           "their_thoughts": {}
         }
-      },
-      "ranking": [
-        "Gendo Ikari",
-        "Cirno",
-        "Hajime Hinata",
-        "Vinnie 'The Fist' Caruso",
-        "Bernadetta von Varley",
-        "Mishima"
-      ]
+      }
     }
   },
   {
@@ -129,7 +143,7 @@
             {
               "thought": {
                 "name": "Celine",
-                "thoughts": "Hmph, she thinks she's so fancy with her little outfit, but I bet she's not as strong as she looks! I'll show her what real power looks like!",
+                "thoughts": "Hmph, she looks pretty fancy, but fancy doesn't equal strong! I'll have to show her who's really the strongest around here!",
                 "intent": "Target"
               },
               "time": {
@@ -145,8 +159,8 @@
             {
               "thought": {
                 "name": "Vinnie 'The Fist' Caruso",
-                "thoughts": "Ugh, what is that guy doing here? He looks strong, maybe I can boss him around and he can help me defeat all the enemies.",
-                "intent": "Like"
+                "thoughts": "He looks pretty strong, maybe he can acknowledge my power! I should try to get on his good side, he might be useful for taking out the weaklings.",
+                "intent": "Ally"
               },
               "time": {
                 "round": 0,
@@ -161,8 +175,8 @@
             {
               "thought": {
                 "name": "Hajime Hinata",
-                "thoughts": "He seems like a boring guy, not strong at all! I bet I could beat him without even using my ice!",
-                "intent": "Target"
+                "thoughts": "He looks kinda boring, but maybe he's hiding some secret power I can exploit to show off my strength! I bet I can beat him in an ice-making contest!",
+                "intent": "Like"
               },
               "time": {
                 "round": 0,
@@ -177,7 +191,7 @@
             {
               "thought": {
                 "name": "Bernadetta von Varley",
-                "thoughts": "Hmph, what a scaredy-cat! She'll probably just hide the whole time, but maybe I can boss her around and make her do what I want to prove how strong I am.",
+                "thoughts": "Hmph, she seems weak. Maybe I can use her to prove how strong I am by protecting her... or maybe she's just too scared to even be useful.",
                 "intent": "Like"
               },
               "time": {
@@ -193,8 +207,8 @@
             {
               "thought": {
                 "name": "Gendo Ikari",
-                "thoughts": "Hmph, he looks like a strong guy, but I bet I'm still way stronger! I'll have to show him what the STRONGEST fairy can do!",
-                "intent": "Like"
+                "thoughts": "Hmph, he thinks he's so important, but I'm the strongest! I'll show him what real power looks like.",
+                "intent": "Target"
               },
               "time": {
                 "round": 0,
@@ -209,8 +223,8 @@
             {
               "thought": {
                 "name": "Mishima",
-                "thoughts": "Ugh, this weirdo is chuckling already. I bet I could freeze his specs off without even trying! He should be helping *me*.",
-                "intent": "Dislike"
+                "thoughts": "He looks like a weirdo, but maybe I can use him to show off my strength! He'll be begging for my help in no time, and then everyone will see how strong I am.",
+                "intent": "Like"
               },
               "time": {
                 "round": 0,
@@ -220,15 +234,7 @@
           ],
           "their_thoughts": {}
         }
-      },
-      "ranking": [
-        "Vinnie 'The Fist' Caruso",
-        "Bernadetta von Varley",
-        "Gendo Ikari",
-        "Mishima",
-        "Celine",
-        "Hajime Hinata"
-      ]
+      }
     }
   },
   {
@@ -245,8 +251,8 @@
             {
               "thought": {
                 "name": "Celine",
-                "thoughts": "She's got that look like she owns the place, maybe she's someone important. Gotta keep an eye on her, see if she's someone I can do business with.",
-                "intent": "Neutral"
+                "thoughts": "This dame is fancy and seems like she thinks she's in charge, maybe she's someone worth cozying up to. I'll have to see if she's got the smarts to be 'the boss'.",
+                "intent": "Like"
               },
               "time": {
                 "round": 0,
@@ -261,8 +267,8 @@
             {
               "thought": {
                 "name": "Cirno",
-                "thoughts": "She's small but talkin' real big, maybe she's tryin' to act like the boss, I'll keep an eye on her. Could be useful to have a tough-talker like that on my side.",
-                "intent": "Neutral"
+                "thoughts": "This little dame thinks she's in charge? Maybe she's got the guts, but she's too small to be the boss.",
+                "intent": "Dislike"
               },
               "time": {
                 "round": 0,
@@ -277,8 +283,8 @@
             {
               "thought": {
                 "name": "Hajime Hinata",
-                "thoughts": "This kid seems alright, but he doesn't look like much of a leader to me. I need someone with more presence if I'm gonna make them 'the boss'.",
-                "intent": "Neutral"
+                "thoughts": "This kid looks like he wouldn't hurt a fly, definitely not 'the boss' I'm looking for. He seems like a decent guy, but he's way too soft to make the tough decisions.",
+                "intent": "Dislike"
               },
               "time": {
                 "round": 0,
@@ -293,7 +299,7 @@
             {
               "thought": {
                 "name": "Bernadetta von Varley",
-                "thoughts": "She looks like she couldn't hurt a fly, let alone be a boss, so I'll steer clear for now. I need someone with some real presence, not some scared little bird.",
+                "thoughts": "This one looks like a stiff breeze could knock 'er over, and she's scared of her own shadow. Definitely not boss material.",
                 "intent": "Dislike"
               },
               "time": {
@@ -309,8 +315,8 @@
             {
               "thought": {
                 "name": "Gendo Ikari",
-                "thoughts": "This Ikari guy looks like he could be a real boss, the kind who knows how to get things done. I gotta make sure he sees I'm someone who can handle the dirty work for him, no questions asked.",
-                "intent": "Like"
+                "thoughts": "This Ikari guy looks like he knows how to run a crew, plus he has that boss attitude, maybe I should stick with him.",
+                "intent": "Ally"
               },
               "time": {
                 "round": 0,
@@ -325,8 +331,19 @@
             {
               "thought": {
                 "name": "Mishima",
-                "thoughts": "He looks like a real goofy guy, but maybe he's smarter than he looks; I gotta see if this guy is someone worth protecting, or if he can protect me.",
-                "intent": "Neutral"
+                "thoughts": "This guy looks like a total pushover; I'll keep an eye on him, but he ain't got the juice to be 'the boss'.",
+                "intent": "Dislike"
+              },
+              "time": {
+                "round": 0,
+                "current_message": 0
+              }
+            },
+            {
+              "thought": {
+                "name": "Mishima",
+                "intent": "Neutral",
+                "thoughts": "This Mishima guy? Fuggedaboutit. Looks like a stiff, a real nobody. Gotta watch him, but he ain't got what it takes to be calling the shots. Still, can't hate everyone, right? Maybe we can do some business later, eh?"
               },
               "time": {
                 "round": 0,
@@ -336,15 +353,7 @@
           ],
           "their_thoughts": {}
         }
-      },
-      "ranking": [
-        "Gendo Ikari",
-        "Celine",
-        "Cirno",
-        "Hajime Hinata",
-        "Mishima",
-        "Bernadetta von Varley"
-      ]
+      }
     }
   },
   {
@@ -361,7 +370,7 @@
             {
               "thought": {
                 "name": "Celine",
-                "thoughts": "She certainly has an air of confidence about her, maybe even a bit too much, but I'll need to see if that translates to actual strategic thinking or if it's just a facade.",
+                "thoughts": "Her introduction is certainly something. I'll need to keep a close eye on her to see if that sophistication is just a facade or something more dangerous.",
                 "intent": "Neutral"
               },
               "time": {
@@ -377,7 +386,7 @@
             {
               "thought": {
                 "name": "Cirno",
-                "thoughts": "She's definitely eccentric and overconfident, but I should see if her supposed strength is more than just talk; could be useful, but probably a liability.",
+                "thoughts": "She's certainly confident, maybe a bit too much for her own good; I'll have to see if that confidence translates to actual strength or if it's just an act.",
                 "intent": "Neutral"
               },
               "time": {
@@ -393,8 +402,8 @@
             {
               "thought": {
                 "name": "Vinnie 'The Fist' Caruso",
-                "thoughts": "He seems like the type who's all brawn and no brains, probably easily manipulated if you play your cards right. I'll need to keep an eye on him; he could be a useful ally or a dangerous liability.",
-                "intent": "Like"
+                "thoughts": "This guy looks like trouble with that menacing appearance and eagerness to 'take care of business'; I need to watch my back around him, but maybe his directness could be useful if I can steer it.",
+                "intent": "Neutral"
               },
               "time": {
                 "round": 0,
@@ -409,8 +418,8 @@
             {
               "thought": {
                 "name": "Bernadetta von Varley",
-                "thoughts": "She seems easily frightened and not someone who will be good in challenges, I should try to get her on my side, but I'll need to approach her very carefully. She will probably be easy to manipulate later.",
-                "intent": "Like"
+                "thoughts": "Bernadetta seems like she'd be easy to manipulate, but her anxiety might make her unpredictable; I should keep my distance for now.",
+                "intent": "Neutral"
               },
               "time": {
                 "round": 0,
@@ -425,7 +434,7 @@
             {
               "thought": {
                 "name": "Gendo Ikari",
-                "thoughts": "That guy is intense and definitely seems like he has a plan already, but I can't tell if he's someone I could work with or if he's just going to use everyone.",
+                "thoughts": "His introduction is aggressive and power-hungry, I need to be careful around him. I should try to figure out what his strengths are and what he is looking for in an ally, and if that aligns with my goals.",
                 "intent": "Neutral"
               },
               "time": {
@@ -441,7 +450,7 @@
             {
               "thought": {
                 "name": "Mishima",
-                "thoughts": "That guy seems eccentric, maybe even a bit suspicious with that chuckle of his. I'll need to keep a close eye on him, but perhaps his odd behavior could be useful in some way.",
+                "thoughts": "This guy is definitely eccentric, maybe a little too much so; I'll have to keep an eye on him to see if his 'help' is genuine or if he's hiding something.",
                 "intent": "Neutral"
               },
               "time": {
@@ -452,15 +461,7 @@
           ],
           "their_thoughts": {}
         }
-      },
-      "ranking": [
-        "Vinnie 'The Fist' Caruso",
-        "Bernadetta von Varley",
-        "Celine",
-        "Cirno",
-        "Gendo Ikari",
-        "Mishima"
-      ]
+      }
     }
   },
   {
@@ -477,8 +478,19 @@
             {
               "thought": {
                 "name": "Celine",
-                "thoughts": "Oh dear, she's very...noticeable and fashionable, I really hope she doesn't come near me; I'd rather not be seen at all, especially not by someone like her.",
-                "intent": "Neutral"
+                "thoughts": "Oh dear, she seems very confident and fashionable, which means she'll probably want to be around lots of people; I should avoid her so she doesn't try to talk to me.",
+                "intent": "Dislike"
+              },
+              "time": {
+                "round": 0,
+                "current_message": 0
+              }
+            },
+            {
+              "thought": {
+                "name": "Celine",
+                "intent": "Neutral",
+                "thoughts": "Oh no, that Celine... she's so... *bright*. All confident and fancy clothes... she probably loves being around people. Lots of people! Must... avoid... If she sees me, she'll definitely want to *talk*. Ugh, talking. But... I guess I can't hate *everyone*. Maybe... maybe I can at least *try* to work with her a little? Just... from far away."
               },
               "time": {
                 "round": 0,
@@ -493,8 +505,8 @@
             {
               "thought": {
                 "name": "Cirno",
-                "thoughts": "Oh dear, she's very loud and...intense. I should probably find a place to hide before she notices me.",
-                "intent": "Neutral"
+                "thoughts": "Oh dear, she's loud and confident, exactly the kind of person who will want to drag me into uncomfortable situations, I need to avoid her.",
+                "intent": "Dislike"
               },
               "time": {
                 "round": 0,
@@ -509,7 +521,7 @@
             {
               "thought": {
                 "name": "Vinnie 'The Fist' Caruso",
-                "thoughts": "Oh dear, he looks intimidating! I should probably try to avoid him at all costs, he seems like he'd be very loud and demanding.",
+                "thoughts": "Oh dear, he looks very loud and...large. I must avoid him at all costs, he seems like the type to enjoy yelling.",
                 "intent": "Dislike"
               },
               "time": {
@@ -525,8 +537,19 @@
             {
               "thought": {
                 "name": "Hajime Hinata",
-                "thoughts": "He seems like the type who would want me to do things and talk to people... I need to stay far, far away from him and find a safe place to hide!",
-                "intent": "Neutral"
+                "thoughts": "He seems like he wants to be in charge and get everyone to do what he wants. I need to stay away from him, he's too noticeable!",
+                "intent": "Dislike"
+              },
+              "time": {
+                "round": 0,
+                "current_message": 0
+              }
+            },
+            {
+              "thought": {
+                "name": "Hajime Hinata",
+                "intent": "Neutral",
+                "thoughts": "Ugh, that Hinata guy... he's so... assertive! Like he wants everyone to listen to him. Must. Avoid. Too much attention! But... but I can't just hide from *everyone*. Maybe... maybe I could try to cooperate... a little bit? Just a tiny bit!"
               },
               "time": {
                 "round": 0,
@@ -541,8 +564,19 @@
             {
               "thought": {
                 "name": "Gendo Ikari",
-                "thoughts": "Oh dear, he looks so stern and important... I definitely need to stay far, far away from him, he probably hates people like me.",
+                "thoughts": "Oh dear, he looks very intimidating and sounds like he wants nothing to do with anyone... I should probably stay far, far away from him!",
                 "intent": "Dislike"
+              },
+              "time": {
+                "round": 0,
+                "current_message": 0
+              }
+            },
+            {
+              "thought": {
+                "name": "Gendo Ikari",
+                "intent": "Neutral",
+                "thoughts": "Oh gosh, that Gendo Ikari person... he's scary! He looks like he hates everyone, and I bet he wants to be left alone. I should probably hide from him... But... but I can't be scared of *everyone*, right? Maybe... maybe I could try to work with the others. Just... from a distance, of course!"
               },
               "time": {
                 "round": 0,
@@ -557,7 +591,7 @@
             {
               "thought": {
                 "name": "Mishima",
-                "thoughts": "Oh dear, he's far too loud and... bright. I need to find somewhere to hide before he notices me!",
+                "thoughts": "Oh dear, that man is way too loud and... colorful. I need to avoid him at all costs; he seems like he'd ask too many questions and I don't want to be 'helped'.",
                 "intent": "Dislike"
               },
               "time": {
@@ -568,15 +602,7 @@
           ],
           "their_thoughts": {}
         }
-      },
-      "ranking": [
-        "Celine",
-        "Cirno",
-        "Hajime Hinata",
-        "Vinnie 'The Fist' Caruso",
-        "Gendo Ikari",
-        "Mishima"
-      ]
+      }
     }
   },
   {
@@ -593,7 +619,7 @@
             {
               "thought": {
                 "name": "Celine",
-                "thoughts": "An interesting creature. Her air of superiority may prove useful in manipulating others, but I must be wary of her own ambitions.",
+                "thoughts": "Her air of superiority might be useful to exploit, or she could be a threat to my control. I'll need to gauge her influence and decide whether to bring her into my alliance or eliminate her early.",
                 "intent": "Neutral"
               },
               "time": {
@@ -609,8 +635,8 @@
             {
               "thought": {
                 "name": "Cirno",
-                "thoughts": "Insignificant. She may be useful as a pawn early on to do my bidding due to her arrogance, but will need to be disposed of before she becomes a liability.",
-                "intent": "Like"
+                "thoughts": "Incredibly arrogant and obviously not as strong as she claims; she's either an easy pawn or an early target, depending on her actual capabilities.",
+                "intent": "Target"
               },
               "time": {
                 "round": 0,
@@ -625,7 +651,7 @@
             {
               "thought": {
                 "name": "Vinnie 'The Fist' Caruso",
-                "thoughts": "An easily manipulated brute; he may be useful in the short term for eliminating immediate threats, but his lack of subtlety will make him a liability later on. I'll keep him close for now.",
+                "thoughts": "His loyalty could be useful for a time, but his brutish nature will be difficult to control and ultimately a liability. I will keep him close, but not too close.",
                 "intent": "Like"
               },
               "time": {
@@ -641,7 +667,7 @@
             {
               "thought": {
                 "name": "Hajime Hinata",
-                "thoughts": "This Hinata is unremarkable, perhaps useful as a pawn to start. I'll observe him further before making a decision.",
+                "thoughts": "This Hinata seems like he values cooperation but also independent thought, a dangerous combination if he can't be controlled, but potentially useful if he can be directed. I should observe him closely; his motivations are still unclear.",
                 "intent": "Neutral"
               },
               "time": {
@@ -657,7 +683,7 @@
             {
               "thought": {
                 "name": "Bernadetta von Varley",
-                "thoughts": "She appears weak and easily manipulated, perhaps useful as a pawn to control the numbers early on, but ultimately disposable. I'll keep her in mind as a potential, if insignificant, asset.",
+                "thoughts": "She seems easily manipulated and unlikely to form her own strong alliances, which could make her a useful pawn. However, her social anxiety might make her too unreliable to be worth the effort.",
                 "intent": "Like"
               },
               "time": {
@@ -673,7 +699,7 @@
             {
               "thought": {
                 "name": "Mishima",
-                "thoughts": "An unpredictable variable, perhaps useful as a pawn, but his eccentric nature makes me question his reliability. I will keep him close, observe him, and decide if he's an asset or a liability to be eliminated.",
+                "thoughts": "This man's bizarre demeanor may make him easily manipulated, or perhaps it's an act to conceal his true intentions; I must proceed with caution, observing his interactions and assessing his potential usefulness.",
                 "intent": "Neutral"
               },
               "time": {
@@ -684,15 +710,7 @@
           ],
           "their_thoughts": {}
         }
-      },
-      "ranking": [
-        "Cirno",
-        "Vinnie 'The Fist' Caruso",
-        "Bernadetta von Varley",
-        "Celine",
-        "Hajime Hinata",
-        "Mishima"
-      ]
+      }
     }
   },
   {
@@ -709,7 +727,7 @@
             {
               "thought": {
                 "name": "Celine",
-                "thoughts": "Ah, quite the refined feline! I must observe her carefully; her sophistication could make her a valuable ally or a dangerous opponent.",
+                "thoughts": "My, my, she certainly carries herself with an air of importance; I wonder if that's genuine confidence or a carefully crafted facade? I'll have to observe her interactions closely to see if she is as refined as she seems to be.",
                 "intent": "Neutral"
               },
               "time": {
@@ -725,8 +743,8 @@
             {
               "thought": {
                 "name": "Cirno",
-                "thoughts": "Oh my, she is certainly… enthusiastic. I should play along with her boasting for now, she may become a useful ally later on.",
-                "intent": "Like"
+                "thoughts": "Such an eccentric little one. I must remember to be cautious and observe her interactions to ensure she isn't a hidden threat, chuckledly enough.",
+                "intent": "Neutral"
               },
               "time": {
                 "round": 0,
@@ -741,8 +759,8 @@
             {
               "thought": {
                 "name": "Vinnie 'The Fist' Caruso",
-                "thoughts": "Hmm, Vinnie seems like the type who is more interested in action than words, I should try to align myself with him, maybe his actions will speak louder than mine. I must be cautious though, he could be trouble.",
-                "intent": "Ally"
+                "thoughts": "Vinnie certainly seems like a character, perhaps a bit too eager to assert himself. I should keep a close eye on his interactions; his direct approach could make him a valuable ally or a dangerous liability.",
+                "intent": "Neutral"
               },
               "time": {
                 "round": 0,
@@ -757,8 +775,8 @@
             {
               "thought": {
                 "name": "Hajime Hinata",
-                "thoughts": "Ah, a sensible young man who seems grounded. I should keep an eye on him; he might be a good ally to have, but I wonder if his skepticism will make him too rigid to work with.",
-                "intent": "Ally"
+                "thoughts": "Hajime seems like a grounded individual, perhaps a bit skeptical; I should be cautious not to be too eccentric around him initially. His desire to 'keep heads on straight' might make him a good ally if chaos ensues, but I'll need to gauge his tolerance for unconventional approaches.",
+                "intent": "Neutral"
               },
               "time": {
                 "round": 0,
@@ -773,8 +791,8 @@
             {
               "thought": {
                 "name": "Bernadetta von Varley",
-                "thoughts": "Hmm, she seems rather timid and introverted; perhaps I can use my gentle encouragement to gain her trust while ensuring she doesn't feel threatened by my presence. I should be cautious and approach her slowly.",
-                "intent": "Ally"
+                "thoughts": "The poor girl seems terribly frightened; I must remember to maintain a safe distance so as not to spook her and potentially make her an easy target for others. I wonder what brought her to this game, perhaps she seeks to overcome her fears?",
+                "intent": "Neutral"
               },
               "time": {
                 "round": 0,
@@ -789,7 +807,7 @@
             {
               "thought": {
                 "name": "Gendo Ikari",
-                "thoughts": "That man certainly exudes power and confidence, but his open declaration of intent might make him a target; I should observe him carefully to see if his actions match his words, and perhaps he could be a useful, if dangerous, ally.",
+                "thoughts": "Oh my, that man certainly has a commanding presence; I wonder what he's hiding behind that stern face. I should be extra cautious around him and observe his actions closely while appearing agreeable.",
                 "intent": "Neutral"
               },
               "time": {
@@ -800,15 +818,7 @@
           ],
           "their_thoughts": {}
         }
-      },
-      "ranking": [
-        "Vinnie 'The Fist' Caruso",
-        "Hajime Hinata",
-        "Bernadetta von Varley",
-        "Cirno",
-        "Celine",
-        "Gendo Ikari"
-      ]
+      }
     }
   }
 ]

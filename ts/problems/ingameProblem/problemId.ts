@@ -2,7 +2,6 @@ interface Problem {
   problemid_priority: number;
   individual_priority: number;
   id: ProblemID;
-  // a solution function that needs to be called to solve it?
   // a solution type. do you just need to change your opinion? send a message? make and execute a plan?
 }
 

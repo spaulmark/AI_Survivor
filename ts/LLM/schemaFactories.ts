@@ -8,30 +8,36 @@ import {
 import { Thought } from "../model/thought";
 import { isThought } from "../model/thought";
 import { validIntents } from "../model/Intent";
+import { shuffle } from "../utils";
 
 export function getDecisionsWithReasoning(
-  choices: string[] | Thought[],
+  _choices: string[] | Thought[],
   howManytoChoose: number
 ): Schema {
   let finalChoices: string[];
 
-  if (isThought(choices)) {
-    finalChoices = choices.map((x: Thought) => x.name);
+  if (isThought(_choices)) {
+    finalChoices = _choices.map((x: Thought) => x.name);
   } else {
-    finalChoices = choices;
+    finalChoices = _choices;
   }
+  const choices = shuffle(finalChoices);
+
+  const items: any = {
+    type: SchemaType.OBJECT,
+    properties: {
+      decision: { type: SchemaType.STRING, enum: choices },
+      reasoning: { type: SchemaType.STRING },
+    },
+    required: ["reasoning", "decision"],
+    propertyOrdering: ["reasoning", "decision"],
+  };
 
   const schema: ArraySchema = {
     type: SchemaType.ARRAY,
     minItems: howManytoChoose,
     maxItems: howManytoChoose,
-    items: {
-      type: SchemaType.OBJECT,
-      properties: {
-        decision: { type: SchemaType.STRING, enum: finalChoices },
-        reasoning: { type: SchemaType.STRING },
-      },
-    },
+    items,
   };
   return schema;
 }

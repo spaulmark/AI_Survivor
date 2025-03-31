@@ -83,6 +83,7 @@ async function main() {
       hero.brain.ranking = [];
     }
     if (hero.brain.ranking.length === 0) {
+      console.log(`Creating intial rankings for ${hero.name}`);
       const result = await sortArrayWithLLM(
         getAllCurrentThoughts(hero.brain.model),
         breakFirstImpressionTies(getPrivateInformation(hero))

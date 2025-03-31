@@ -6,6 +6,29 @@ export async function fetchData(
   prompt: string,
   schema: Schema
 ): Promise<string> {
+  const retries = 10;
+  let delayMs = 1000;
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return await _fetchData(prompt, schema);
+    } catch (error) {
+      console.error(`Attempt ${attempt}/${retries} failed:`, error);
+      if (attempt < retries) {
+        await new Promise((resolve) => setTimeout(resolve, delayMs));
+        delayMs *= 2;
+        console.warn(`Delay increased to ${delayMs}`);
+      } else {
+        throw new Error("Function failed after maximum retries");
+      }
+    }
+  }
+  throw new Error("Unreachable code");
+}
+
+export async function _fetchData(
+  prompt: string,
+  schema: Schema
+): Promise<string> {
   const now = new Date();
   const minutes = String(now.getMinutes()).padStart(2, "0");
   const seconds = String(now.getSeconds()).padStart(2, "0");
