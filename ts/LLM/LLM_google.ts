@@ -1,8 +1,4 @@
-import {
-  GoogleGenerativeAI,
-  GoogleGenerativeAIFetchError,
-  Schema,
-} from "@google/generative-ai";
+import { GoogleGenerativeAI, Schema } from "@google/generative-ai";
 
 let i = 0;
 
