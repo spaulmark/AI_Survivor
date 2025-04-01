@@ -126,7 +126,15 @@
           ],
           "their_thoughts": {}
         }
-      }
+      },
+      "ranking": [
+        "Bernadetta von Varley",
+        "Hajime Hinata",
+        "Gendo Ikari",
+        "Vinnie 'The Fist' Caruso",
+        "Cirno",
+        "Mishima"
+      ]
     }
   },
   {
@@ -234,7 +242,15 @@
           ],
           "their_thoughts": {}
         }
-      }
+      },
+      "ranking": [
+        "Vinnie 'The Fist' Caruso",
+        "Hajime Hinata",
+        "Bernadetta von Varley",
+        "Mishima",
+        "Celine",
+        "Gendo Ikari"
+      ]
     }
   },
   {
@@ -353,7 +369,15 @@
           ],
           "their_thoughts": {}
         }
-      }
+      },
+      "ranking": [
+        "Gendo Ikari",
+        "Celine",
+        "Mishima",
+        "Hajime Hinata",
+        "Bernadetta von Varley",
+        "Cirno"
+      ]
     }
   },
   {
@@ -461,7 +485,15 @@
           ],
           "their_thoughts": {}
         }
-      }
+      },
+      "ranking": [
+        "Mishima",
+        "Bernadetta von Varley",
+        "Gendo Ikari",
+        "Celine",
+        "Vinnie 'The Fist' Caruso",
+        "Cirno"
+      ]
     }
   },
   {
@@ -602,7 +634,15 @@
           ],
           "their_thoughts": {}
         }
-      }
+      },
+      "ranking": [
+        "Hajime Hinata",
+        "Celine",
+        "Gendo Ikari",
+        "Mishima",
+        "Cirno",
+        "Vinnie 'The Fist' Caruso"
+      ]
     }
   },
   {
@@ -710,7 +750,15 @@
           ],
           "their_thoughts": {}
         }
-      }
+      },
+      "ranking": [
+        "Vinnie 'The Fist' Caruso",
+        "Bernadetta von Varley",
+        "Celine",
+        "Hajime Hinata",
+        "Mishima",
+        "Cirno"
+      ]
     }
   },
   {
@@ -818,7 +866,15 @@
           ],
           "their_thoughts": {}
         }
-      }
+      },
+      "ranking": [
+        "Gendo Ikari",
+        "Celine",
+        "Cirno",
+        "Bernadetta von Varley",
+        "Vinnie 'The Fist' Caruso",
+        "Hajime Hinata"
+      ]
     }
   }
 ]
