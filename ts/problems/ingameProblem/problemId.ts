@@ -1,4 +1,4 @@
-interface Problem {
+export interface Problem {
   problemid_priority: number;
   individual_priority: number;
   id: ProblemID;
