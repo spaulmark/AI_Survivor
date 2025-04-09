@@ -2,10 +2,14 @@ export interface Problem {
   problemid_priority: number;
   individual_priority: number;
   id: ProblemID;
-  // a solution type. do you just need to change your opinion? send a message? make and execute a plan?
+  solution: Solution;
 }
 
-let getProblemPriority: { [id: string]: number } = {};
+export interface Solution {
+  [name: string]: string;
+}
+
+const getProblemPriority: { [id: string]: number } = {};
 
 // TODO: Make sure if you like someone, you tell them you like them.(based on personality?)
 // TODO: Don't know first impressions of player
@@ -13,18 +17,20 @@ let getProblemPriority: { [id: string]: number } = {};
 
 export function createProblem(
   id: ProblemID,
-  individual_priority: number
+  individual_priority: number,
+  solution: Solution
 ): Problem {
   return {
     problemid_priority: getProblemPriority[id],
     id,
     individual_priority,
+    solution,
   };
 }
 
 export function initializeProblems() {
   let i = 0;
-  for (const id in problemids) {
+  for (const id of problemids) {
     getProblemPriority[id] = i;
     i++;
   }

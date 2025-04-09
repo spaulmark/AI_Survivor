@@ -12,9 +12,10 @@ import {
   detectOpinionProblems,
   fixOpinionProblems,
 } from "./problems/opinionProblem/opinionProblems";
-import { ProblemQueues } from "./problems/problemQueue";
+import { ProblemQueue } from "./problems/problemQueue";
+import { detectIngameProblems } from "./problems/ingameProblem/detectIngameProblems";
 
-interface CastMember {
+export interface CastMember {
   name: string;
   appearance: string;
   introduction: string;
@@ -29,7 +30,7 @@ interface CastMember {
 
 async function main() {
   initializeProblems();
-  const chatArchive = new ChatArchive();
+  const msgs = new ChatArchive();
 
   const cast = JSON.parse(
     fs.readFileSync("../characters.json", "utf-8")
@@ -57,7 +58,7 @@ async function main() {
       for (const thought of initialThoughts) {
         if (thought.name !== hero.name) {
           newModel[thought.name] = {
-            my_thoughts: [{ thought, time: chatArchive.getCurrentTime() }],
+            my_thoughts: [{ thought, time: msgs.getCurrentTime() }],
             their_thoughts: {},
           };
         }
@@ -75,7 +76,7 @@ async function main() {
       problems,
       character,
       character.brain.model,
-      chatArchive.getCurrentTime()
+      msgs.getCurrentTime()
     );
   }
   // ranking from most liked to least liked is generated.
@@ -93,27 +94,31 @@ async function main() {
     }
   }
 
-  // TODO: if you import the chat archive you might not want to do this.
-  chatArchive.increaseMessageCount(); // do this to set messages from 0 to 1, this distinguishes between pregame and game start.
+  // FIXME: if you import the chat archive you might not want to do this.
+  msgs.increaseMessageCount(); // do this to set messages from 0 to 1, this distinguishes between pregame and game start.
 
-  const problemQueues = new ProblemQueues(cast.map((x) => x.name));
+  const problemQueues: { [id: string]: ProblemQueue } = {};
 
-  const message_budget = 10 * cast.length; // for now you get 10 messages each to figure it out. good luck!
+  for (const hero of cast) {
+    problemQueues[hero.name] = new ProblemQueue(
+      cast.filter((x) => x.name !== hero.name).map((x) => x.name)
+    );
+  }
 
-  // TODO: when solving the "player not contacted" problem, you might need to return "no op" because they actually sent you a message first.
-  // then you move on to the next problem in the queue. interesting stuff
+  const message_budget = 9 * cast.length; // random number
 
-  // Also I think that there should be something like solution batching. It should look at all the solutions to all the problems and then
-  // sort them by like, what needs to be done, and then deal with the highest priority problem but also if they have something else to say
-  // to that person, they should add it in to their message just to be more efficent with their messaging.
+  // TODO: somehow do not detect redundant problems? maybe using a set? idk.
+  // TODO: also need the ability to cancel problems if a plan gets cancelled.
 
-  // TODO: detect problems for the problem queue.
-
-  // TODO: then for all problems where the solution hasn't been computed yet, compute the solution and save it.
-
-  // TODO: take the highest priority problem, figure out who we can send a message to to fix this and also maximize efficency of messaging.
-  // the issue here is some problems might require us to send messages to multiple people. so you can break ties by looking ahead to
-  // other lower priority problems in the problem queue. difficult.
+  // detect problems and add them to the problem queue.
+  for (const hero of cast) {
+    const problems = detectIngameProblems(hero, hero.brain.ranking, msgs); // FIXME: hero.brain.ranking may become innacurate after tribeswaps.
+    console.log(problems);
+    for (const problem of problems) {
+      problemQueues[hero.name].addProblem(problem);
+    }
+  }
+  // TODO: send a message to solve the highest priority problem.
 
   // final state of the game when the program exits. TODO: may want to dump this and chat history on rate limit crash.
   fs.writeFileSync(
