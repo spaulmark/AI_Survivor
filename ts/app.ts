@@ -113,7 +113,6 @@ async function main() {
   // detect problems and add them to the problem queue.
   for (const hero of cast) {
     const problems = detectIngameProblems(hero, hero.brain.ranking, msgs); // FIXME: hero.brain.ranking may become innacurate after tribeswaps.
-    console.log(problems);
     for (const problem of problems) {
       problemQueues[hero.name].addProblem(problem);
     }
