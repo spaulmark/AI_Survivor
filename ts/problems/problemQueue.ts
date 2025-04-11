@@ -31,11 +31,11 @@ export class ProblemQueue {
   }
 
   // find the highest priority, return their list of problems, then clear their queue.
-  public pop() {
+  public pop(): { name: string; msgsToSend: string[] } {
     let currentHighestPriority: number = -2;
     let othersFromHighestPriority: number[] = [];
     let result: string[] = [];
-    let currentHighestName: string;
+    let currentHighestName: string = "";
     for (const [name, queue] of Object.entries(this.queues)) {
       if (queue.highestPriority > currentHighestPriority) {
         // update highest priority
@@ -55,8 +55,8 @@ export class ProblemQueue {
         }
       }
     }
-    this.clearQueue(currentHighestName!);
-    return result;
+    this.clearQueue(currentHighestName);
+    return { name: currentHighestName, msgsToSend: result };
   }
 
   public clearQueue(name: string) {

@@ -7,7 +7,7 @@ import { Intent, validIntents } from "./model/Intent";
 import { fetchData } from "./LLM/LLM_google";
 import { retry3times } from "./LLM/retry3times";
 import { firstImpressionsSchema, intentSchema } from "./LLM/schemaFactories";
-import { introduceHero, speakAs as speakAs } from "./model/promptSegments";
+import { introduceHero, thinkAs as thinkAs } from "./model/promptSegments";
 
 export const intentionDefs: string = `Here are the possible opinions you can have about other players:
 Ally - This character seems like someone I want to try building a game relationship/alliance with.
@@ -65,7 +65,7 @@ export async function generateDisjointFirstImpressions(
     const prompt = `${introduceHero(hero)}
     Give a short 1-2 sentence first impression the following character in the context of ${
       hero.name
-    }'s initial goal. ${speakAs(hero)}
+    }'s initial goal. ${thinkAs(hero)}
     ${JSON.stringify(other, null, 2)}
     `;
     let data;

@@ -9,7 +9,7 @@ import {
 import {
   introduceHero,
   defineDecisionWithReasoning,
-  speakAs,
+  thinkAs,
 } from "../../model/promptSegments";
 import { Thought } from "../../model/thought";
 
@@ -43,7 +43,7 @@ export async function fixDislikesGeqMajority(
   Options:
   ${JSON.stringify(negativeThoughts, null, 2)}
   
-${defineDecisionWithReasoning} ${speakAs(hero)}
+${defineDecisionWithReasoning} ${thinkAs(hero)}
   `;
 
     const raw_result: string = await fetchData(

@@ -1,5 +1,5 @@
 import { getPrivateInformation, PrivateInformation } from "../model/character";
-import { speakAs } from "../model/promptSegments";
+import { thinkAs } from "../model/promptSegments";
 import { fetchData } from "./LLM_google";
 import { BasicResponse, basicResponseSchema } from "./schemaFactories";
 
@@ -12,7 +12,7 @@ export async function translateToOwnWords(
     If ${
       hero.name
     } was thinking "${message}", how would they say it in their own words?
-    ${speakAs(hero)} 
+    ${thinkAs(hero)} 
     `;
 
   const result = JSON.parse(

@@ -12,5 +12,5 @@
 // Tell/Ask what somebody else thinks of another player
 
 export function greetPlayer(villain: string) {
-  return `You are speaking with ${villain} for the first time, greet them however you see fit.`;
+  return `(Greet ${villain} however I see fit)`;
 }

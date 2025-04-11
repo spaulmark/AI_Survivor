@@ -18,6 +18,16 @@ export function getPrivateInformation(
     initialGoal: character.initialGoal,
   };
 }
+
+export function getPublicInformation(
+  character: PublicInformation
+): PublicInformation {
+  return {
+    name: character.name,
+    appearance: character.appearance,
+  };
+}
+
 export interface DecisionWithReasoning {
   decision: string;
   reasoning: string;

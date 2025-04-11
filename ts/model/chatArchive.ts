@@ -3,7 +3,7 @@ export interface Message {
   to: string;
   text: string;
   time: Time;
-  // TODO: maybe an additional field for special symbols?
+  // TODO: maybe an additional field for special JSON symbols?
 }
 
 export interface Time {

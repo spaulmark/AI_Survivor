@@ -9,7 +9,7 @@ import {
 import {
   introduceHero,
   defineDecisionWithReasoning,
-  speakAs,
+  thinkAs,
 } from "../../model/promptSegments";
 import { Thought } from "../../model/thought";
 
@@ -30,7 +30,7 @@ You currently Like or Ally everyone remaining in the game, but you need to pick 
 Options:
 ${JSON.stringify(thoughts, null, 2)}
 
-${defineDecisionWithReasoning} ${speakAs(hero)}
+${defineDecisionWithReasoning} ${thinkAs(hero)}
 `;
 
   const result: DecisionWithReasoning = JSON.parse(

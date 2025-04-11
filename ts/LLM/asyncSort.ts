@@ -6,7 +6,7 @@ import { Intent, intentToNumber } from "../model/Intent";
 import {
   defineDecisionWithReasoning,
   introduceHero,
-  speakAs,
+  thinkAs,
 } from "../model/promptSegments";
 import { shuffle } from "../utils";
 
@@ -66,7 +66,7 @@ export function breakFirstImpressionTies(
     Given their private thoughts about each character, which of these 2 characters does ${
       hero.name
     } have a better impression of? Even if they seem equal, you must find something to justify one over the other.
-     ${speakAs(hero)}
+     ${thinkAs(hero)}
     ${shuffle([JSON.stringify(t1), JSON.stringify(t2)])}
     ${defineDecisionWithReasoning}`;
     const choice = JSON.parse(
