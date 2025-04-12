@@ -139,9 +139,9 @@ async function main() {
     }
   }
 
+  // send a message to solve the highest priority problem,
+  // along with anything else you wanted to say to that player.
   for (const hero of Object.values(cast)) {
-    // send a message to solve the highest priority problem,
-    // along with anything else you wanted to say to that player.
     const msgInstructions = problemQueues[hero.name].pop();
     const villain = msgInstructions.name;
     const message = await generateMessage(
@@ -160,6 +160,7 @@ async function main() {
       time: msgs.getCurrentTime(),
     });
   }
+  // TODO: make it loop?
 
   // final state of the game when the program exits. TODO: may want to dump this and chat history on rate limit crash.
   fs.writeFileSync(

@@ -19,13 +19,12 @@ export async function generateMessage(
   messageHistory: Message[],
   additionalContext?: string
 ) {
-  // TODO: What does hero think of the person they are talking to, do they trust them, etc.
-  // this should be included in the prompt.
+  // TODO: add the trust level here later if its a good idea to do so
 
   // TODO: pull relevant context for thoughts for other characters inline.
 
   const prompt = `${introduceHero(hero)}
-  ${hero.name} is going to send a private message to ${villain.name}:
+  ${hero.name} is currently speaking privately with ${villain.name}:
   ${introduceVillain(villain)}
   ${hero.name} currently has the following private thoughts about ${
     villain.name
