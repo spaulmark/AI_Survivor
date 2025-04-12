@@ -1,5 +1,5 @@
 import { greetPlayer } from "../../messages/messageSegments";
-import { ChatArchive } from "../../model/chatArchive";
+import { ChatArchive } from "../../messages/chatArchive";
 import { createProblem, Problem } from "./problemId";
 
 export function detectPlayerNotContacted(

@@ -3,7 +3,7 @@ import {
   PrivateInformation,
   getPrivateInformation,
 } from "../../model/character";
-import { Time } from "../../model/chatArchive";
+import { Time } from "../../messages/chatArchive";
 import {
   Thought,
   PlayerModel,

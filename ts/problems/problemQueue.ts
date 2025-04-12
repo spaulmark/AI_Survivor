@@ -17,8 +17,8 @@ export class ProblemQueue {
   }
 
   public addProblem(problem: Problem) {
-    const priority =
-      problem.problemid_priority * 10000 + problem.problemid_priority;
+    let priority =
+      problem.problemid_priority * 10000 + problem.individual_priority;
     for (const [personToMessage, messageToSend] of Object.entries(
       problem.solution
     )) {

@@ -1,7 +1,7 @@
 import { fetchData } from "../LLM/LLM_google";
 import { basicResponseSchema } from "../LLM/schemaFactories";
 import { PrivateInformation, PublicInformation } from "../model/character";
-import { Message } from "../model/chatArchive";
+import { Message } from "./chatArchive";
 import {
   introduceHero,
   introduceManyOthers,

@@ -1,5 +1,5 @@
 import { Intent } from "./Intent";
-import { Time } from "./chatArchive";
+import { Time } from "../messages/chatArchive";
 
 export function isThought(x: Thought[] | string[]): x is Thought[] {
   return typeof x[0] === "object";

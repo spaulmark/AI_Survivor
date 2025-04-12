@@ -4,7 +4,7 @@ import { getPrivateInformation, getPublicInformation } from "./model/character";
 import { getAllCurrentThoughts, PlayerModel } from "./model/thought";
 import { generateDisjointFirstImpressions } from "./firstImpressions";
 import { breakFirstImpressionTies, sortArrayWithLLM } from "./LLM/asyncSort";
-import { ChatArchive } from "./model/chatArchive";
+import { ChatArchive } from "./messages/chatArchive";
 import { initializeProblems } from "./problems/ingameProblem/problemId";
 import {
   OpinionProblem,
@@ -138,11 +138,11 @@ async function main() {
       problemQueues[hero.name].addProblem(problem);
     }
   }
-  // TODO: send a message to solve the highest priority problem.
 
   for (const hero of Object.values(cast)) {
-    // send a message
-    const msgInstructions = problemQueues[hero.name].pop(); // TODO: this is wrong lol, everyone is messaging the first one in the list.
+    // send a message to solve the highest priority problem,
+    // along with anything else you wanted to say to that player.
+    const msgInstructions = problemQueues[hero.name].pop();
     const villain = msgInstructions.name;
     const message = await generateMessage(
       hero,
@@ -152,7 +152,13 @@ async function main() {
       [],
       msgs.getChatlog(hero.name, villain)
     );
-    console.log(`${hero.name} -> ${villain} | `, message);
+    console.log(`${hero.name} -> ${villain} |`, message);
+    msgs.addMessage({
+      from: hero.name,
+      to: villain,
+      text: message,
+      time: msgs.getCurrentTime(),
+    });
   }
 
   // final state of the game when the program exits. TODO: may want to dump this and chat history on rate limit crash.

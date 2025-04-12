@@ -1,5 +1,5 @@
 import { CastMember } from "../../app";
-import { ChatArchive } from "../../model/chatArchive";
+import { ChatArchive } from "../../messages/chatArchive";
 import { detectPlayerNotContacted } from "./playerNotContacted";
 import { Problem } from "./problemId";
 
