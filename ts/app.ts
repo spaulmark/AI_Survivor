@@ -114,10 +114,9 @@ async function main() {
   }
 
   // FIXME: if you import the chat archive you might not want to do this.
-  msgs.increaseMessageCount(); // do this to set messages from 0 to 1, this distinguishes between pregame and game start.
 
+  // initialize the problem queues.
   const problemQueues: { [id: string]: ProblemQueue } = {};
-
   for (const hero of Object.values(cast)) {
     problemQueues[hero.name] = new ProblemQueue(
       Object.values(cast)
@@ -126,8 +125,9 @@ async function main() {
     );
   }
 
-  const message_budget = 9 * Object.values(cast).length; // random number
+  msgs.increaseMessageCount(); // do this to set messages from 0 to 1, this distinguishes between pregame and game start.
 
+  const message_budget = Object.values(cast).length; // for now everyone only gets one message lol.
   // TODO: somehow do not detect redundant problems? maybe using a set? idk.
   // TODO: also need the ability to cancel problems if a plan gets cancelled.
 
@@ -139,34 +139,41 @@ async function main() {
     }
   }
 
-  // send a message to solve the highest priority problem,
-  // along with anything else you wanted to say to that player.
-  for (const hero of Object.values(cast)) {
-    const msgInstructions = problemQueues[hero.name].pop();
-    const villain = msgInstructions.name;
-    const message = await generateMessage(
-      hero,
-      getPublicInformation(cast[villain]),
-      hero.brain.model,
-      msgInstructions.msgsToSend,
-      [],
-      msgs.getChatlog(hero.name, villain)
-    );
-    console.log(`${hero.name} -> ${villain} |`, message);
-    msgs.addMessage({
-      from: hero.name,
-      to: villain,
-      text: message,
-      time: msgs.getCurrentTime(),
-    });
+  while (msgs.getCurrentTime().current_message < message_budget) {
+    // all players get to send a message to solve their highest priority problem,
+    // along with anything else they wanted to say to that player.
+    for (const hero of Object.values(cast)) {
+      const msgInstructions = problemQueues[hero.name].pop();
+      const villain = msgInstructions.name;
+      const message = await generateMessage(
+        hero,
+        getPublicInformation(cast[villain]),
+        hero.brain.model,
+        msgInstructions.msgsToSend,
+        [],
+        msgs.getChatlog(hero.name, villain)
+      );
+      console.log(`${hero.name} -> ${villain} |`, message);
+      msgs.addMessage({
+        from: hero.name,
+        to: villain,
+        text: message,
+        time: msgs.getCurrentTime(),
+      });
+    }
+    msgs.increaseMessageCount();
   }
-  // TODO: make it loop?
 
-  // final state of the game when the program exits. TODO: may want to dump this and chat history on rate limit crash.
+  // final state of the game when the program exits.
+  // TODO: may want to dump this and chat history on rate limit crash.
   fs.writeFileSync(
     "output-characters.json",
     JSON.stringify(cast, null, 2),
     "utf-8"
+  );
+  fs.writeFileSync(
+    "output-chatlogs.json",
+    JSON.stringify(msgs.export(), null, 2)
   );
 }
 
