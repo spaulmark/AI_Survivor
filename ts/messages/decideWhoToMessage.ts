@@ -34,7 +34,6 @@ ${thinkAs(hero)}
 Reply in the format {
     plan: <Your short term plans to get through this round, or your long term plans if applicable.>
     playerToMessage: <The name of the next person you want to message to execute your plans.>
-    nextMessageOutline: <What you will say in your next message to achieve your plans.>
 }`;
   const raw_result = await fetchData(
     prompt,

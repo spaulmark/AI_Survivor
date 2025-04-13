@@ -50,7 +50,8 @@ export function introduceFirstImpressions(
 }
 
 export function explainVotingDeadline(hero: string, deadline: number) {
-  return `Including this message, ${hero} has ${deadline} messages they can send until the next vote occurs. Figure out who you should vote for before this number hits 0, and make sure you're not the one who gets voted out!
+  return `Including this message, ${hero} has ${deadline} messages they can send until the next vote occurs. 
+  Try to get the votes on someone you want gone and protect the people you want to keep about before this number hits 0, or at the very least make sure you're not the one who gets voted out!
 `;
 }
 

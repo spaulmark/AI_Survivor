@@ -47,9 +47,8 @@ export function decideWhoToMessageSchema(msgTargets: string[]): ObjectSchema {
     properties: {
       plan: { type: SchemaType.STRING },
       playerToMessage: { type: SchemaType.STRING, enum: msgTargets },
-      nextMessageOutline: { type: SchemaType.STRING },
     },
-    required: ["plan", "playerToMessage", "nextMessageOutline"],
+    required: ["plan", "playerToMessage"],
   };
   return schema;
 }
