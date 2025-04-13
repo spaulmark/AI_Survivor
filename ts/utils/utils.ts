@@ -1,3 +1,5 @@
+import { Cast } from "../model/cast";
+
 export function sleep(ms: number) {
   console.log(`Sleeping ${ms}ms`);
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -10,4 +12,10 @@ export function shuffle<T>(array: T[]): T[] {
     [result[i], result[j]] = [result[j], result[i]];
   }
   return result;
+}
+export function exclude(cast: Cast, _exclusions: { name: string }[]) {
+  const exclusions = new Set(_exclusions.map((x) => x.name));
+  return Object.values(cast)
+    .filter((x) => !exclusions.has(x.name))
+    .map((x) => x.name);
 }

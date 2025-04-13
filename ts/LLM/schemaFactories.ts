@@ -8,7 +8,7 @@ import {
 import { Thought } from "../model/thought";
 import { isThought } from "../model/thought";
 import { validIntents } from "../model/Intent";
-import { shuffle } from "../utils";
+import { shuffle } from "../utils/utils";
 
 export function getDecisionsWithReasoning(
   _choices: string[] | Thought[],
@@ -38,6 +38,18 @@ export function getDecisionsWithReasoning(
     minItems: howManytoChoose,
     maxItems: howManytoChoose,
     items,
+  };
+  return schema;
+}
+export function decideWhoToMessageSchema(msgTargets: string[]): ObjectSchema {
+  const schema: ObjectSchema = {
+    type: SchemaType.OBJECT,
+    properties: {
+      plan: { type: SchemaType.STRING },
+      playerToMessage: { type: SchemaType.STRING, enum: msgTargets },
+      nextMessageOutline: { type: SchemaType.STRING },
+    },
+    required: ["plan", "playerToMessage", "nextMessageOutline"],
   };
   return schema;
 }

@@ -8,7 +8,7 @@ import {
   introduceHero,
   thinkAs,
 } from "../model/promptSegments";
-import { shuffle } from "../utils";
+import { shuffle } from "../utils/utils";
 
 export async function sortArrayWithLLM(
   arr: Thought[],

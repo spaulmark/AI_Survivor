@@ -1,4 +1,4 @@
-import { sleep } from "../utils";
+import { sleep } from "../utils/utils";
 
 export async function retry3times(
   func: () => any,

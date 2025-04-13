@@ -1,9 +1,11 @@
+import { Message } from "../messages/chatArchive";
 import {
   getPrivateInformation,
   getPublicInformation,
   PrivateInformation,
   PublicInformation,
 } from "./character";
+import { getAllCurrentThoughts, PlayerModel } from "./thought";
 
 export function thinkAs(hero: { name: string }): string {
   return `Speak in first person the words that ${hero.name} would be thinking in their head.`;
@@ -33,4 +35,41 @@ export function introduceVillain(villain: PublicInformation): string {
   return `${villain.name} is another player in the game: ${JSON.stringify(
     getPublicInformation(villain)
   )}`;
+}
+
+// TODO: maybe not "first impressions" once we add periodic reflection
+export function introduceFirstImpressions(
+  hero: PrivateInformation,
+  model: PlayerModel
+) {
+  `${
+    hero.name
+  } has the following private first impressions about the other players in the game (which they may or may not want to keep private): ${JSON.stringify(
+    getAllCurrentThoughts(model)
+  )}`;
+}
+
+export function explainVotingDeadline(hero: string, deadline: number) {
+  return `Including this message, ${hero} has ${deadline} messages they can send until the next vote occurs. Figure out who you should vote for before this number hits 0, and make sure you're not the one who gets voted out!
+`;
+}
+
+export function textifyMessageHistory(messages: Message[]): string {
+  if (messages.length === 0) return "";
+  let result = `<Begin Message History of ${messages[0].to} and ${messages[0].from}>\n`;
+  for (const message of messages) {
+    result += `<${message.from} to ${message.to}>: ${message.text}\n`;
+  }
+  result += `<End Message History of ${messages[0].to} and ${messages[0].from}>\n`;
+  return result;
+}
+
+export function textifyMessageHistories(input: {
+  [name: string]: Message[];
+}): string {
+  let extendedMessageHistory = "";
+  for (const msgs of Object.values(input)) {
+    extendedMessageHistory += textifyMessageHistory(msgs);
+  }
+  return extendedMessageHistory;
 }

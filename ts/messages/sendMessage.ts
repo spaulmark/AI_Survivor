@@ -2,8 +2,15 @@ import { fetchData } from "../LLM/LLM_google";
 import { basicResponseSchema } from "../LLM/schemaFactories";
 import { PrivateInformation, PublicInformation } from "../model/character";
 import { Message } from "./chatArchive";
-import { introduceHero, speakAs } from "../model/promptSegments";
-import { getAllCurrentThoughts, PlayerModel } from "../model/thought";
+import {
+  explainVotingDeadline,
+  introduceFirstImpressions,
+  introduceHero,
+  speakAs,
+  textifyMessageHistories,
+  textifyMessageHistory,
+} from "../model/promptSegments";
+import { PlayerModel } from "../model/thought";
 
 export async function generateMessage(
   hero: PrivateInformation,
@@ -14,17 +21,10 @@ export async function generateMessage(
   othersMessageHistory: { [name: string]: Message[] },
   messagesUntilVote: number
 ) {
-  let extendedMessageHistory = "";
-  for (const msgs of Object.values(othersMessageHistory)) {
-    extendedMessageHistory += textifyMessageHistory(msgs);
-  }
-
-  const allCurrentThoughts = JSON.stringify(getAllCurrentThoughts(heroModel));
+  const extendedMessageHistory = textifyMessageHistories(othersMessageHistory);
   const prompt = `${introduceHero(hero)}
 ${hero.name} is currently speaking privately with ${villain.name}.
-${
-  hero.name
-} has the following private first impressions about the other players in the game (which they may or may not want to keep private): ${allCurrentThoughts}
+${introduceFirstImpressions(hero, heroModel)}
 ${
   extendedMessageHistory
     ? `These are all of ${hero.name}'s other private conversations so far:
@@ -39,21 +39,8 @@ ${
       ? `, that fulfills all of their requirements: ${thingsToSay}`
       : "."
   }
-Including this message, ${
-    hero.name
-  } has ${messagesUntilVote} messages they can send until the next vote occurs. Figure out who you're voting for before this number hits 0, and make sure you're not the one who gets voted out!
-  ${speakAs(hero)}
-  `;
+${explainVotingDeadline(hero.name, messagesUntilVote)}
+${speakAs(hero)}`;
   const result = await fetchData(prompt, basicResponseSchema);
   return JSON.parse(result)["response"];
-}
-
-function textifyMessageHistory(messages: Message[]): string {
-  if (messages.length === 0) return "";
-  let result = `<Begin Message History of ${messages[0].to} and ${messages[0].from}>\n`;
-  for (const message of messages) {
-    result += `<${message.from} to ${message.to}>: ${message.text}\n`;
-  }
-  result += `<End Message History of ${messages[0].to} and ${messages[0].from}>\n`;
-  return result;
 }

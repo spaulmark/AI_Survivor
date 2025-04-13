@@ -15,6 +15,8 @@ import { ProblemQueue } from "./problems/problemQueue";
 import { detectIngameProblems } from "./problems/ingameProblem/detectIngameProblems";
 import { generateMessage } from "./messages/sendMessage";
 import { Cast } from "./model/cast";
+import { exclude } from "./utils/utils";
+import { decideWhoToMessage } from "./messages/decideWhoToMessage";
 
 async function main() {
   initializeProblems();
@@ -96,7 +98,7 @@ async function main() {
 
   msgs.increaseMessageCount(); // do this to set messages from 0 to 1, this distinguishes between pregame and game start.
 
-  const message_budget = Object.values(cast).length; // TODO: give people more messages
+  const message_budget = 30;
 
   // detect problems and add them to the problem queue.
   for (const hero of Object.values(cast)) {
@@ -114,9 +116,9 @@ async function main() {
     const messagesUntilVote =
       message_budget - msgs.getCurrentTime().current_message;
     for (const hero of Object.values(cast)) {
-      // TODO: check if empty, if empty go full auto.
-      const msgInstructions = problemQueues[hero.name].pop();
-      // TODO: for full auto mode, an extra step where the AI decides which conversation they want to continue and what they want to say
+      const msgInstructions = problemQueues[hero.name].isEmpty()
+        ? await decideWhoToMessage(hero, cast, messagesUntilVote, msgs)
+        : problemQueues[hero.name].pop();
       const villain = msgInstructions.name;
 
       const otherMessages = msgs.getManyChatlogs(
@@ -159,10 +161,3 @@ async function main() {
 
 dotenv.config();
 main();
-
-function exclude(cast: Cast, _exclusions: { name: string }[]) {
-  const exclusions = new Set(_exclusions.map((x) => x.name));
-  return Object.values(cast)
-    .filter((x) => !exclusions.has(x.name))
-    .map((x) => x.name);
-}

@@ -7,7 +7,7 @@ export async function fetchData(
   schema: Schema
 ): Promise<string> {
   const retries = 10;
-  let delayMs = 1000;
+  let delayMs = 4000;
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       return await _fetchData(prompt, schema);
