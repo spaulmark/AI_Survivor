@@ -18,17 +18,26 @@ import { Cast } from "./model/cast";
 import { exclude } from "./utils/utils";
 import { decideWhoToMessage } from "./messages/decideWhoToMessage";
 
+const characters_json_path = "../characters.json";
+const input_chatlogs_path = "../input-chatlogs.json";
+
 async function main() {
   initializeProblems();
   const cast = JSON.parse(
-    fs.readFileSync("../characters.json", "utf-8")
+    fs.readFileSync(characters_json_path, "utf-8")
   ) as Cast;
   const msgs = new ChatArchive();
 
+  const contents = fs.readFileSync(input_chatlogs_path, "utf8");
+  if (fs.existsSync(input_chatlogs_path)) {
+    msgs.import(JSON.parse(contents));
+  }
+
   // just put everything in a try catch bro it prevents errors
   try {
-    // TODO: time to import the cast to save time.
     // TODO: big problem, there was a hallucination about who is in the game. we need to be very clear who is in the game.
+    // TODO: the game is straight up crashing. fix that
+    // TODO: you cannot vote for yourself, its against the rules
     // ^^^^ this has happened twice now
 
     for (const [name, _] of Object.entries(cast)) {

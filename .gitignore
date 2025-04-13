@@ -11,3 +11,7 @@ other_jsons/
 ts/output-characters.json
 
 ts/output-chatlogs.json
+
+ts/input-chatlogs.json
+
+input-chatlogs.json
