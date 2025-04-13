@@ -24,7 +24,7 @@ export async function generateMessage(
 ${hero.name} is currently speaking privately with ${villain.name}.
 ${
   hero.name
-} currently has the following private thoughts about the other players in the game (which they may or may not want to keep private): ${allCurrentThoughts}
+} has the following private first impressions about the other players in the game (which they may or may not want to keep private): ${allCurrentThoughts}
 ${
   extendedMessageHistory
     ? `These are all of ${hero.name}'s other private conversations so far:

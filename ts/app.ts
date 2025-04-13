@@ -142,7 +142,6 @@ async function main() {
   while (msgs.getCurrentTime().current_message < message_budget) {
     // all players get to send a message to solve their highest priority problem,
     // along with anything else they wanted to say to that player.
-
     const messagesUntilVote =
       message_budget - msgs.getCurrentTime().current_message;
     for (const hero of Object.values(cast)) {
