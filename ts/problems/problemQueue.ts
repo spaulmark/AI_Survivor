@@ -1,6 +1,12 @@
 import { Problem } from "./ingameProblem/problemId";
 
 // A problem queue for an individual player.
+
+export interface ProtoMessage {
+  name: string;
+  msgsToSend: string[];
+}
+
 export class ProblemQueue {
   private queues: {
     [id: string]: {
@@ -38,7 +44,7 @@ export class ProblemQueue {
   }
 
   // find the highest priority, return their list of problems, then clear their queue.
-  public pop(): { name: string; msgsToSend: string[] } {
+  public pop(): ProtoMessage {
     let currentHighestPriority: number = -2;
     let othersFromHighestPriority: number[] = [];
     let result: string[] = [];

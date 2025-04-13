@@ -1,4 +1,4 @@
-import { CastMember } from "../../app";
+import { CastMember } from "../../model/cast";
 import { ChatArchive } from "../../messages/chatArchive";
 import { detectPlayerNotContacted } from "./playerNotContacted";
 import { Problem } from "./problemId";

@@ -41,7 +41,7 @@ ${
   }
 Including this message, ${
     hero.name
-  } has ${messagesUntilVote} messages they can send until the next vote occurs.
+  } has ${messagesUntilVote} messages they can send until the next vote occurs. Figure out who you're voting for before this number hits 0, and make sure you're not the one who gets voted out!
   ${speakAs(hero)}
   `;
   const result = await fetchData(prompt, basicResponseSchema);

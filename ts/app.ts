@@ -14,38 +14,7 @@ import {
 import { ProblemQueue } from "./problems/problemQueue";
 import { detectIngameProblems } from "./problems/ingameProblem/detectIngameProblems";
 import { generateMessage } from "./messages/sendMessage";
-
-export interface CastMember {
-  name: string;
-  appearance: string;
-  introduction: string;
-  personality: string;
-  strategy: string;
-  initialGoal: string;
-  brain: {
-    ranking: string[];
-    model: PlayerModel;
-  };
-}
-
-interface Cast {
-  [name: string]: CastMember;
-}
-
-// a nice function to have for myself for backwards compatibility,
-// but not used in the actual game.
-function fixCastFormat(cast: CastMember[]) {
-  const result: any = {};
-  for (const c of cast) {
-    result[c.name] = c;
-  }
-
-  fs.writeFileSync(
-    "fixed-characters.json",
-    JSON.stringify(cast, null, 2),
-    "utf-8"
-  );
-}
+import { Cast } from "./model/cast";
 
 async function main() {
   initializeProblems();
@@ -127,7 +96,7 @@ async function main() {
 
   msgs.increaseMessageCount(); // do this to set messages from 0 to 1, this distinguishes between pregame and game start.
 
-  const message_budget = Object.values(cast).length; // for now everyone only gets one message lol.
+  const message_budget = Object.values(cast).length; // TODO: give people more messages
 
   // detect problems and add them to the problem queue.
   for (const hero of Object.values(cast)) {
