@@ -34,14 +34,3 @@ export function introduceVillain(villain: PublicInformation): string {
     getPublicInformation(villain)
   )}`;
 }
-
-export function introduceManyOthers(others: PublicInformation[]): string {
-  if (others.length === 0) return "";
-  let prompt = `Here are the other relevant players for this scenario:
-  `;
-  for (const other of others) {
-    prompt += `${JSON.stringify(getPublicInformation(other))}
-  `;
-  }
-  return prompt;
-}

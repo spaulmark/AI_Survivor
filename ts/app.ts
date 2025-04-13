@@ -28,6 +28,10 @@ export interface CastMember {
   };
 }
 
+interface Cast {
+  [name: string]: CastMember;
+}
+
 // a nice function to have for myself for backwards compatibility,
 // but not used in the actual game.
 function fixCastFormat(cast: CastMember[]) {
@@ -47,9 +51,9 @@ async function main() {
   initializeProblems();
   const msgs = new ChatArchive();
 
-  const cast = JSON.parse(fs.readFileSync("../characters.json", "utf-8")) as {
-    [name: string]: CastMember;
-  };
+  const cast = JSON.parse(
+    fs.readFileSync("../characters.json", "utf-8")
+  ) as Cast;
 
   for (const [name, _] of Object.entries(cast)) {
     cast[name].name = name;
@@ -118,18 +122,12 @@ async function main() {
   // initialize the problem queues.
   const problemQueues: { [id: string]: ProblemQueue } = {};
   for (const hero of Object.values(cast)) {
-    problemQueues[hero.name] = new ProblemQueue(
-      Object.values(cast)
-        .filter((x) => x.name !== hero.name)
-        .map((x) => x.name)
-    );
+    problemQueues[hero.name] = new ProblemQueue(exclude(cast, [hero]));
   }
 
   msgs.increaseMessageCount(); // do this to set messages from 0 to 1, this distinguishes between pregame and game start.
 
   const message_budget = Object.values(cast).length; // for now everyone only gets one message lol.
-  // TODO: somehow do not detect redundant problems? maybe using a set? idk.
-  // TODO: also need the ability to cancel problems if a plan gets cancelled.
 
   // detect problems and add them to the problem queue.
   for (const hero of Object.values(cast)) {
@@ -139,19 +137,33 @@ async function main() {
     }
   }
 
+  // TODO: maybe re-rank and reevaluate thoughts periodically so things dont get stale?
+
   while (msgs.getCurrentTime().current_message < message_budget) {
     // all players get to send a message to solve their highest priority problem,
     // along with anything else they wanted to say to that player.
+
+    const messagesUntilVote =
+      message_budget - msgs.getCurrentTime().current_message;
     for (const hero of Object.values(cast)) {
+      // TODO: check if empty, if empty go full auto.
       const msgInstructions = problemQueues[hero.name].pop();
+      // TODO: for full auto mode, an extra step where the AI decides which conversation they want to continue and what they want to say
       const villain = msgInstructions.name;
+
+      const otherMessages = msgs.getManyChatlogs(
+        hero.name,
+        exclude(cast, [hero, msgInstructions])
+      );
+
       const message = await generateMessage(
         hero,
         getPublicInformation(cast[villain]),
         hero.brain.model,
         msgInstructions.msgsToSend,
-        [],
-        msgs.getChatlog(hero.name, villain)
+        msgs.getChatlog(hero.name, villain),
+        otherMessages,
+        messagesUntilVote
       );
       console.log(`${hero.name} -> ${villain} |`, message);
       msgs.addMessage({
@@ -179,3 +191,10 @@ async function main() {
 
 dotenv.config();
 main();
+
+function exclude(cast: Cast, _exclusions: { name: string }[]) {
+  const exclusions = new Set(_exclusions.map((x) => x.name));
+  return Object.values(cast)
+    .filter((x) => !exclusions.has(x.name))
+    .map((x) => x.name);
+}

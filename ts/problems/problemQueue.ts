@@ -16,6 +16,13 @@ export class ProblemQueue {
     }
   }
 
+  public isEmpty(): boolean {
+    for (const q of Object.values(this.queues)) {
+      if (q.msgsToSend.length > 0) return false;
+    }
+    return true;
+  }
+
   public addProblem(problem: Problem) {
     let priority =
       problem.problemid_priority * 10000 + problem.individual_priority;

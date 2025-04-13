@@ -2,56 +2,58 @@ import { fetchData } from "../LLM/LLM_google";
 import { basicResponseSchema } from "../LLM/schemaFactories";
 import { PrivateInformation, PublicInformation } from "../model/character";
 import { Message } from "./chatArchive";
-import {
-  introduceHero,
-  introduceManyOthers,
-  introduceVillain,
-  speakAs,
-} from "../model/promptSegments";
-import { PlayerModel } from "../model/thought";
+import { introduceHero, speakAs } from "../model/promptSegments";
+import { getAllCurrentThoughts, PlayerModel } from "../model/thought";
 
 export async function generateMessage(
   hero: PrivateInformation,
   villain: PublicInformation,
   heroModel: PlayerModel,
   thingsToSay: string[],
-  otherCharacters: PublicInformation[],
-  messageHistory: Message[],
-  additionalContext?: string
+  villainMessageHistory: Message[],
+  othersMessageHistory: { [name: string]: Message[] },
+  messagesUntilVote: number
 ) {
-  // TODO: add the trust level here later if its a good idea to do so
-
-  // TODO: pull relevant context for thoughts for other characters inline.
-
-  const prompt = `${introduceHero(hero)}
-  ${hero.name} is currently speaking privately with ${villain.name}:
-  ${introduceVillain(villain)}
-  ${hero.name} currently has the following private thoughts about ${
-    villain.name
-  } (and depending on what they are, they may want to keep these thoughts private!): ${
-    // this is cursed
-    heroModel[villain.name].my_thoughts.at(-1)!.thought.thoughts
+  let extendedMessageHistory = "";
+  for (const msgs of Object.values(othersMessageHistory)) {
+    extendedMessageHistory += textifyMessageHistory(msgs);
   }
-  ${introduceManyOthers(otherCharacters)}
-  ${textifyMessageHistory(messageHistory)}
-  ${
-    messageHistory.length > 0 ? "Continue" : "Start"
-  } the conversation by writing a message from ${hero.name} to ${
-    villain.name
-  }, that fulfills all of their requirements: ${thingsToSay}
-  ${additionalContext || ""} 
+
+  const allCurrentThoughts = JSON.stringify(getAllCurrentThoughts(heroModel));
+  const prompt = `${introduceHero(hero)}
+${hero.name} is currently speaking privately with ${villain.name}.
+${
+  hero.name
+} currently has the following private thoughts about the other players in the game (which they may or may not want to keep private): ${allCurrentThoughts}
+${
+  extendedMessageHistory
+    ? `These are all of ${hero.name}'s other private conversations so far:
+      ${extendedMessageHistory}`
+    : ""
+}
+${textifyMessageHistory(villainMessageHistory)}
+${
+  villainMessageHistory.length > 0 ? "Continue" : "Start"
+} the conversation by writing a message from ${hero.name} to ${villain.name}${
+    thingsToSay
+      ? `, that fulfills all of their requirements: ${thingsToSay}`
+      : "."
+  }
+Including this message, ${
+    hero.name
+  } has ${messagesUntilVote} messages they can send until the next vote occurs.
   ${speakAs(hero)}
   `;
-
   const result = await fetchData(prompt, basicResponseSchema);
   return JSON.parse(result)["response"];
 }
 
 function textifyMessageHistory(messages: Message[]): string {
   if (messages.length === 0) return "";
-  let result = "";
+  let result = `<Begin Message History of ${messages[0].to} and ${messages[0].from}>\n`;
   for (const message of messages) {
-    result += `${message.from} to ${message.to}: ${message.text}\n`;
+    result += `<${message.from} to ${message.to}>: ${message.text}\n`;
   }
+  result += `<End Message History of ${messages[0].to} and ${messages[0].from}>\n`;
   return result;
 }
