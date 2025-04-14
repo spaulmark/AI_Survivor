@@ -107,8 +107,6 @@ async function main() {
       }
     }
 
-    // FIXME: if you import the chat archive you might not want to do this.
-
     // initialize the problem queues.
     const problemQueues: { [id: string]: ProblemQueue } = {};
     for (const hero of Object.values(cast)) {
@@ -175,7 +173,7 @@ async function main() {
         votes[vote.decision]++;
       }
     }
-    // TODO: tiebreakers. hook it up to the real decision making.
+    // TODO: hook up tiebreakers & make it real
 
     // TODO: eliminate somebody, add infastructure for that, move on to the next round.
   } catch (error) {
