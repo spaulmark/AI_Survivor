@@ -13,8 +13,13 @@ export function shuffle<T>(array: T[]): T[] {
   }
   return result;
 }
-export function exclude(cast: Cast, _exclusions: { name: string }[]) {
-  const exclusions = new Set(_exclusions.map((x) => x.name));
+export function exclude(
+  cast: Cast,
+  _exclusions: { name: string }[] | string[]
+) {
+  const exclusions = Array.isArray(_exclusions)
+    ? new Set(_exclusions as string[])
+    : new Set((_exclusions as { name: string }[]).map((x) => x.name));
   return Object.values(cast)
     .filter((x) => !exclusions.has(x.name))
     .map((x) => x.name);

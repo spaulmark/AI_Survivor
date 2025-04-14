@@ -52,7 +52,7 @@ export function introduceFirstImpressions(
 export function explainVotingDeadline(hero: string, deadline: number) {
   return `Including this message, ${hero} has ${deadline} messages they can send until the next vote occurs. 
   Try to get the votes on someone you want gone and protect the people you want to keep about before this number hits 0, or at the very least make sure you're not the one who gets voted out!
-`;
+  The rules of the game do not allow for someone to vote for themself.`;
 }
 
 export function textifyMessageHistory(messages: Message[]): string {

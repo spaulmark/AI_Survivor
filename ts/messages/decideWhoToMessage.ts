@@ -29,11 +29,11 @@ ${explainVotingDeadline(hero.name, votingDeadline)}
 What is your current plan in the game, and who do you want to message next?
 Here is your list of private 1-on-1 chatlogs with the other players in the game:
 ${textifyMessageHistories(msgs.getManyChatlogs(hero.name, villains))}
-You may want to send a message to someone who is waiting on a reply, rather than messaging someone twice in a row, unless it's important.
+You should prioritize continuing a message chain where you have not sent the most recent message.
 ${thinkAs(hero)}
 Reply in the format {
     plan: <Your short term plans to get through this round, or your long term plans if applicable.>
-    playerToMessage: <The name of the next person you want to message to execute your plans.>
+    name: <The name of the next person you want to message to execute your plans.>
 }`;
   const raw_result = await fetchData(
     prompt,

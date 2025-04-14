@@ -17,32 +17,37 @@ import { generateMessage } from "./messages/sendMessage";
 import { Cast } from "./model/cast";
 import { exclude } from "./utils/utils";
 import { decideWhoToMessage } from "./messages/decideWhoToMessage";
+import { castVote } from "./voting/castVote";
+import { resolveVote, VoteCount as VoteCount } from "./voting/resolveVote";
 
 const characters_json_path = "../characters.json";
 const input_chatlogs_path = "../input-chatlogs.json";
 
 async function main() {
   initializeProblems();
+  // init cast
   const cast = JSON.parse(
     fs.readFileSync(characters_json_path, "utf-8")
   ) as Cast;
+  for (const [name, _] of Object.entries(cast)) {
+    cast[name].name = name;
+  }
+  // init chat archive
   const msgs = new ChatArchive();
-
-  const contents = fs.readFileSync(input_chatlogs_path, "utf8");
   if (fs.existsSync(input_chatlogs_path)) {
+    const contents = fs.readFileSync(input_chatlogs_path, "utf8");
     msgs.import(JSON.parse(contents));
   }
-
   // just put everything in a try catch bro it prevents errors
   try {
     // TODO: big problem, there was a hallucination about who is in the game. we need to be very clear who is in the game.
-    // TODO: the game is straight up crashing. fix that
-    // TODO: you cannot vote for yourself, its against the rules
     // ^^^^ this has happened twice now
 
-    for (const [name, _] of Object.entries(cast)) {
-      cast[name].name = name;
-    }
+    // TODO: also make it so you can't message the same person twice if they haven't sent you a msg and there's no limit
+
+    // TODO: strongly discourage double messaging, and consider an outright ban on triple messaging.
+
+    // TODO: make a failsafe for if there is no one to message you just skip your turn
 
     const publicCast = [];
     // public cast generation
@@ -112,7 +117,7 @@ async function main() {
 
     msgs.getCurrentTime().current_message === 0 && msgs.increaseMessageCount();
 
-    const message_budget = 30; // TODO: make it dynamic later idk.
+    const message_budget = 20; // TODO: make it dynamic later idk.
 
     // detect problems and add them to the problem queue.
     for (const hero of Object.values(cast)) {
@@ -134,7 +139,6 @@ async function main() {
           ? await decideWhoToMessage(hero, cast, messagesUntilVote, msgs)
           : problemQueues[hero.name].pop();
         const villain = msgInstructions.name;
-
         const otherMessages = msgs.getManyChatlogs(
           hero.name,
           exclude(cast, [hero, msgInstructions])
@@ -159,6 +163,21 @@ async function main() {
       }
       msgs.increaseMessageCount();
     }
+
+    // when msg budget is exhausted, everyone casts a vote
+    const votes: VoteCount = {};
+    // TODO: make it a fcn
+    for (const hero of Object.values(cast)) {
+      const vote = await castVote(hero, cast, msgs);
+      if (!votes[vote.decision]) {
+        votes[vote.decision] = 1;
+      } else {
+        votes[vote.decision]++;
+      }
+    }
+    // TODO: tiebreakers. hook it up to the real decision making.
+
+    // TODO: eliminate somebody, add infastructure for that, move on to the next round.
   } catch (error) {
     console.error(error);
     console.error("An unhandled exception caused the program to crash early.");
