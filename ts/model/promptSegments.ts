@@ -41,8 +41,8 @@ export function introduceVillain(villain: PublicInformation): string {
 export function introduceFirstImpressions(
   hero: PrivateInformation,
   model: PlayerModel
-) {
-  `${
+): string {
+  return `${
     hero.name
   } has the following private first impressions about the other players in the game (which they may or may not want to keep private): ${JSON.stringify(
     getAllCurrentThoughts(model)
@@ -74,3 +74,8 @@ export function textifyMessageHistories(input: {
   }
   return extendedMessageHistory;
 }
+
+export const basicVotingInstructions = `The time has come to vote somebody out of the game.
+  Based on your conversations you had in this round and your thoughts on the other players, who will you vote for?`;
+
+export const dontWasteYourVote = `Keep in mind that throwing a random vote is likely to waste your vote and achieve nothing: you should try to vote for someone who you both want eliminated, and believe other players will vote for too.`;

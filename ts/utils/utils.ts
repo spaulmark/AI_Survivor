@@ -15,12 +15,37 @@ export function shuffle<T>(array: T[]): T[] {
 }
 export function exclude(
   cast: Cast,
-  _exclusions: { name: string }[] | string[]
-) {
+  _exclusions: string[] | { name: string }[]
+): string[] {
   const exclusions = Array.isArray(_exclusions)
     ? new Set(_exclusions as string[])
     : new Set((_exclusions as { name: string }[]).map((x) => x.name));
   return Object.values(cast)
     .filter((x) => !exclusions.has(x.name))
     .map((x) => x.name);
+}
+
+export function excludeStrings(
+  cast: string[],
+  _exclusions: string[]
+): string[] {
+  const exclusions = new Set(_exclusions);
+  return cast.filter((x) => !exclusions.has(x));
+}
+
+export function listNames(names: string[]): string {
+  if (names.length === 0) {
+    return "";
+  }
+  if (names.length === 1) {
+    return names[0];
+  }
+  if (names.length === 2) {
+    return names[0] + " and " + names[1];
+  }
+  return (
+    names.slice(0, names.length - 1).join(", ") +
+    ", and " +
+    names[names.length - 1]
+  );
 }

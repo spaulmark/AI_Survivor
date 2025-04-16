@@ -17,8 +17,10 @@ import { generateMessage } from "./messages/sendMessage";
 import { Cast } from "./model/cast";
 import { exclude } from "./utils/utils";
 import { decideWhoToMessage } from "./messages/decideWhoToMessage";
-import { castVote } from "./voting/castVote";
-import { resolveVote, VoteCount as VoteCount } from "./voting/resolveVote";
+import { VotingRecord } from "./voting/voteModel";
+import { resolveVote } from "./voting/resolveVote";
+import { VoteCount as VoteCount, VotingResult } from "./voting/voteModel";
+import { castVotes } from "./voting/castVote";
 
 const characters_json_path = "../characters.json";
 const input_chatlogs_path = "../input-chatlogs.json";
@@ -163,17 +165,15 @@ async function main() {
     }
 
     // when msg budget is exhausted, everyone casts a vote
-    const votes: VoteCount = {};
-    // TODO: make it a fcn
-    for (const hero of Object.values(cast)) {
-      const vote = await castVote(hero, cast, msgs);
-      if (!votes[vote.decision]) {
-        votes[vote.decision] = 1;
-      } else {
-        votes[vote.decision]++;
-      }
-    }
-    // TODO: hook up tiebreakers & make it real
+    const actualVote = await castVotes(cast, msgs, []);
+    console.log("------");
+    const result: VotingResult = await resolveVote(
+      cast,
+      msgs,
+      actualVote.voteCount,
+      [actualVote.votingRecord]
+    );
+    console.log(JSON.stringify(result.voteCounts));
 
     // TODO: eliminate somebody, add infastructure for that, move on to the next round.
   } catch (error) {

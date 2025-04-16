@@ -13,16 +13,38 @@ import {
   textifyMessageHistories,
   thinkAs,
   defineDecisionWithReasoning,
+  basicVotingInstructions,
+  dontWasteYourVote,
 } from "../model/promptSegments";
-import { exclude } from "../utils/utils";
-
-// TODO: explicitly say whether or not the vote can tie based on the number of voters
-// if it can tie then warn them another tie will lead to deadlock
-// if it cannot possibly tie, say that too.
+import { exclude, excludeStrings } from "../utils/utils";
+import { VoteCount, VotingRecord } from "./voteModel";
 
 interface TiebreakerInfo {
-  infotext: string;
-  vote_candidates: string[];
+  infotext: (hero: string) => string;
+  tiedPlayers: string[];
+}
+
+export async function castVotes(
+  cast: Cast,
+  msgs: ChatArchive,
+  _nonVoters: string[],
+  tiebreakerContext?: TiebreakerInfo
+): Promise<{ voteCount: VoteCount; votingRecord: VotingRecord }> {
+  const voteCount: VoteCount = {};
+  const votingRecord: VotingRecord = {};
+  const nonVoters = new Set(_nonVoters);
+  for (const hero of Object.values(cast)) {
+    if (nonVoters.has(hero.name)) continue;
+    const vote = await castVote(hero, cast, msgs, tiebreakerContext);
+    votingRecord[hero.name] = vote.decision;
+    console.log(hero.name, vote);
+    if (!voteCount[vote.decision]) {
+      voteCount[vote.decision] = 1;
+    } else {
+      voteCount[vote.decision]++;
+    }
+  }
+  return { voteCount, votingRecord };
 }
 
 export async function castVote(
@@ -33,23 +55,27 @@ export async function castVote(
 ): Promise<DecisionWithReasoning> {
   const hero = getPrivateInformation(_hero);
   const heroModel = cast[hero.name].brain.model;
-  const villains = exclude(cast, [hero]);
+  const villains = tiebreakerContext
+    ? excludeStrings(tiebreakerContext.tiedPlayers, [hero.name])
+    : exclude(cast, [hero]);
+
+  const extraContextText = tiebreakerContext
+    ? tiebreakerContext.infotext(hero.name)
+    : dontWasteYourVote;
 
   const prompt = `${introduceHero(hero)}
-  The time has come to vote somebody out of the game.
-  Based on your conversations you had in this round and your thoughts on the other players, who will you vote for?
-  Keep in mind that throwing a random vote is likely to waste your vote and achieve nothing: you should try to vote for someone who you both want eliminated, and believe other players will vote for too.
-  ${introduceFirstImpressions(hero, heroModel)}
-  Here is your list of private 1-on-1 chatlogs with the other players in the game:
-  ${textifyMessageHistories(msgs.getManyChatlogs(hero.name, villains))}
-  ${thinkAs(hero)}
-  ${defineDecisionWithReasoning}
+${basicVotingInstructions}
+${extraContextText}
+${introduceFirstImpressions(hero, heroModel)}
+Here is your list of private 1-on-1 chatlogs with the other players in the game:
+${textifyMessageHistories(msgs.getManyChatlogs(hero.name, villains))}
+${thinkAs(hero)}
+${defineDecisionWithReasoning}
   `;
   const raw_result = await fetchData(
     prompt,
     getDecisionsWithReasoning(villains, 1)
   );
-  const result = JSON.parse(raw_result);
-  console.log(hero.name, result);
+  const result = JSON.parse(raw_result)[0];
   return result;
 }
