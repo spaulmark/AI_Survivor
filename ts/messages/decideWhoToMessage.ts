@@ -13,7 +13,6 @@ import { ProtoMessage } from "../problems/problemQueue";
 import { exclude } from "../utils/utils";
 import { ChatArchive } from "./chatArchive";
 
-// TODO: your current history of plans is.... [save and list the plan history]
 export async function decideWhoToMessage(
   _hero: PrivateInformation,
   cast: Cast,
@@ -23,13 +22,20 @@ export async function decideWhoToMessage(
   const hero = getPrivateInformation(_hero);
   const heroModel = cast[hero.name].brain.model;
   const villains = exclude(cast, [hero]);
+  // get all people who you messaged last, then exclude them.
+
+  let messagablePeople = villains.filter(
+    (villain) => msgs.getChatlog(hero.name, villain).at(-1)!.from !== hero.name
+  );
+  messagablePeople.length === 0 ? (messagablePeople = villains) : "no op";
+
   const prompt = `${introduceHero(hero)}
 ${introduceFirstImpressions(hero, heroModel)}
 ${explainVotingDeadline(hero.name, votingDeadline)}
 What is your current plan in the game, and who do you want to message next?
 Here is your list of private 1-on-1 chatlogs with the other players in the game:
 ${textifyMessageHistories(msgs.getManyChatlogs(hero.name, villains))}
-You should prioritize continuing a message chain where you have not sent the most recent message.
+You can choose to send a message to one of the following players: ${messagablePeople}
 ${thinkAs(hero)}
 Reply in the format {
     plan: <Your short term plans to get through this round, or your long term plans if applicable.>
@@ -37,8 +43,9 @@ Reply in the format {
 }`;
   const raw_result = await fetchData(
     prompt,
-    decideWhoToMessageSchema(villains)
+    decideWhoToMessageSchema(messagablePeople)
   );
+
   const result = JSON.parse(raw_result);
   console.log(hero.name, result);
   return result;

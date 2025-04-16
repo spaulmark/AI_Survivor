@@ -11,10 +11,6 @@ export interface Solution {
 
 const getProblemPriority: { [id: string]: number } = {};
 
-// TODO: Make sure if you like someone, you tell them you like them.(based on personality?)
-// TODO: Don't know first impressions of player
-// TODO: Unanswered question from player
-
 export function createProblem(
   id: ProblemID,
   individual_priority: number,

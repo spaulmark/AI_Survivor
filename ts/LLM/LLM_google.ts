@@ -33,7 +33,7 @@ export async function _fetchData(
   const minutes = String(now.getMinutes()).padStart(2, "0");
   const seconds = String(now.getSeconds()).padStart(2, "0");
   const milliseconds = String(now.getMilliseconds()).padStart(3, "0");
-  // console.info(`${minutes}:${seconds}:${milliseconds}, calling fetchData.`);
+  console.info(`${minutes}:${seconds}:${milliseconds}, calling fetchData.`);
   // rate limits aren't real, rate limits can't hurt me
   const google_keys = [
     process.env.GOOGLE_KEY0 as string,

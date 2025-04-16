@@ -17,9 +17,8 @@ import { generateMessage } from "./messages/sendMessage";
 import { Cast } from "./model/cast";
 import { exclude } from "./utils/utils";
 import { decideWhoToMessage } from "./messages/decideWhoToMessage";
-import { VotingRecord } from "./voting/voteModel";
 import { resolveVote } from "./voting/resolveVote";
-import { VoteCount as VoteCount, VotingResult } from "./voting/voteModel";
+import { VotingResult } from "./voting/voteModel";
 import { castVotes } from "./voting/castVote";
 
 const characters_json_path = "../characters.json";
@@ -45,11 +44,9 @@ async function main() {
     // TODO: big problem, there was a hallucination about who is in the game. we need to be very clear who is in the game.
     // ^^^^ this has happened twice now
 
-    // TODO: also make it so you can't message the same person twice if they haven't sent you a msg and there's no limit
+    // TODO: your current history of plans is.... [save and list the plan history]
 
-    // TODO: strongly discourage double messaging, and consider an outright ban on triple messaging.
-
-    // TODO: make a failsafe for if there is no one to message you just skip your turn
+    // TODO: see the screenshot: sometimes characters do the exact opposite of what their plan says they should do. wtf?
 
     const publicCast = [];
     // public cast generation
@@ -117,7 +114,7 @@ async function main() {
 
     msgs.getCurrentTime().current_message === 0 && msgs.increaseMessageCount();
 
-    const message_budget = 20; // TODO: make it dynamic later idk.
+    const message_budget = 18; // TODO: make it dynamic later idk.
 
     // detect problems and add them to the problem queue.
     for (const hero of Object.values(cast)) {
@@ -181,6 +178,15 @@ async function main() {
     console.error("An unhandled exception caused the program to crash early.");
   }
   console.log("End of program. Dumping output files...");
+
+  // analytics
+  const final_messages = msgs.export().messages;
+  for (const [hero, loopme] of Object.entries(final_messages)) {
+    for (const [villain, msgs] of Object.entries(loopme)) {
+      console.log(hero, villain, msgs.length);
+    }
+  }
+
   // final state of the game when the program exits.
   fs.writeFileSync(
     "output-characters.json",
